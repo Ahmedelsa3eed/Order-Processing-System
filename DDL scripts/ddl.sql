@@ -6,7 +6,7 @@ CREATE TABLE `Users` (
   `first_name` varchar(20),
   `last_name` varchar(20),
   `address` varchar(50),
-  `phonenumber` varchar(15),
+  `phone_number` varchar(15),
   `email` varchar(70),
   `password` varchar(50),
   `type` ENUM("custumer", "manager"),
@@ -32,7 +32,7 @@ CREATE TABLE `Publisher` (
   `first_name` varchar(20),
   `last_name` varchar(20),
   `address` varchar(50),
-  `phonenumber` varchar(15),
+  `phone_number` varchar(15),
   PRIMARY KEY (`publisger_id`)
 );
 
@@ -70,7 +70,7 @@ CREATE TABLE `Authors` (
   `first_name` varchar(20),
   `last_name` varchar(20),
   `address` varchar(50),
-  `phonenumber` varchar(15),
+  `phone_number` varchar(15),
   PRIMARY KEY (`authoer_id`)
 );
 
