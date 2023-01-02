@@ -1,6 +1,7 @@
 package csed.database.orderprocessingbackend;
 
 
+import csed.database.orderprocessingbackend.service.ActiveUserService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
@@ -16,7 +17,7 @@ public class AccountInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler){
         String sessionId = request.getParameter("sessionId");
-        String[] user = ActiveUserService.getInstance().checkLogin(UUID.fromString(sessionId));
+        String[] user = ActiveUserService.getInstance().checkLogin(sessionId);
         if(user[1] == null) {
             logger.info("User is not logged in");
             response.setStatus(401);
