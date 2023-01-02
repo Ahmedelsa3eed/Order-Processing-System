@@ -40,7 +40,7 @@ jobs:
       - name: Build and generate test reports
         run: |
           cd Order-Processing-Backend/
-          mvnw clean org.jacoco:jacoco-maven-plugin:prepare-agent install
+          mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install
 
       - name: Add Codecov uploader
         run: |
