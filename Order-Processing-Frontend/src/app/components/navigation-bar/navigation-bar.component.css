@@ -1,0 +1,62 @@
+* {
+    box-sizing: border-box;
+}
+
+.bi {
+    vertical-align: -0.125em;
+    fill: currentColor;
+}
+
+.parent {
+    margin: 20px auto;
+    background-color: #f7f8fa;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.parent div {
+    background-color: #f7f8fa;
+    color: #c3cad9;
+    padding: 29px;
+    font-size: 12px;
+    font-weight: bold;
+    text-align: center;
+    outline: 1px solid #ddd;
+}
+
+.parent div em {
+    display: block;
+    font-size: 2rem;
+}
+
+.parent div {
+    transition: all 0.3s ease;
+    max-width: 1fr;
+}
+.parent div.active {
+    color: #0d6efd;
+}
+
+.parent div:hover:not(.active) {
+    color: #0d6efd;
+    cursor: pointer;
+    transform: scale(1.1);
+    -webkit-transform: scale(1.1);
+    -moz-transform: scale(1.1);
+    -ms-transform: scale(1.1);
+    -o-transform: scale(1.1);
+}
+
+.sidebar {
+    min-height: 100%;
+    display: inline-block;
+    position: fixed;
+    background-color: #f7f8fa;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.logout {
+    margin: auto;
+    width: 65.5px;
+    margin-bottom: 35px;
+}
