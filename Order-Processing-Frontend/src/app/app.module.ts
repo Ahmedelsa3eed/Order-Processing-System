@@ -4,8 +4,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { AppRoutingModule } from './app-routing.module';
-
 import { AppComponent } from './app.component';
+import { CartComponent } from './components/cart/cart.component';
+import { CartItemComponent } from './components/cart-item/cart-item.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { SignInComponent } from './components/sign-in/sign-in.component';
 import { SignInOutService } from './services/sign-in-out.service';
 import { CookieService } from 'ngx-cookie-service';
@@ -16,6 +18,8 @@ import { NavigationBarComponent } from './components/navigation-bar/navigation-b
 @NgModule({
   declarations: [
     AppComponent,
+    CartComponent,
+    CartItemComponent,
     SignInComponent,
     HomeComponent,
     NavigationBarComponent,
@@ -23,6 +27,8 @@ import { NavigationBarComponent } from './components/navigation-bar/navigation-b
   imports: [
     BrowserModule,
     AppRoutingModule,
+    FontAwesomeModule,
+    HttpClientModule,
     FormsModule,
     HttpClientModule,
     ReactiveFormsModule,
