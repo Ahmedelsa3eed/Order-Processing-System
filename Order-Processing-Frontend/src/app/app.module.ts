@@ -1,26 +1,40 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
-import { AppRoutingModule } from './app-routing.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { CommonModule } from '@angular/common';
+import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CartComponent } from './components/cart/cart.component';
 import { CartItemComponent } from './components/cart-item/cart-item.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { SignInComponent } from './components/sign-in/sign-in.component';
+import { SignInOutService } from './services/sign-in-out.service';
+import { CookieService } from 'ngx-cookie-service';
+import { HomeComponent } from './components/home/home.component';
+import { NavigationBarComponent } from './components/navigation-bar/navigation-bar.component';
+
 
 @NgModule({
   declarations: [
     AppComponent,
     CartComponent,
-    CartItemComponent
+    CartItemComponent,
+    SignInComponent,
+    HomeComponent,
+    NavigationBarComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FontAwesomeModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule,
+    HttpClientModule,
+    ReactiveFormsModule,
+    CommonModule,
   ],
-  providers: [],
+  providers: [SignInOutService, CookieService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
