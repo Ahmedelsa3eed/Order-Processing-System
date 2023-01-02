@@ -40,4 +40,4 @@ jobs:
       - name: Build and checkstyle
         run: |
           cd Order-Processing-Backend/
-          mvn checkstyle:check
+          mvn verify
