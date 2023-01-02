@@ -23,7 +23,7 @@ export class BooksPageComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  openDeletebookModal(bookId: number) {
+  openDeleteBookModal(bookId: number) {
     this.bookToDeleteISBN = bookId;
     document.getElementById('openDeleteBookBtn')?.click();
   }
