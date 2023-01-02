@@ -11,9 +11,9 @@ public class DatabaseInstance {
 
     private static String user_name = "root";
 
-    private static String pass = "12345";
+    private static String pass = "7122001";
 
-    private static String url = "jdbc:mysql://localhost:3306/bookstore";
+    private static String url = "jdbc:mysql://localhost:3306/orderprocessing";
 
 
 
