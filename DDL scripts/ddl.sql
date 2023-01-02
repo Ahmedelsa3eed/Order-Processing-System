@@ -1,3 +1,5 @@
+create schema bookstore;
+use bookstore;
 CREATE TABLE `Users` (
   `user_id` bigint,
   `user_name` varchar(20),
