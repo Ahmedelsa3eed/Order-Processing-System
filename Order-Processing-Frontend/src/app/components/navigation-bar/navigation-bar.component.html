@@ -1,0 +1,46 @@
+<div class="p-3 sidebar" style="width: 300px">
+    <!-- Title -->
+    <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-decoration-none">
+        <em class="bi bi-unity pe-none me-2"></em>
+        <span class="fs-4">Order Processing</span>
+    </a>
+
+    <div class="buttons">
+        <button
+            *ngIf="loggedInUserRole == 'manager'"
+            class="btn btn-primary"
+            type="button"
+            style="margin-top: 50px; margin-right: 8px"
+        >
+            Button Example For Managers Only
+        </button>
+    </div>
+
+    <hr />
+
+    <!-- Profile -->
+    <div class="text-center">
+        <h4 *ngIf="loggedInUserRole != null">
+            <strong>{{ loggedInUserFirstName }} {{ loggedInUserLastName }}</strong>
+        </h4>
+
+        <!-- Logout -->
+        <div class="logout">
+            <a
+                href="/"
+                class="d-flex align-items-center mb-1 mb-md-0 me-md-auto text-decoration-none"
+                (click)="logout()"
+            >
+                <span class="fs-5">logout</span>
+            </a>
+        </div>
+    </div>
+
+    <div class="parent">
+        <div [routerLink]="['/home/']" [routerLinkActive]="['active']">
+            <em class="bi bi-stack"></em>
+            Child Page Button Example For Managers Only
+        </div>
+    </div>
+    
+</div>
