@@ -17,7 +17,7 @@ CREATE TABLE `Users` (
   `phone_number` varchar(15),
   `email` varchar(70),
   `password` varchar(50),
-  `type` ENUM("custumer", "manager"),
+  `type` ENUM("customer", "manager"),
   PRIMARY KEY (`user_id`)
 );
 ALTER TABLE Users 
@@ -54,19 +54,19 @@ CREATE TABLE `Books` (
 );
 
 CREATE TABLE `Authors` (
-  `authoer_id`  bigint AUTO_INCREMENT,
+  `author_id`  bigint AUTO_INCREMENT,
   `first_name` varchar(20),
   `last_name` varchar(20),
   `address` varchar(50),
   `phone_number` varchar(15),
-  PRIMARY KEY (`authoer_id`)
+  PRIMARY KEY (`author_id`)
 );
 
 CREATE TABLE `Book_Authors` (
-  `authoer_id` bigint,
+  `author_id` bigint,
   `ISBN` bigint,
-  PRIMARY KEY (`authoer_id`, `ISBN`),
-  FOREIGN KEY (`authoer_id`) REFERENCES `Authors`(`authoer_id`),
+  PRIMARY KEY (`author_id`, `ISBN`),
+  FOREIGN KEY (`author_id`) REFERENCES `Authors`(`author_id`),
   FOREIGN KEY (`ISBN`) REFERENCES `Books`(`ISBN`)
 );
 
