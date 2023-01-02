@@ -1,0 +1,26 @@
+[
+  {
+    "name": "item 1",
+    "price": "123",
+    "publisher": "publisher 1",
+    "count": 1
+  },
+  {
+    "name": "item 2",
+    "price": "123",
+    "publisher": "publisher 2",
+    "count": 2
+  },
+  {
+    "name": "item 3",
+    "price": "123",
+    "publisher": "publisher 3",
+    "count": 4
+  },
+  {
+    "name": "item 4",
+    "price": "123",
+    "publisher": "publisher 4",
+    "count": 3
+  }
+]
