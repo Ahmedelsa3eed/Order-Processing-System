@@ -10,7 +10,7 @@ import java.io.Serializable;
 @Setter
 @AllArgsConstructor
 public class User implements Serializable {
-    private String user_id;
+    private Long user_id;
     private String user_name;
     private String email;
     private String password;

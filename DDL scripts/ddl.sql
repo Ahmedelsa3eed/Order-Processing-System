@@ -21,6 +21,12 @@ CREATE TABLE `Users` (
   PRIMARY KEY (`user_id`)
 );
 
+ALTER TABLE Users 
+ADD CONSTRAINT unique_name UNIQUE (user_name);
+
+ALTER TABLE Users
+ADD CONSTRAINT unique_email UNIQUE(email);
+
 CREATE TABLE `credit_card` (
   `card_number` bigint,
   `user_id` bigint,
