@@ -6,6 +6,13 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
+## Dev dependencies commands
+- ``ng add @angular-eslint/schematics``
+- ``npm i mdb-ui-kit``
+- ``npm install @fortawesome/angular-fontawesome@0.10``
+- ``npm install @fortawesome/free-brands-svg-icons``
+- ``npm install @fortawesome/free-solid-svg-icons``
+
 ## Code scaffolding
 
 Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
