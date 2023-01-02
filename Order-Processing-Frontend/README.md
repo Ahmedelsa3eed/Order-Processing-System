@@ -7,7 +7,10 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
 ## Dev dependencies commands
-- ``ng add @angular-eslint/schematics``
+- ``npm install``
+- ``npm i ngx-cookie-service@13.0.1``
+- ``npm i bootstrap@5.2.3``
+- ``npm i bootstrap-icons``
 - ``npm i mdb-ui-kit``
 - ``npm install @fortawesome/angular-fontawesome@0.10``
 - ``npm install @fortawesome/free-brands-svg-icons``
