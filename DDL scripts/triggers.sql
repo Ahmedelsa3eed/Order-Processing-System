@@ -16,13 +16,13 @@ AFTER UPDATE ON Books
 FOR EACH ROW
 BEGIN
   IF NEW.quantity < NEW.threshold THEN
-    INSERT INTO Orders_items (ISBN, quantity)
+    INSERT INTO Orders (ISBN, quantity)
     VALUES (NEW.ISBN, NEW.threshold - NEW.quantity);
   END IF;
 END$$
 
 CREATE TRIGGER confirm_orders_trigger
-BEFORE DELETE ON Orders_items
+BEFORE DELETE ON Orders
 FOR EACH ROW
 BEGIN
   UPDATE Books
