@@ -1,29 +1,32 @@
 create schema bookstore;
 use bookstore;
-
 CREATE TABLE `Publishers` (
-  `publisher_id` bigint PRIMARY KEY AUTO_INCREMENT,
-  `name` varchar(30),
+  `publisher_id`  bigint  AUTO_INCREMENT,
+  `name` varchar(20),
   `address` varchar(50),
-  `phone_number` varchar(15)
+  `phone_number` varchar(15),
+  PRIMARY KEY (`publisher_id`)
 );
 
 CREATE TABLE `Users` (
-  `user_id` bigint PRIMARY KEY AUTO_INCREMENT,
+  `user_id` bigint AUTO_INCREMENT,
+  `user_name` varchar(20),
   `first_name` varchar(20),
   `last_name` varchar(20),
   `address` varchar(50),
   `phone_number` varchar(15),
   `email` varchar(70),
   `password` varchar(50),
-  `type`  ENUM("custumer", "manager")
+  `type` ENUM("custumer", "manager"),
+  PRIMARY KEY (`user_id`)
 );
 
 CREATE TABLE `credit_card` (
   `card_number` bigint,
   `user_id` bigint,
   `expiry_date` Date,
-  PRIMARY KEY (`card_number`)
+  PRIMARY KEY (`card_number`),
+  FOREIGN KEY (`user_id`) REFERENCES `Users`(`user_id`)
 );
 
 CREATE TABLE `Books` (
@@ -32,7 +35,7 @@ CREATE TABLE `Books` (
   `publisher_id` bigint,
   `publication_year` int(4),
   `price` int,
-  `category` ENUM("Science", "Art", "Religion", "History", "Geography"),
+  `category`   ENUM("Science", "Art", "Religion", "History", "Geography"),
   `quantity` int,
   `threshold` int,
   PRIMARY KEY (`ISBN`),
@@ -40,12 +43,13 @@ CREATE TABLE `Books` (
 );
 
 CREATE TABLE `Authors` (
-  `authoer_id` bigint PRIMARY KEY AUTO_INCREMENT,
+  `authoer_id`  bigint AUTO_INCREMENT,
   `first_name` varchar(20),
   `last_name` varchar(20),
   `address` varchar(50),
-  `phone_number` varchar(15)
-  );
+  `phone_number` varchar(15),
+  PRIMARY KEY (`authoer_id`)
+);
 
 CREATE TABLE `Book_Authors` (
   `authoer_id` bigint,
@@ -60,15 +64,15 @@ CREATE TABLE `Cart` (
   `user_id` bigint,
   `quantity` int,
   PRIMARY KEY (`ISBN`, `user_id`),
-  FOREIGN KEY (`user_id`) REFERENCES `Users`(`user_id`),
-  FOREIGN KEY (`ISBN`) REFERENCES `Books`(`ISBN`)
+  FOREIGN KEY (`ISBN`) REFERENCES `Books`(`ISBN`),
+  FOREIGN KEY (`user_id`) REFERENCES `Users`(`user_id`)
 );
 
-
 CREATE TABLE `Orders` (
-  `order_id` bigint PRIMARY KEY AUTO_INCREMENT,
+  `order_id`  bigint AUTO_INCREMENT,
   `ISBN` bigint,
   `quantity` int,
+  PRIMARY KEY (`order_id`),
   FOREIGN KEY (`ISBN`) REFERENCES `Books`(`ISBN`)
 );
 
