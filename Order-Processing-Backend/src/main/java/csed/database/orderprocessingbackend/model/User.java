@@ -14,8 +14,10 @@ import java.io.Serializable;
 public class User implements Serializable {
     private Long user_id;
     private String user_name;
+    private String first_name;
+    private String last_name;
     private String address;
-    private String phone_number;
+    private String phonenumber;
     private String email;
     private String password;
     private String type;
