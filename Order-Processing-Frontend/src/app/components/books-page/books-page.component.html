@@ -1,3 +1,15 @@
+<div class="buttons">
+    <button
+        *ngIf="loggedInUserRole == 'manager'"
+        class="btn btn-primary my-3 mx-3"
+        type="button"
+        data-bs-toggle="modal"
+        data-bs-target="#addBookModal"
+    >
+        Add Book
+    </button>
+</div>
+
 <div *ngFor="let book of books" class="py-2 px-3 border-top">
     <div class="row">
         <div class="col-10 h6">{{ book.title }}</div>
@@ -80,6 +92,41 @@
                 <button type="submit" class="btn btn-danger" (click)="onDeleteBook()">Delete</button>
                 <button id="closeDeleteBookBtn" type="button" class="btn btn-primary" data-bs-dismiss="modal">
                     Close
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="addBookModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Add Book</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <div class="modal-body">
+                <input
+                    #addBookTitleInput
+                    id="editBookTitleInput"
+                    type="text"
+                    class="form-control mb-3"
+                    placeholder="Book Title"
+                />
+                <div *ngIf="editBookLoading" class="spinner-border text-primary mt-3" role="status"></div>
+            </div>
+
+            <div class="modal-footer">
+                <button id="closeAddBookBtn" type="button" class="btn btn-danger" data-bs-dismiss="modal">
+                    Close
+                </button>
+                <button
+                    type="submit"
+                    class="btn btn-primary"
+                    (click)="onAddBook(addBookTitleInput.value)"
+                >
+                    Add
                 </button>
             </div>
         </div>

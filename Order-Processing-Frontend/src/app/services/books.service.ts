@@ -11,14 +11,15 @@ export class BooksService {
   constructor(private httpClient: HttpClient, private signInOutService: SignInOutService) { }
 
   editbook(book: Book) {
-    return this.httpClient.put(environment.baseUrl + '/books/admin/editBook', book, {
+    return this.httpClient.put(environment.baseUrl + '/books/manager/editBook', book, {
       params: { sessionId: this.signInOutService.getSignedInUserSessionID() },
     });
   }
 
   deleteBook(bookISBN: number) {
-    return this.httpClient.delete(environment.baseUrl + '/books/admin/deleteBook', {
+    return this.httpClient.delete(environment.baseUrl + '/books/manager/deleteBook', {
       params: { sessionId: this.signInOutService.getSignedInUserSessionID(), ISBN: bookISBN },
     });
   }
+  
 }

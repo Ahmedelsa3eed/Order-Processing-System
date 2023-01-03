@@ -13,14 +13,26 @@ export class BooksPageComponent implements OnInit {
 
   constructor(private signInOutService: SignInOutService, private booksService: BooksService) { }
 
+  loggedInUserRole = this.signInOutService.getSignedInUserType();
   books: Book[] = [];
   bookToDeleteISBN: number = -1;
   bookToEditISBN: number = -1;
   deleteBookLoading: boolean = false;
   editBookLoading: boolean = false;
+  addBookLoading: boolean = false;
   signedInUserType: string = this.signInOutService.getSignedInUserType();
 
   ngOnInit(): void {
+    let test: Book = new Book();
+    test.title = "test book";
+    this.books.push(test);
+  }
+
+  onAddBook(bookTitle: string) {
+    this.addBookLoading = true;
+    let book: Book = new Book();
+    book.title = bookTitle;
+    // send request
   }
 
   openDeleteBookModal(bookId: number) {
@@ -28,22 +40,22 @@ export class BooksPageComponent implements OnInit {
     document.getElementById('openDeleteBookBtn')?.click();
   }
 
-openEditBookModal(bookId: number, bookTitle: string) {
+  openEditBookModal(bookId: number, bookTitle: string) {
     this.bookToEditISBN = bookId;
     document.getElementById('openEditBookBtn')?.click();
     document.getElementById('editBookTitleInput')?.setAttribute('value', bookTitle);
-}
+  }
 
-onDeleteBook() {
+  onDeleteBook() {
     this.deleteBookLoading = true;
     this.booksService.deleteBook(this.bookToDeleteISBN).subscribe(() => {
         this.deleteBookLoading = false;
         document.getElementById('closeDeleteBookBtn')?.click();
         window.location.reload();
     });
-}
+  }
 
-onEditBook(bookTitle: string) {
+  onEditBook(bookTitle: string) {
     this.editBookLoading = true;
     let book: Book = new Book();
     book.ISBN = this.bookToEditISBN;
@@ -59,6 +71,6 @@ onEditBook(bookTitle: string) {
             alert('Something is wrong, editing the book!');
         }
     );
-}
+  }
 
 }

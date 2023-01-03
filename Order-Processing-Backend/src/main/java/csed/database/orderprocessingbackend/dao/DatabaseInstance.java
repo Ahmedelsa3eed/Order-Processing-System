@@ -28,11 +28,14 @@ public class DatabaseInstance {
         return instance;
     }
 
-
     public ResultSet executeQuery(String query) throws SQLException {
         Statement statement = connection.createStatement();
-        ResultSet resultSet = statement.executeQuery(query);
-        return resultSet;
+        return statement.executeQuery(query);
+    }
+
+    public int executeUpdate(String update) throws SQLException {
+        Statement statement = connection.createStatement();
+        return statement.executeUpdate(update);
     }
 
 }

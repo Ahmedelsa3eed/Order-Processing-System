@@ -27,14 +27,10 @@ export class NavigationBarComponent implements OnInit {
     }
 
     logout() {
+        this.cookieService.deleteAll();
+        this.router.navigate(['sign-in']);
         this.signInOutService.signOut().subscribe(
-            (response) => {
-                this.cookieService.deleteAll();
-                this.router.navigate(['sign-in']);
-            },
-            (err) => {
-                alert(err);
-            }
+            () => {},
         );
     }
 }
