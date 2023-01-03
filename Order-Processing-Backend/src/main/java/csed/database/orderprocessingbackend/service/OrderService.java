@@ -31,8 +31,8 @@ public class OrderService {
             }
             do {
                 Order order = new Order();
-                order.setOrder_id(rs.getLong("order_id"));
-                order.setBook_ISBN(rs.getLong("ISBN"));
+                order.setOrderId(rs.getLong("order_id"));
+                order.setISBN(rs.getLong("ISBN"));
                 order.setQuantity(rs.getInt("quantity"));
                 list.add(order);
             }

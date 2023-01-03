@@ -17,11 +17,17 @@ export class OrdersPageComponent implements OnInit {
   constructor(private booksService: BooksService, private ordersService: OrdersService) { }
 
   ngOnInit(): void {
-    let test: Order = new Order();
+    /*let test: Order = new Order();
     test.orderId = 1;
     test.ISBN = 1;
     test.quantity = 10;
-    this.orders.push(test);
+    this.orders.push(test);*/
+    this.ordersService.getAllOrders().subscribe({
+      next: (orders) => {
+        this.orders = orders;
+      },
+      error: (err) => alert(err),
+    });
   }
 
   openConfirmOrderModal(orderId:number){
