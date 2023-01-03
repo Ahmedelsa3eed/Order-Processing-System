@@ -39,6 +39,11 @@
             <em class="bi bi-bag-fill"></em>
             Orders
         </div>
+        <div *ngIf="signedInUserType == 'manager'" [routerLink]="['/home/users']" [routerLinkActive]="['active']"
+            (click)="navigateTo('authors')">
+            <em class="bi bi-people-fill"></em>
+            Authors
+        </div>
         <div [routerLink]="['/home/publishers']" [routerLinkActive]="['active']" (click)="navigateTo('publishers')">
             <em class="bi bi-book-fill"></em>
             Publishers
