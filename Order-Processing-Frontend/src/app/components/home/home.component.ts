@@ -12,7 +12,7 @@ export class HomeComponent implements OnInit {
 
     ngOnInit(): void {
         if (!this.signInOutService.isSignedIn()) {
-            this.router.navigate(['home']);
+            this.router.navigate(['sign-in']);
         }
     }
 }

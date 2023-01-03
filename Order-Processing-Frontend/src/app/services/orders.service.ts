@@ -12,8 +12,8 @@ export class OrdersService {
   constructor(private httpClient: HttpClient, private signInOutService: SignInOutService) { }
   
   orderBook(order: Order) {
-    return this.httpClient.post(environment.baseUrl + '/books/manager/orderBook', {
-      params: { sessionId: this.signInOutService.getSignedInUserSessionID(), order },
+    return this.httpClient.post(environment.baseUrl + '/books/manager/orderBook', order,  {
+      params: { sessionId: this.signInOutService.getSignedInUserSessionID() },
     });
   }  
 

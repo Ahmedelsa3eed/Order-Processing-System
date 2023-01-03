@@ -24,8 +24,7 @@ export class BooksPageComponent implements OnInit {
   orderBookLoading: boolean = false;
   editBookLoading: boolean = false;
   addBookLoading: boolean = false;
-  signedInUserType: string = "manager";
-  //signedInUserType: string = this.signInOutService.getSignedInUserType();
+  signedInUserType: string = this.signInOutService.getSignedInUserType();
 
   ngOnInit(): void {
     let test: Book = new Book();
@@ -68,7 +67,7 @@ export class BooksPageComponent implements OnInit {
 
   onOrderBook(quanitty: string){
     this.orderBookLoading = true;
-    
+
     let order : Order = new Order();
     order.ISBN = this.bookToOrderISBN;
     order.quantity = parseInt(quanitty);

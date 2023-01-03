@@ -10,7 +10,7 @@ import { PublisherComponent } from './components/publisher/publisher.component';
 
 const routes: Routes = [
   { path: 'sign-in', component: SignInComponent },
-  { path: '', redirectTo: 'home', pathMatch: 'full' },
+  { path: '', redirectTo: 'sign-in', pathMatch: 'full' },
   {
     path: 'home',
     component: HomeComponent,

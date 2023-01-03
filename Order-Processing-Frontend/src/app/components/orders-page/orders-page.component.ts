@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Book } from 'src/app/models/Book';
 import { Order } from 'src/app/models/Order';
+import { BooksService } from 'src/app/services/books.service';
 import { OrdersService } from 'src/app/services/orders.service';
 
 @Component({
@@ -12,7 +14,7 @@ export class OrdersPageComponent implements OnInit {
   OrderId:number = -1;
   ConfirmOrderLoading: boolean = false;
   orders: Order[] = [];
-  constructor(private ordersService: OrdersService) { }
+  constructor(private booksService: BooksService, private ordersService: OrdersService) { }
 
   ngOnInit(): void {
     let test: Order = new Order();
@@ -28,7 +30,9 @@ export class OrdersPageComponent implements OnInit {
   }
 
   getBookTitle(bookISBN:number){
-    return "over the horizon";
+    let book : Book = new Book();
+    book = this.booksService.getBookById(bookISBN);
+    return book.title;
   }
 
   onConfirmOrder(){
