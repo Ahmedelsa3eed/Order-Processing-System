@@ -55,8 +55,10 @@ public class ActiveUserService {
 
     }
 
-    public String getEmailFromSessionId(String sessionId){
-        return sessions.get(sessionId)[0];
+    public String getEmailFromSessionId(String sessionId) {
+        if (sessions.containsKey(sessionId))
+            return sessions.get(sessionId)[0];
+        return null;
     }
 
     public Long getUserIdFromSessionId(String sessionId){

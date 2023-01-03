@@ -1,0 +1,7 @@
+#trash-icon {
+    cursor: pointer;
+}
+
+#trash-icon:hover {
+    color: rgb(255, 17, 17);
+}

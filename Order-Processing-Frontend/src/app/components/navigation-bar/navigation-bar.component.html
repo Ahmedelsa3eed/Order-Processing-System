@@ -30,6 +30,7 @@
     </div>
 
     <div class="parent">
+        <!-- Books -->
         <div [routerLink]="['/home/books']" [routerLinkActive]="['active']" (click)="navigateTo('books')">
             <em class="bi bi-book-fill"></em>
             Books
@@ -47,6 +48,11 @@
         <div [routerLink]="['/home/publishers']" [routerLinkActive]="['active']" (click)="navigateTo('publishers')">
             <em class="bi bi-book-fill"></em>
             Publishers
+        </div>
+        <!-- Cart -->
+        <div [routerLink]="['/home/cart']" [routerLinkActive]="['active']" (click)="navigateTo('cart')">
+          <em class="bi bi-book-fill"></em>
+          Cart
         </div>
     </div>
 </div>
