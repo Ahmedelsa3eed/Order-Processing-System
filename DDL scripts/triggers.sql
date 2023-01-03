@@ -19,6 +19,15 @@ BEGIN
 	END IF;
 END$$
 
+CREATE TRIGGER remove_item_from_cart
+BEFORE UPDATE ON cart
+FOR EACH ROW
+BEGIN
+    IF NEW.quantity = 0 THEN
+        DELETE FROM cart WHERE user_id = NEW.user_id AND isbn = NEW.isbn;
+    END IF;
+END;
+
 # this triger is to update the book quantity in the book table if the quantity will be less than threshold
 CREATE TRIGGER place_orders_trigger
 AFTER UPDATE ON Books
@@ -29,6 +38,7 @@ BEGIN
     VALUES (NEW.ISBN, 2 * NEW.threshold);
   END IF;
 END$$
+
 
 CREATE TRIGGER confirm_orders_trigger
 BEFORE DELETE ON Orders
