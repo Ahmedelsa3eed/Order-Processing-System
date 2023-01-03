@@ -9,16 +9,14 @@
               <!-- Cart -->
               <div class="col-lg-7">
                 <h5 class="mb-3">
-                  <a class="text-body">
-                    <fa-icon class="me-2" [icon]="faLongArrowAltLeft"></fa-icon>
-                    Continue shopping
-                  </a>
+                  <p class="text-body">
+                    Shopping cart
+                  </p>
                 </h5>
                 <hr />
 
                 <div class="d-flex justify-content-between align-items-center mb-4">
                   <div>
-                    <p class="mb-1">Shopping cart</p>
                     <p class="mb-0">
                       You have {{ cartSize }} items in your cart
                     </p>
@@ -26,9 +24,9 @@
                 </div>
                 <!-- Cart Items -->
                 <app-cart-item
-                  *ngFor="let item of cartItems"
-                  [cartItem]="item"
                   (removeCartItemEvent)="deleteCartItem($event)"
+                  *ngFor="let cartItem of cartItems | async"
+                  [cartItem]="cartItem"
                 ></app-cart-item>
               </div>
 

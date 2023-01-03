@@ -1,6 +1,6 @@
 <div class="buttons">
     <button
-        *ngIf="loggedInUserRole == 'manager'"
+        *ngIf="signedInUserType == 'manager'"
         class="btn btn-primary my-3 mx-3"
         type="button"
         data-bs-toggle="modal"
@@ -16,12 +16,17 @@
         <i
             *ngIf="signedInUserType == 'manager'"
             class="col-11 bi bi-x-lg icon text-danger"
-            (click)="openDeleteBookModal(book.ISBN)"
+            (click)="openDeleteBookModal(book.isbn)"
         ></i>
         <i
             *ngIf="signedInUserType == 'manager'"
             class="col-12 bi bi-pencil icon text-primary"
-            (click)="openEditBookModal(book.ISBN, book.title)"
+            (click)="openEditBookModal(book)"
+        ></i>
+        <i
+            *ngIf="signedInUserType == 'manager'"
+            class="col-13 bi bi-bag icon text-success"
+            (click)="openOrderBookModal(book.isbn, book.title)"
         ></i>
     </div>
 </div>
@@ -42,13 +47,23 @@
             </div>
 
             <div class="modal-body">
-                <input
-                    #editBookTitleInput
-                    id="editBookTitleInput"
-                    type="text"
-                    class="form-control mb-3"
-                    placeholder="Book Title"
-                />
+                <input #editBookTitleInput id="editBookTitleInput" type="text" class="form-control mb-3" placeholder="Book Title"/>
+                <select #editBookPublisherInput id="editBookPublisherInput" class="form-select my-3" aria-label="Publisher">
+                    <option *ngFor="let publisher of publishers" value="{{ publisher.publisher_id }}">
+                        {{ publisher.name }}
+                    </option>
+                </select>
+                <input #editBookPubYearInput id="editBookPubYearInput" type="number" class="form-control mb-3" placeholder="Book Publication Year"/>
+                <input #editBookPriceInput id="editBookPriceInput" type="number" class="form-control mb-3" placeholder="Book Price"/>
+                <select #editBookCategoryInput class="form-select my-3" aria-label="Category">
+                    <option value="Science">Science</option>
+                    <option value="Art">Art</option>
+                    <option value="Religion">Religion</option>
+                    <option value="History">History</option>
+                    <option value="Geography">Geography</option>
+                </select>
+                <input #editBookQuantityInput id="editBookQuantityInput" type="number" class="form-control mb-3" placeholder="Book quantity"/>
+                <input #editBookThresholdInput id="editBookThresholdInput" type="number" class="form-control mb-3" placeholder="Book threshold"/>
                 <div *ngIf="editBookLoading" class="spinner-border text-primary mt-3" role="status"></div>
             </div>
 
@@ -59,9 +74,52 @@
                 <button
                     type="submit"
                     class="btn btn-primary"
-                    (click)="onEditBook(editBookTitleInput.value)"
+                    (click)="onEditBook(editBookTitleInput.value, editBookPublisherInput.value, editBookPubYearInput.value,
+                    editBookPriceInput.value, editBookCategoryInput.value, editBookQuantityInput.value, editBookThresholdInput.value)"
                 >
                     Edit
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<button
+    id="openOrderBookBtn"
+    type="button"
+    class="btn btn-primary d-none"
+    data-bs-toggle="modal"
+    data-bs-target="#orderBookModal"
+></button>
+<div class="modal" id="orderBookModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Order Book</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <div class="modal-body">
+                <input
+                    #OrderBookInput
+                    id="orderBookInput"
+                    type="text"
+                    class="form-control mb-3"
+                    placeholder="Quantity"
+                />
+                <div *ngIf="orderBookLoading" class="spinner-border text-primary mt-3" role="status"></div>
+            </div>
+
+            <div class="modal-footer">
+                <button id="closeOrderBookBtn" type="button" class="btn btn-danger" data-bs-dismiss="modal">
+                    Close
+                </button>
+                <button
+                    type="submit"
+                    class="btn btn-success"
+                    (click)="onOrderBook(OrderBookInput.value)"
+                >
+                    Submit Order
                 </button>
             </div>
         </div>
@@ -107,14 +165,25 @@
             </div>
 
             <div class="modal-body">
-                <input
-                    #addBookTitleInput
-                    id="editBookTitleInput"
-                    type="text"
-                    class="form-control mb-3"
-                    placeholder="Book Title"
-                />
-                <div *ngIf="editBookLoading" class="spinner-border text-primary mt-3" role="status"></div>
+                <input #addBookTitleInput type="text" class="form-control mb-3" placeholder="Book Title"/>
+                <input #addBookISBNInput type="number" class="form-control mb-3" placeholder="Book ISBN"/>
+                <select #addBookPublisherInput class="form-select my-3" aria-label="Publisher">
+                    <option *ngFor="let publisher of publishers" value="{{ publisher.publisher_id }}">
+                        {{ publisher.name }}
+                    </option>
+                </select>
+                <input #addBookPubYearInput type="number" class="form-control mb-3" placeholder="Book Publication Year"/>
+                <input #addBookPriceInput type="number" class="form-control mb-3" placeholder="Book Price"/>
+                <select #addBookCategoryInput class="form-select my-3" aria-label="Category">
+                    <option value="Science">Science</option>
+                    <option value="Art">Art</option>
+                    <option value="Religion">Religion</option>
+                    <option value="History">History</option>
+                    <option value="Geography">Geography</option>
+                </select>
+                <input #addBookQuantityInput type="number" class="form-control mb-3" placeholder="Book quantity"/>
+                <input #addBookThresholdInput type="number" class="form-control mb-3" placeholder="Book threshold"/>
+                <div *ngIf="addBookLoading" class="spinner-border text-primary mt-3" role="status"></div>
             </div>
 
             <div class="modal-footer">
@@ -124,7 +193,8 @@
                 <button
                     type="submit"
                     class="btn btn-primary"
-                    (click)="onAddBook(addBookTitleInput.value)"
+                    (click)="onAddBook(addBookTitleInput.value, addBookISBNInput.value, addBookPublisherInput.value, addBookPubYearInput.value,
+                        addBookPriceInput.value, addBookCategoryInput.value, addBookQuantityInput.value, addBookThresholdInput.value)"
                 >
                     Add
                 </button>
