@@ -14,6 +14,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { HomeComponent } from './components/home/home.component';
 import { NavigationBarComponent } from './components/navigation-bar/navigation-bar.component';
 import { BooksPageComponent } from './components/books-page/books-page.component';
+import { OrdersPageComponent } from './components/orders-page/orders-page.component';
 
 
 @NgModule({
@@ -25,6 +26,7 @@ import { BooksPageComponent } from './components/books-page/books-page.component
     HomeComponent,
     NavigationBarComponent,
     BooksPageComponent,
+    OrdersPageComponent,
   ],
   imports: [
     BrowserModule,

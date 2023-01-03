@@ -42,5 +42,12 @@
             Books
         </div>
     </div>
+
+    <div *ngIf="signedInUserType == 'manager'" class="parent">
+        <div [routerLink]="['/home/orders']" [routerLinkActive]="['active']" (click)="navigateTo('orders')">
+            <em class="bi bi-bag-fill"></em>
+            Orders
+        </div>
+    </div>
     
 </div>

@@ -13,6 +13,8 @@ export class NavigationBarComponent implements OnInit {
     loggedInUserFirstName = this.signInOutService.getSignedInUserFirstName();
     loggedInUserLastName = this.signInOutService.getSignedInUserLastName();
     public isLoading: boolean = false;
+    signedInUserType: string = "manager";
+    //signedInUserType: string = this.signInOutService.getSignedInUserType();
 
     constructor(
         private router: Router,
