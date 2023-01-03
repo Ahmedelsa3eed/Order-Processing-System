@@ -10,9 +10,9 @@
             *ngIf="loggedInUserRole == 'manager'"
             class="btn btn-primary"
             type="button"
-            style="margin-top: 50px; margin-right: 8px"
+            style="margin-top: 30px; margin-right: 8px"
         >
-            Button Example For Managers Only
+            Button example
         </button>
     </div>
 
@@ -37,9 +37,9 @@
     </div>
 
     <div class="parent">
-        <div [routerLink]="['/home/']" [routerLinkActive]="['active']">
-            <em class="bi bi-stack"></em>
-            Child Page Button Example For Managers Only
+        <div [routerLink]="['/home/books']" [routerLinkActive]="['active']" (click)="navigateTo('books')">
+            <em class="bi bi-book-fill"></em>
+            Books
         </div>
     </div>
     

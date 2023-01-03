@@ -13,6 +13,7 @@ import { SignInOutService } from './services/sign-in-out.service';
 import { CookieService } from 'ngx-cookie-service';
 import { HomeComponent } from './components/home/home.component';
 import { NavigationBarComponent } from './components/navigation-bar/navigation-bar.component';
+import { BooksPageComponent } from './components/books-page/books-page.component';
 
 
 @NgModule({
@@ -23,6 +24,7 @@ import { NavigationBarComponent } from './components/navigation-bar/navigation-b
     SignInComponent,
     HomeComponent,
     NavigationBarComponent,
+    BooksPageComponent,
   ],
   imports: [
     BrowserModule,

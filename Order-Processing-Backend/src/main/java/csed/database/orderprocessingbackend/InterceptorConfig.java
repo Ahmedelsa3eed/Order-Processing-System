@@ -10,7 +10,8 @@ public class InterceptorConfig implements WebMvcConfigurer {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(new AccountInterceptor()).addPathPatterns("**");
+        registry.addInterceptor(new AccountInterceptor())
+                .addPathPatterns("/books/manager/**");
     }
 
 }
