@@ -1,7 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Book } from 'src/app/models/Book';
-import { Order } from 'src/app/models/Order';
+import { OrderToPlace } from 'src/app/DTOs/OrderToPlace';
 import { BooksService } from 'src/app/services/books.service';
 import { OrdersService } from 'src/app/services/orders.service';
 import { Publisher } from 'src/app/models/Publisher';
@@ -102,11 +102,11 @@ export class BooksPageComponent implements OnInit {
   onOrderBook(quanitty: string){
     this.orderBookLoading = true;
 
-    let order : Order = new Order();
-    order.ISBN = this.bookToOrderISBN;
-    order.quantity = parseInt(quanitty);
+    let orderToPlace : OrderToPlace = new OrderToPlace();
+    orderToPlace.ISBN = this.bookToOrderISBN;
+    orderToPlace.quantity = parseInt(quanitty);
 
-    this.ordersService.orderBook(order).subscribe(()=>{
+    this.ordersService.orderBook(orderToPlace).subscribe(()=>{
       this.orderBookLoading = false;
       document.getElementById('closeOrderBookBtn')?.click();
       window.location.reload();
