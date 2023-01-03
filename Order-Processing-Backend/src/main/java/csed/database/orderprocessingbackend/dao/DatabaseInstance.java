@@ -10,10 +10,10 @@ public class DatabaseInstance {
 
 
     private static String user_name = "root";
+    
+    private static String pass = "mysql@5382";
 
-    private static String pass = "7122001";
-
-    private static String url = "jdbc:mysql://localhost:3306/orderprocessing";
+    private static String url = "jdbc:mysql://localhost:3306/bookstore";
 
 
 
@@ -28,13 +28,14 @@ public class DatabaseInstance {
         return instance;
     }
 
-
     public ResultSet executeQuery(String query) throws SQLException {
         Statement statement = connection.createStatement();
-        ResultSet resultSet = statement.executeQuery(query);
-        return resultSet;
+        return statement.executeQuery(query);
     }
 
-
+    public int executeUpdate(String update) throws SQLException {
+        Statement statement = connection.createStatement();
+        return statement.executeUpdate(update);
+    }
 
 }

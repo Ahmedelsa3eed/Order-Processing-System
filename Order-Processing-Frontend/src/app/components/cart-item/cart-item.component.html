@@ -1,0 +1,42 @@
+<div class="card mb-3">
+  <div class="card-body">
+    <div class="d-flex justify-content-between">
+      <div class="d-flex flex-row align-items-center">
+        <div>
+          <img
+            src="../../../assets/book.webp"
+            class="img-fluid rounded-3"
+            alt="Shopping item"
+            style="width: 65px"
+          />
+        </div>
+        <div class="ms-3">
+          <h5>{{ cartItem.title }}</h5>
+          <p class="small mb-0">{{ cartItem.publisherName }}</p>
+        </div>
+      </div>
+      <!-- update item quantity -->
+      <div class="d-flex flex-row align-items-center">
+        <div style="width: 50px">
+          <input 
+            class="mb-0" 
+            style="width: 40px;"
+            type="number" 
+            id="count" 
+            name="count" 
+            min="1" 
+            [(ngModel)]="cartItem.quantity" 
+            (ngModelChange)="updateItemQuantity()">
+        </div>
+        <div style="width: 80px">
+          <h5 class="mb-0">${{ cartItem.price }}</h5>
+        </div>
+        <!-- remove cart item -->
+        <a style="color: #cecece" (click)="deleteCartItem()">
+          <fa-icon *ngIf="!isLoading"id="trash-icon" [icon]="faTrashAlt"></fa-icon>
+          <em *ngIf="isLoading" class="spinner-grow spinner-grow-sm"></em>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>

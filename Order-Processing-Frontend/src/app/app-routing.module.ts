@@ -2,6 +2,10 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './components/home/home.component';
 import { SignInComponent } from './components/sign-in/sign-in.component';
+import { CartComponent } from './components/cart/cart.component';
+import { BooksPageComponent } from './components/books-page/books-page.component';
+import { OrdersPageComponent } from './components/orders-page/orders-page.component';
+import { PublisherComponent } from './components/publisher/publisher.component';
 
 
 const routes: Routes = [
@@ -10,7 +14,12 @@ const routes: Routes = [
   {
     path: 'home',
     component: HomeComponent,
-    children: [],
+    children: [
+      { path: 'cart', component: CartComponent },
+      { path: 'books', component: BooksPageComponent},
+      { path: 'orders', component: OrdersPageComponent},
+      { path: 'publishers', component: PublisherComponent}
+    ],
   },
   { path: '**', component: SignInComponent },
 ];
