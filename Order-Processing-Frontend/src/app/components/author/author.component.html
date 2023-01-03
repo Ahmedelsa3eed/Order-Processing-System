@@ -1,0 +1,178 @@
+<div class="buttons">
+  <button
+    *ngIf="loggedInUserRole == 'manager'"
+    class="btn btn-primary my-3 mx-3"
+    type="button"
+    data-bs-toggle="modal"
+    data-bs-target="#addAuthorModal"
+  >
+    Add Author
+  </button>
+</div>
+
+<div *ngFor="let p of authors" class="py-2 px-3 border-top">
+  <div class="row">
+    <div class="col-10 h6">{{ p.first_name }} {{ p.last_name}}</div>
+    <div class="col-10 h6">{{ p.address }}</div>
+    <div class="col-10 h6">{{ p.phone_number }}</div>
+    <i
+      *ngIf="signedInUserType == 'manager'"
+      class="col-11 bi bi-x-lg icon text-danger"
+      (click)="openDeleteAuthorModal(p.author_id)"
+    ></i>
+    <i
+      *ngIf="signedInUserType == 'manager'"
+      class="col-12 bi bi-pencil icon text-primary"
+      (click)="openEditAuthorModal(p.first_name, p.last_name , p.address, p.phone_number, p.author_id)"
+    ></i>
+  </div>
+</div>
+
+<button
+  id="openEditAuthorBtn"
+  type="button"
+  class="btn btn-primary d-none"
+  data-bs-toggle="modal"
+  data-bs-target="#editAuthorModal"
+></button>
+<div class="modal" id="editAuthorModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Edit Author</h4>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+
+      <div class="modal-body">
+        <input
+          #editAuthorFirstNameInput
+          id="editAuthorFirstNameInput"
+          type="text"
+          class="form-control mb-3"
+          placeholder="Author Name"
+        />
+        <input
+          #editAuthorLastNameInput
+          id="editAuthorLastNameInput"
+          type="text"
+          class="form-control mb-3"
+          placeholder="Author Name"
+        />
+        <input
+          #editAuthorAddressInput
+          id="editAuthorAddressInput"
+          type="text"
+          class="form-control mb-3"
+          placeholder="Address"
+        />
+        <input
+          #editAuthorPhoneInput
+          id="editAuthorPhoneInput"
+          type="text"
+          class="form-control mb-3"
+          placeholder="Phone Number"
+        />
+        <div *ngIf="editAuthorLoading" class="spinner-border text-primary mt-3" role="status"></div>
+      </div>
+
+      <div class="modal-footer">
+        <button id="closeEditAuthorBtn" type="button" class="btn btn-danger" data-bs-dismiss="modal">
+          CLOSE
+        </button>
+        <button
+          type="submit"
+          class="btn btn-primary"
+          (click)="onEditAuthor(editAuthorFirstNameInput.value, editAuthorLastNameInput.value, editAuthorAddressInput.value, editAuthorPhoneInput.value)"
+        >
+          EDIT
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<button
+  id="openDeleteAuthorBtn"
+  type="button"
+  class="btn btn-primary d-none"
+  data-bs-toggle="modal"
+  data-bs-target="#deleteAuthorModal"
+></button>
+<div class="modal" id="deleteAuthorModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Delete Author</h4>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+
+      <div class="modal-body">
+        <div>Are you sure you want to delete that Author?</div>
+        <div *ngIf="deleteAuthorLoading" class="spinner-border text-primary mt-3" role="status"></div>
+      </div>
+
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-danger" (click)="onDeleteAuthor()">DELETE</button>
+        <button id="closeDeleteAuthorBtn" type="button" class="btn btn-primary" data-bs-dismiss="modal">
+          CLOSE
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal" id="addAuthorModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Add Author</h4>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+
+      <div class="modal-body">
+        <input
+          #addAuthorFirstNameInput
+          id="addAuthorFirstNameInput"
+          type="text"
+          class="form-control mb-3"
+          placeholder="Author Name"
+        />
+        <input
+          #addAuthorLastNameInput
+          id="addAuthorLastNameInput"
+          type="text"
+          class="form-control mb-3"
+          placeholder="Author Name"
+        />
+        <input
+          #addAuthorAddressInput
+          id="addAuthorAddressInput"
+          type="text"
+          class="form-control mb-3"
+          placeholder="Address"
+        />
+        <input
+          #addAuthorPhoneInput
+          id="addAuthorPhoneInput"
+          type="text"
+          class="form-control mb-3"
+          placeholder="Phone Number"
+        />
+        <div *ngIf="editAuthorLoading" class="spinner-border text-primary mt-3" role="status"></div>
+      </div>
+
+      <div class="modal-footer">
+        <button id="closeAddAuthorBtn" type="button" class="btn btn-danger" data-bs-dismiss="modal">
+          CLOSE
+        </button>
+        <button
+          type="submit"
+          class="btn btn-primary"
+          (click)="onAddAuthor(addAuthorFirstNameInput.value, addAuthorLastNameInput.value ,addAuthorAddressInput.value, addAuthorPhoneInput.value)"
+        >
+          ADD
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
