@@ -9,14 +9,14 @@ import java.io.Serializable;
 @Setter
 public class Order implements Serializable {
 
-    private Long order_id;
-    private Long book_ISBN;
+    private Long orderId;
+    private Long ISBN;
     private int quantity;
 
     @Override
     public String toString() {
-        return order_id +
-                "," + book_ISBN +
+        return orderId +
+                "," + ISBN +
                 "," + quantity;
     }
 }

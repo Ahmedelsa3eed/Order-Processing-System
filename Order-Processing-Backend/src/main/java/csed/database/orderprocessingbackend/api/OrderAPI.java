@@ -23,12 +23,12 @@ public class OrderAPI {
         return orderService.GetAllOrder();
     }
 
-    @PutMapping("/manager/orderBook")
+    @PostMapping("/manager/orderBook")
     public ResponseEntity<?> addBook(@RequestBody OrderRequest orderRequest) {
         return new ResponseEntity<>(orderService.addOrder(orderRequest));
     }
 
-    @PostMapping("/manager/confirm")
+    @DeleteMapping("/manager/confirm")
     public ResponseEntity<?> confirmOrder(@RequestParam Integer orderId){
         return new ResponseEntity<>(orderService.confirmOrder(orderId));
     }

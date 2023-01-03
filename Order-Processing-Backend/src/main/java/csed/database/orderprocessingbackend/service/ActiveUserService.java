@@ -51,6 +51,8 @@ public class ActiveUserService {
         emails.put(email, newSessionId);
         users_Ids.put(newSessionId, id);
 
+        System.out.println("User " + email + " logged in with role " + role);
+
     }
 
     public String getEmailFromSessionId(String sessionId) {
