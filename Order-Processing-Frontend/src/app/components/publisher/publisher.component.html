@@ -1,0 +1,164 @@
+<div class="buttons">
+    <button
+        *ngIf="loggedInUserRole == 'manager'"
+        class="btn btn-primary my-3 mx-3"
+        type="button"
+        data-bs-toggle="modal"
+        data-bs-target="#addPublisherModal"
+    >
+        Add Publisher
+    </button>
+</div>
+
+<div *ngFor="let p of publishers" class="py-2 px-3 border-top">
+    <div class="row">
+        <div class="col-10 h6">{{ p.name }}</div>
+        <div class="col-10 h6">{{ p.address }}</div>
+        <div class="col-10 h6">{{ p.phone_number }}</div>
+        <i
+            *ngIf="signedInUserType == 'manager'"
+            class="col-11 bi bi-x-lg icon text-danger"
+            (click)="openDeletePublisherModal(p.name)"
+        ></i>
+        <i
+            *ngIf="signedInUserType == 'manager'"
+            class="col-12 bi bi-pencil icon text-primary"
+            (click)="openEditPublisherModal(p.name, p.address, p.phone_number, p.publisher_id)"
+        ></i>
+    </div>
+</div>
+
+<button
+    id="openEditPublisherBtn"
+    type="button"
+    class="btn btn-primary d-none"
+    data-bs-toggle="modal"
+    data-bs-target="#editPublisherModal"
+></button>
+<div class="modal" id="editPublisherModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Edit Publisher</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <div class="modal-body">
+                <input
+                    #editPublisherNameInput
+                    id="editPublisherNameInput"
+                    type="text"
+                    class="form-control mb-3"
+                    placeholder="Publisher Name"
+                />
+                <input
+                    #editPublisherAddressInput
+                    id="editPublisherAddressInput"
+                    type="text"
+                    class="form-control mb-3"
+                    placeholder="Address"
+                />
+                <input 
+                    #editPublisherPhoneInput
+                    id="editPublisherPhoneInput"
+                    type="text"
+                    class="form-control mb-3"
+                    placeholder="Phone Number"
+                />
+                <div *ngIf="editPublisherLoading" class="spinner-border text-primary mt-3" role="status"></div>
+            </div>
+
+            <div class="modal-footer">
+                <button id="closeEditPublisherBtn" type="button" class="btn btn-danger" data-bs-dismiss="modal">
+                    CLOSE
+                </button>
+                <button
+                    type="submit"
+                    class="btn btn-primary"
+                    (click)="onEditPublisher(editPublisherNameInput.value, editPublisherAddressInput.value, editPublisherPhoneInput.value)"
+                >
+                    EDIT
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<button
+    id="openDeletePublisherBtn"
+    type="button"
+    class="btn btn-primary d-none"
+    data-bs-toggle="modal"
+    data-bs-target="#deletePublisherModal"
+></button>
+<div class="modal" id="deletePublisherModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Delete Publisher</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <div class="modal-body">
+                <div>Are you sure you want to delete that publisher?</div>
+                <div *ngIf="deletePublisherLoading" class="spinner-border text-primary mt-3" role="status"></div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-danger" (click)="onDeletePublisher()">DELETE</button>
+                <button id="closeDeletePublisherBtn" type="button" class="btn btn-primary" data-bs-dismiss="modal">
+                    CLOSE
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="addPublisherModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Add Publisher</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <div class="modal-body">
+                <input
+                    #addPublisherNameInput
+                    id="editPublisherTitleInput"
+                    type="text"
+                    class="form-control mb-3"
+                    placeholder="Publisher Name"
+                />
+                <input
+                    #addPublisherAddressInput
+                    id="editPublisherAddressInput"
+                    type="text"
+                    class="form-control mb-3"
+                    placeholder="Address"
+                />
+                <input 
+                    #addPublisherPhoneInput
+                    id="editPublisherPhoneInput"
+                    type="text"
+                    class="form-control mb-3"
+                    placeholder="Phone Number"
+                />
+                <div *ngIf="editPublisherLoading" class="spinner-border text-primary mt-3" role="status"></div>
+            </div>
+
+            <div class="modal-footer">
+                <button id="closeAddPublisherBtn" type="button" class="btn btn-danger" data-bs-dismiss="modal">
+                    CLOSE
+                </button>
+                <button
+                    type="submit"
+                    class="btn btn-primary"
+                    (click)="onAddPublisher(addPublisherNameInput.value, addPublisherAddressInput.value, addPublisherPhoneInput.value)"
+                >
+                    ADD
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

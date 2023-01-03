@@ -12,6 +12,9 @@ public class InterceptorConfig implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(new AccountInterceptor())
                 .addPathPatterns("/books/manager/**");
+        registry.addInterceptor(new AccountInterceptor())
+                .addPathPatterns("/Publisher/manager/**");
     }
+
 
 }
