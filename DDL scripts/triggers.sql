@@ -6,8 +6,17 @@ BEFORE UPDATE ON Books
 FOR EACH ROW
 BEGIN
   IF NEW.quantity < 0 THEN
-    SET NEW.quantity = OLD.quantity;
+    SIGNAL SQLSTATE '50001' SET MESSAGE_TEXT = 'Insufficient books';
   END IF;
+END$$
+
+CREATE TRIGGER negative_threshold
+BEFORE UPDATE ON Books
+FOR EACH ROW
+BEGIN
+	IF NEW.threshold < 0 THEN
+		SIGNAL SQLSTATE '50002' SET MESSAGE_TEXT = 'Book can not have negative threshold';
+	END IF;
 END$$
 
 # this triger is to update the book quantity in the book table if the quantity will be less than threshold
@@ -17,7 +26,7 @@ FOR EACH ROW
 BEGIN
   IF NEW.quantity < NEW.threshold THEN
     INSERT INTO Orders (ISBN, quantity)
-    VALUES (NEW.ISBN, NEW.threshold - NEW.quantity);
+    VALUES (NEW.ISBN, 2 * NEW.threshold);
   END IF;
 END$$
 
@@ -30,8 +39,13 @@ BEGIN
   WHERE ISBN = OLD.ISBN;
 END$$
 
+/*
+
+we probably dont need those since the order is for the manager
+to be checked later
+
 CREATE TRIGGER add_to_shopping_cart_trigger
-AFTER INSERT ON cart
+AFTER INSERT ON Shopping_cart
 FOR EACH ROW
 BEGIN
   UPDATE Books
@@ -40,10 +54,11 @@ BEGIN
 END$$
 
 CREATE TRIGGER remove_from_shopping_cart_trigger
-AFTER DELETE ON cart
+AFTER DELETE ON Shopping_cart
 FOR EACH ROW
 BEGIN
   UPDATE Books
   SET quantity = quantity + OLD.quantity
   WHERE ISBN = OLD.ISBN;
 END$$
+*/

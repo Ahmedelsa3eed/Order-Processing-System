@@ -15,6 +15,7 @@ import { HomeComponent } from './components/home/home.component';
 import { NavigationBarComponent } from './components/navigation-bar/navigation-bar.component';
 import { BooksPageComponent } from './components/books-page/books-page.component';
 import { OrdersPageComponent } from './components/orders-page/orders-page.component';
+import { PublisherComponent } from './components/publisher/publisher.component';
 
 
 @NgModule({
@@ -27,6 +28,7 @@ import { OrdersPageComponent } from './components/orders-page/orders-page.compon
     NavigationBarComponent,
     BooksPageComponent,
     OrdersPageComponent,
+    PublisherComponent,
   ],
   imports: [
     BrowserModule,
