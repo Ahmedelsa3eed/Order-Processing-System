@@ -1,5 +1,5 @@
 export class Book {
-    ISBN: number;
+    isbn: number;
     title: string;
     publisher_id: number;
     publication_year: number;
@@ -9,7 +9,7 @@ export class Book {
     threshold: number;
 
     constructor() {
-        this.ISBN = -1;
+        this.isbn = -1;
         this.title = '';
         this.publisher_id = -1;
         this.publication_year = -1;

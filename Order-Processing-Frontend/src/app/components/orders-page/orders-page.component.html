@@ -1,0 +1,42 @@
+
+<div *ngFor="let order of orders" class="py-2 px-3 border-top">
+    <div class="row">
+        <!--<div class="col-10 h6">{{ order.orderId }}</div>-->
+        <div class="col-4 h6">{{ getBookTitle(order.ISBN) }}</div>
+        <div class="col-5 h6">{{ order.quantity }}</div>
+        <i
+            class="col-12 h4 bi bi-check icon text-primary"
+            (click)="openConfirmOrderModal(order.orderId)"
+        ></i>
+    </div>
+</div>
+
+<button
+    id="openConfirmOrderBtn"
+    type="button"
+    class="btn btn-primary d-none"
+    data-bs-toggle="modal"
+    data-bs-target="#confirmOrderModal"
+></button>
+<div class="modal" id="confirmOrderModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Confirm Order</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <div class="modal-body">
+                <div>Confirm Order ?</div>
+                <div *ngIf="ConfirmOrderLoading" class="spinner-border text-primary mt-3" role="status"></div>
+            </div>
+
+            <div class="modal-footer">
+                <button id="closeConfirmOrderBtn" type="button" class="btn btn-danger" data-bs-dismiss="modal">
+                    Close
+                </button>
+                <button type="submit" class="btn btn-primary" (click)="onConfirmOrder()">Confirm</button>
+            </div>
+        </div>
+    </div>
+</div>

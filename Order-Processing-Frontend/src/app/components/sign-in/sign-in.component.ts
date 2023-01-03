@@ -64,7 +64,7 @@ export class SignInComponent implements OnInit {
             this.signInOutService.fillSignedInUserInfo(response.body).subscribe(
                 (res) => {
                     if (res.body) {
-                        this.cookieService.set('user_id', res.body.user_id.toString(), expirationDate, '/', '', true, 'Strict');
+                        this.cookieService.set('user_id', String(res.body.user_id), expirationDate, '/', '', true, 'Strict');
                         this.cookieService.set('user_name', res.body.user_name, expirationDate, '/', '', true, 'Strict');
                         this.cookieService.set('first_name', res.body.first_name, expirationDate, '/', '', true, 'Strict');
                         this.cookieService.set('last_name', res.body.last_name, expirationDate, '/', '', true, 'Strict');
