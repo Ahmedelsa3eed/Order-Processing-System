@@ -12,19 +12,33 @@ export class CartItemComponent implements OnInit {
   @Input() cartItem: CartItem = new CartItem();
   @Output() removeCartItemEvent = new EventEmitter();
   faTrashAlt = faTrashAlt;
+  isLoading: boolean = false;
 
   constructor(private cartService: CartService) {}
 
   ngOnInit(): void {}
 
   public deleteCartItem(): void {
-    this.removeCartItemEvent.emit(this.cartItem);
-    // this.cartService.deleteCartItem().subscribe({
-    //   next: (res) => {
-    //     this.removeCartItemEvent.emit(this.cartItem);
-    //   }
-    // })
+    this.isLoading = true;
+    this.cartService.deleteCartItem(this.cartItem.isbn).subscribe({
+      next: (res) => {
+        if (res == true) {
+          this.isLoading = false;
+          this.removeCartItemEvent.emit(this.cartItem);
+        }
+      },
+      error: (err) => this.isLoading = false
+    });
   }
 
+  public updateItemQuantity(): void {
+    this.cartService
+      .updateCartItemQuantity(this.cartItem.isbn, this.cartItem.quantity)
+      .subscribe({
+        next: (res) => {
+          if (res == true)
+            console.info('item quantity updated');
+        },
+      });
+  }
 }
-
