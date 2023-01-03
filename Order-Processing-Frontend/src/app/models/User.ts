@@ -4,7 +4,7 @@ export class User {
     first_name: string;
     last_name: string;
     address: string;
-    phonenumber: string;
+    phone_number: string;
     email: string;
     password: string;
     type: string;
@@ -16,7 +16,7 @@ export class User {
         this.first_name = '';
         this.last_name = '';
         this.address = '';
-        this.phonenumber = '';
+        this.phone_number = '';
         this.email = '';
         this.password = '';
         this.type = '';

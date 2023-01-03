@@ -24,11 +24,11 @@ export class SignInOutService {
 
     public signOut(): Observable<any> {
         return this.httpClient
-            .put(
-                environment.baseUrl + '/logout/logout',
-                {},
-                { params: { sessionID: this.cookieService.get('sessionId') } }
-            );
+        .put(
+            environment.baseUrl + '/logIn/logout',
+            {},
+            { params: { sessionID: this.cookieService.get('session_id') } }
+        );
     }
 
     public forgotPassword(email: string): Observable<HttpResponse<any>> {
@@ -43,7 +43,7 @@ export class SignInOutService {
 
     // This function should be called in appropriate components' onInit
     public isSignedIn(): boolean {
-        return this.cookieService.check('sessionId');
+        return this.cookieService.check('session_id');
     }
 
     // This function should be called when the user sign In for the first time, or when he edits his information.
@@ -62,7 +62,7 @@ export class SignInOutService {
         user.first_name = this.getSignedInUserFirstName();
         user.last_name = this.getSignedInUserLastName();
         user.address = this.getSignedInUserAddress();
-        user.phonenumber = this.getSignedInUserPhonenumber();
+        user.phone_number = this.getSignedInUserPhonenumber();
         user.email = this.getSignedInUserEmail();
         user.type = this.getSignedInUserType();
         user.session_id = this.getSignedInUserSessionID();
@@ -90,7 +90,7 @@ export class SignInOutService {
     }
 
     public getSignedInUserPhonenumber(): string {
-        return this.cookieService.get('phonenumber');
+        return this.cookieService.get('phone_number');
     }
 
     public getSignedInUserEmail(): string {
