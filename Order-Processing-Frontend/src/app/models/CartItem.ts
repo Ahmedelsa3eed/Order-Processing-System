@@ -1,13 +1,15 @@
 export class CartItem {
-    name: string;
-    price: string;
-    publisher: string;
-    count: number;
+  isbn: number;
+  title: string;
+  price: string;
+  publisherName: string;
+  quantity: number;
 
-    constructor() {
-        this.name = '';
-        this.price = '';
-        this.publisher = '';
-        this.count = 1;
-    }
+  constructor() {
+    this.isbn = 0;
+    this.title = '';
+    this.price = '';
+    this.publisherName = '';
+    this.quantity = 1;
+  }
 }
