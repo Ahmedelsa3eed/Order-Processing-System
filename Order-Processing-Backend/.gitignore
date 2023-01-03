@@ -33,5 +33,5 @@ build/
 .vscode/
 
 ### resources
-application.properties
-DatabaseInstance.java
+###application.properties###
+###DatabaseInstance.java###
