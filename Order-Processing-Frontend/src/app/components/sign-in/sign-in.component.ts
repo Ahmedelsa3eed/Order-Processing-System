@@ -69,7 +69,7 @@ export class SignInComponent implements OnInit {
                         this.cookieService.set('first_name', res.body.first_name, expirationDate, '/', '', true, 'Strict');
                         this.cookieService.set('last_name', res.body.last_name, expirationDate, '/', '', true, 'Strict');
                         this.cookieService.set('address', res.body.address, expirationDate, '/', '', true, 'Strict');
-                        this.cookieService.set('phonenumber', res.body.phonenumber, expirationDate, '/', '', true, 'Strict');
+                        this.cookieService.set('phone_number', res.body.phone_number, expirationDate, '/', '', true, 'Strict');
                         this.cookieService.set('email', res.body.email, expirationDate, '/', '', true, 'Strict');
                         this.cookieService.set('type', res.body.type, expirationDate, '/', '', true, 'Strict');
                         this.loadings = false;
