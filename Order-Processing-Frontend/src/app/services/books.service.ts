@@ -32,5 +32,9 @@ export class BooksService {
       params: { sessionId: this.signInOutService.getSignedInUserSessionID(), ISBN: bookISBN },
     });
   }
-  
+
+  getBookById(bookISBN: number){
+    return new Book();
+  }
+
 }

@@ -23,6 +23,11 @@
             class="col-12 bi bi-pencil icon text-primary"
             (click)="openEditBookModal(book)"
         ></i>
+        <i
+            *ngIf="signedInUserType == 'manager'"
+            class="col-13 bi bi-bag icon text-success"
+            (click)="openOrderBookModal(book.ISBN, book.title)"
+        ></i>
     </div>
 </div>
 
@@ -73,6 +78,48 @@
                     editBookPriceInput.value, editBookCategoryInput.value, editBookQuantityInput.value, editBookThresholdInput.value)"
                 >
                     Edit
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<button
+    id="openOrderBookBtn"
+    type="button"
+    class="btn btn-primary d-none"
+    data-bs-toggle="modal"
+    data-bs-target="#orderBookModal"
+></button>
+<div class="modal" id="orderBookModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Order Book</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <div class="modal-body">
+                <input
+                    #OrderBookInput
+                    id="orderBookInput"
+                    type="text"
+                    class="form-control mb-3"
+                    placeholder="Quantity"
+                />
+                <div *ngIf="orderBookLoading" class="spinner-border text-primary mt-3" role="status"></div>
+            </div>
+
+            <div class="modal-footer">
+                <button id="closeOrderBookBtn" type="button" class="btn btn-danger" data-bs-dismiss="modal">
+                    Close
+                </button>
+                <button
+                    type="submit"
+                    class="btn btn-success"
+                    (click)="onOrderBook(OrderBookInput.value)"
+                >
+                    Submit Order
                 </button>
             </div>
         </div>
