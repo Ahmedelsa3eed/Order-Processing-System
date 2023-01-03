@@ -19,5 +19,4 @@ public class User implements Serializable {
     private String last_name;
     private String phone_number;
     private String type;
-
 }
