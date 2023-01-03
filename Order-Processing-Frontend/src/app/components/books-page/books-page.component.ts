@@ -60,7 +60,7 @@ export class BooksPageComponent implements OnInit {
     this.deleteBookLoading = true;
     this.booksService.deleteBook(this.bookToDeleteISBN).subscribe(() => {
         this.deleteBookLoading = false;
-        document.getElementById('closeOrderBookBtn')?.click();
+        document.getElementById('closeDeleteBookBtn')?.click();
         window.location.reload();
     });
   }
