@@ -18,6 +18,7 @@ public class AccountInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler){
         String sessionId = request.getParameter("sessionId");
         String[] user = ActiveUserService.getInstance().checkLogin(sessionId);
+        System.out.println(user[1]);
         if(user[1] == null) {
             logger.info("User is not logged in");
             response.setStatus(401);

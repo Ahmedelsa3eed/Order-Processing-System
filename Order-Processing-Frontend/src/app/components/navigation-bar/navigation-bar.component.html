@@ -42,5 +42,12 @@
             Books
         </div>
     </div>
+
+    <div class="parent">
+        <div [routerLink]="['/home/publishers']" [routerLinkActive]="['active']" (click)="navigateTo('publishers')">
+            <em class="bi bi-book-fill"></em>
+            Publishers
+        </div>
+    </div>
     
 </div>
