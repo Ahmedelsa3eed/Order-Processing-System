@@ -9,7 +9,6 @@ import { CookieService } from 'ngx-cookie-service';
     styleUrls: ['./navigation-bar.component.css'],
 })
 export class NavigationBarComponent implements OnInit {
-    loggedInUserRole = this.signInOutService.getSignedInUserType();
     loggedInUserFirstName = this.signInOutService.getSignedInUserFirstName();
     loggedInUserLastName = this.signInOutService.getSignedInUserLastName();
     public isLoading: boolean = false;
