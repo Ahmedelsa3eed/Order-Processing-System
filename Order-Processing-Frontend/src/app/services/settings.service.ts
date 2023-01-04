@@ -48,11 +48,7 @@ export class SettingsService {
     });
   }
 
-  changeUserName(userName: string): Observable<string> {
-    return this.http.put<string>(`${environment.baseUrl}/settings/changeUserName`, userName, {
-      params: { sessionId: this.signInOutService.getSignedInUserSessionID() },
-    });
-  }
+
 
 
 
