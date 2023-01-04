@@ -7,6 +7,7 @@ import { CartComponent } from './components/cart/cart.component';
 import { BooksPageComponent } from './components/books-page/books-page.component';
 import { OrdersPageComponent } from './components/orders-page/orders-page.component';
 import { PublisherComponent } from './components/publisher/publisher.component';
+import {SettingsComponent} from "./components/settings/settings.component";
 import { AuthorComponent } from "./components/author/author.component";
 import { AccountsPageComponent } from './components/accounts-page/accounts-page.component';
 
@@ -25,6 +26,7 @@ const routes: Routes = [
       { path: 'publishers', component: PublisherComponent},
       { path: 'authors', component: AuthorComponent },
       { path: 'accounts', component: AccountsPageComponent},
+      { path: 'settings', component: SettingsComponent},
     ],
   },
   { path: '**', component: SignInComponent },

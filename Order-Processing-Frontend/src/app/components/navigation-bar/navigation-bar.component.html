@@ -63,5 +63,10 @@
           <em class="bi bi-person-circle pe-none me-2"></em>
           Accounts
         </div>
+        <!-- Settings -->
+      <div [routerLink]="['/home/settings']" [routerLinkActive]="['active']" (click)="navigateTo('settings')">
+        <em class="bi bi-book-fill"></em>
+        Settings
+      </div>
     </div>
 </div>

@@ -54,7 +54,7 @@ public class UserService {
         }
     }
     // get user by username
-    public Optional<User> getUserByUserName(String userName) {
+    public Optional<User> getUserByUsername(String userName) {
         String query = "SELECT * FROM Users as u WHERE u.user_name = '" + userName + "'";
         System.out.println(query);
         try {
@@ -111,6 +111,18 @@ public class UserService {
         }
     }
 
+    // update user name
+    public void updateUsername(String username, Long UserId) {
+        String query = "UPDATE Users SET user_name = '" + username + "' WHERE user_id = '" + UserId + "'";
+        System.out.println(query);
+        try {
+            instance.executeUpdate(query);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
     public void updateUserLastName(String lastName, Long UserId) {
         String query = "UPDATE Users SET last_name = '" + lastName + "' WHERE user_id = '" + UserId + "'";
         System.out.println(query);
@@ -146,7 +158,7 @@ public class UserService {
     }
 
     public void updateUserAddress(String address, Long UserId) {
-        String query = "UPDATE users SET address = '" + address + "' WHERE user_id = '" + UserId + "'";
+        String query = "UPDATE Users SET address = '" + address + "' WHERE user_id = '" + UserId + "'";
         System.out.println(query);
         try {
             instance.executeUpdate(query);
