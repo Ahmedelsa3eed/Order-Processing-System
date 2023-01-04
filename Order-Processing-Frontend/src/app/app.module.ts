@@ -39,9 +39,6 @@ import { SettingsComponent } from './components/settings/settings.component';
     AccountsPageComponent,
     AccountComponent,
     SettingsComponent,
-    AuthorComponent,
-    AccountsPageComponent,
-    AccountComponent,
   ],
   imports: [
     BrowserModule,
@@ -49,7 +46,6 @@ import { SettingsComponent } from './components/settings/settings.component';
     FontAwesomeModule,
     HttpClientModule,
     FormsModule,
-    HttpClientModule,
     ReactiveFormsModule,
     CommonModule,
   ],
