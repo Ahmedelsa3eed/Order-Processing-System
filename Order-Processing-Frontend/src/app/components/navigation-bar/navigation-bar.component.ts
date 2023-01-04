@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { SignInOutService } from '../../services/sign-in-out.service';
-import { User } from '../../models/User';
 import { CookieService } from 'ngx-cookie-service';
 @Component({
     selector: 'app-navigation-bar',
@@ -9,10 +8,10 @@ import { CookieService } from 'ngx-cookie-service';
     styleUrls: ['./navigation-bar.component.css'],
 })
 export class NavigationBarComponent implements OnInit {
-    loggedInUserFirstName = this.signInOutService.getSignedInUserFirstName();
-    loggedInUserLastName = this.signInOutService.getSignedInUserLastName();
+    public loggedInUserFirstName!: string;
+    public loggedInUserLastName!: string;
     public isLoading: boolean = false;
-    signedInUserType: string = this.signInOutService.getSignedInUserType();
+    public signedInUserType!: string;
 
     constructor(
         private router: Router,
@@ -20,7 +19,12 @@ export class NavigationBarComponent implements OnInit {
         private cookieService: CookieService
     ) {}
     
-    ngOnInit(): void { }
+    ngOnInit(): void { 
+        this.loggedInUserFirstName = this.signInOutService.getSignedInUserFirstName();
+        this.loggedInUserLastName = this.signInOutService.getSignedInUserLastName();
+        this.signedInUserType = this.signInOutService.getSignedInUserType();
+        console.log(this.signedInUserType);
+    }
 
     navigateTo(child: string) {
         this.router.navigateByUrl('home/' + child);
@@ -29,8 +33,9 @@ export class NavigationBarComponent implements OnInit {
     logout() {
         this.cookieService.deleteAll();
         this.router.navigate(['sign-in']);
-        this.signInOutService.signOut().subscribe(
-            () => {},
-        );
+        this.signInOutService.signOut()
+        .subscribe({
+            next: (res) => console.log(res)
+        });
     }
 }

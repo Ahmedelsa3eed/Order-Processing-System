@@ -7,13 +7,12 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration
 public class InterceptorConfig implements WebMvcConfigurer {
 
-
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(new AccountInterceptor())
                 .addPathPatterns("/books/manager/**")
-                .addPathPatterns("/Publisher/manager/**");
+                .addPathPatterns("/Publisher/manager/**")
+                .addPathPatterns("/accounts/**");
     }
-
 
 }
