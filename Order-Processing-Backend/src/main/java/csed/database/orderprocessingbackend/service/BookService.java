@@ -21,6 +21,7 @@ public class BookService {
 
     public List<Book> getAllBooks()  {
         String query = "SELECT * FROM books";
+        System.out.println(query);
         try {
             List<Book> list = new ArrayList<>();
             ResultSet resultSet = instance.executeQuery(query);
@@ -101,4 +102,72 @@ public class BookService {
         return HttpStatus.NOT_ACCEPTABLE;
     }
 
+    public Book getBookByISBN(Long ISBN) {
+        String query = "SELECT * from books as b WHERE b.isbn = '" + ISBN + "'";
+        System.out.println(query);
+        try {
+            ResultSet resultSet = instance.executeQuery(query);
+            if (resultSet.next()){
+                return new Book(resultSet.getLong("ISBN"), resultSet.getString("title"),
+                        resultSet.getLong("publisher_id"), resultSet.getInt("publication_year"),
+                        resultSet.getInt("price"), resultSet.getString("category"),
+                        resultSet.getInt("quantity"), resultSet.getInt("threshold"));
+            }
+            return null;
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public List<Book> findBooksByAttribute(String criteria, String searchInput) {
+        String query = "SELECT * FROM books as b where b." + criteria + "= '" + searchInput + "'";
+        System.out.println(query);
+        try {
+            List<Book> list = new ArrayList<>();
+            ResultSet resultSet = instance.executeQuery(query);
+            if (!resultSet.next()){
+                return list;
+            }
+            do {
+                Book book = new Book(resultSet.getLong("ISBN"), resultSet.getString("title"),
+                        resultSet.getLong("publisher_id"), resultSet.getInt("publication_year"),
+                        resultSet.getInt("price"), resultSet.getString("category"),
+                        resultSet.getInt("quantity"), resultSet.getInt("threshold"));
+                list.add(book);
+            }
+            while(resultSet.next());
+            return list;
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public List<Book> findBooksByPublisherName(String name) {
+        String query = "SELECT * FROM books as b where b.publisher_id in ( select p.publisher_id from publishers as p where p.name = '" + name + "' )";
+        System.out.println(query);
+        try {
+            List<Book> list = new ArrayList<>();
+            ResultSet resultSet = instance.executeQuery(query);
+            if (!resultSet.next()){
+                return list;
+            }
+            do {
+                Book book = new Book(resultSet.getLong("ISBN"), resultSet.getString("title"),
+                        resultSet.getLong("publisher_id"), resultSet.getInt("publication_year"),
+                        resultSet.getInt("price"), resultSet.getString("category"),
+                        resultSet.getInt("quantity"), resultSet.getInt("threshold"));
+                list.add(book);
+            }
+            while(resultSet.next());
+            return list;
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+        return null;
+    }
 }

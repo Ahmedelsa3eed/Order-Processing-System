@@ -37,7 +37,14 @@ export class OrdersPageComponent implements OnInit {
 
   getBookTitle(bookISBN:number){
     let book : Book = new Book();
-    book = this.booksService.getBookById(bookISBN);
+    // this.booksService.getBookByISBN(bookISBN).subscribe(
+    //   (response) => {
+    //     book = response;
+    //   },
+    //   (err) => {
+    //     alert(err);
+    //   }
+    // );
     return book.title;
   }
 

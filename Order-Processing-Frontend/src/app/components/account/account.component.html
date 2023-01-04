@@ -1,0 +1,50 @@
+<div class="card m-2 shadow account-card">
+    <div class="container">
+        <!-- Info -->
+        <p id="name">{{ user.first_name }} {{ user.last_name }}</p>
+        <p>PHONE: {{ user.phone_number }}</p>
+        <p>EMAIL: {{ user.email }}</p>
+
+        <!-- Edit roles -->
+        <form #myform="ngForm" (change)="changeRole()">
+            <div class="form-check">
+                <input
+                    class="form-check-input"
+                    type="radio"
+                    name="role"
+                    id="manager"
+                    value="manager"
+                    [(ngModel)]="user.type"
+                />
+                <label class="form-check-label" for="admin"> Manager </label>
+            </div>
+            <div class="form-check">
+                <input
+                    class="form-check-input"
+                    type="radio"
+                    name="role"
+                    id="customer"
+                    value="customer"
+                    [(ngModel)]="user.type"
+                />
+                <label class="form-check-label" for="editor"> Customer </label>
+            </div>
+        </form>
+        <div *ngIf="isChangingRole">
+            <span>Changing role... </span>
+            <span class="spinner-border spinner-border-sm" style="margin-left: 5px"> </span>
+        </div>
+
+        <div>
+            <button class="btn btn-danger m-1" (click)="removeUser()">
+                <span
+                    *ngIf="isRemoving"
+                    class="spinner-border spinner-border-sm"
+                    role="status"
+                    aria-hidden="true"
+                ></span>
+                Remove
+            </button>
+        </div>
+    </div>
+</div>
