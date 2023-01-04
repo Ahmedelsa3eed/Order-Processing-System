@@ -17,6 +17,10 @@ import { RegistrationComponent } from './components/registration/registration.co
 import { BooksPageComponent } from './components/books-page/books-page.component';
 import { OrdersPageComponent } from './components/orders-page/orders-page.component';
 import { PublisherComponent } from './components/publisher/publisher.component';
+import { AuthorComponent } from './components/author/author.component';
+import { AccountsPageComponent } from './components/accounts-page/accounts-page.component';
+import { AccountComponent } from './components/account/account.component';
+import { SettingsComponent } from './components/settings/settings.component';
 
 
 @NgModule({
@@ -31,6 +35,10 @@ import { PublisherComponent } from './components/publisher/publisher.component';
     BooksPageComponent,
     OrdersPageComponent,
     PublisherComponent,
+    AuthorComponent,
+    AccountsPageComponent,
+    AccountComponent,
+    SettingsComponent,
   ],
   imports: [
     BrowserModule,
