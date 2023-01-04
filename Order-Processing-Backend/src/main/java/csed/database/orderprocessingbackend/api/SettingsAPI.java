@@ -18,7 +18,6 @@ public class SettingsAPI {
         this.settingsService = settingsService;
     }
 
-    // change name
     @PutMapping(path = "changeName")
     public ResponseEntity<SettingsResponses> changeName(@RequestParam String sessionId, @RequestBody ChangeNameRequest request) {
         SettingsResponses settingsResponses = settingsService.changeName(sessionId, request);
@@ -26,7 +25,6 @@ public class SettingsAPI {
 
     }
 
-    // change password
     @PutMapping(path = "changePassword")
     public ResponseEntity<SettingsResponses> changePassword(@RequestParam String sessionId, @RequestBody ChangePasswordRequest request) {
         SettingsResponses settingsResponses = settingsService.changePassword(sessionId, request);
@@ -34,7 +32,6 @@ public class SettingsAPI {
 
     }
 
-    // change username
     @PutMapping(path = "changeUsername")
     public ResponseEntity<SettingsResponses> changeUserName(@RequestParam String sessionId, @RequestBody String username) {
         SettingsResponses settingsResponses = settingsService.changeUserName(sessionId, username);
@@ -42,7 +39,6 @@ public class SettingsAPI {
 
     }
 
-    // change email
     @PutMapping(path = "changeEmail")
     public ResponseEntity<SettingsResponses> changeEmail(@RequestParam String sessionId, @RequestBody String email) {
         SettingsResponses settingsResponses = settingsService.changeEmail(sessionId, email);
@@ -50,7 +46,6 @@ public class SettingsAPI {
 
     }
 
-    // change phone number
     @PutMapping(path = "changePhone")
     public ResponseEntity<SettingsResponses> changePhoneNumber(@RequestParam String sessionId, @RequestBody String phoneNumber) {
         SettingsResponses settingsResponses = settingsService.changePhoneNumber(sessionId, phoneNumber);
@@ -58,7 +53,6 @@ public class SettingsAPI {
 
     }
 
-    // change address
     @PutMapping(path = "changeAddress")
     public ResponseEntity<SettingsResponses> changeAddress(@RequestParam String sessionId, @RequestBody String address) {
         SettingsResponses settingsResponses = settingsService.changeAddress(sessionId, address);
