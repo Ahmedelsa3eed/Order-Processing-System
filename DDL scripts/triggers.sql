@@ -19,6 +19,15 @@ BEGIN
 	END IF;
 END$$
 
+CREATE TRIGGER remove_item_from_cart
+BEFORE DELETE ON cart
+FOR EACH ROW
+BEGIN
+    IF OLD.confirmed = 1 THEN
+		UPDATE books SET books.quantity = books.quantity - OLD.quantity WHERE books.ISBN = OLD.ISBN;
+    END IF;
+END;
+
 # this triger is to update the book quantity in the book table if the quantity will be less than threshold
 CREATE TRIGGER place_orders_trigger
 AFTER UPDATE ON Books
@@ -30,6 +39,7 @@ BEGIN
   END IF;
 END$$
 
+
 CREATE TRIGGER confirm_orders_trigger
 BEFORE DELETE ON Orders
 FOR EACH ROW
@@ -38,27 +48,3 @@ BEGIN
   SET quantity = quantity + OLD.quantity
   WHERE ISBN = OLD.ISBN;
 END$$
-
-/*
-
-we probably dont need those since the order is for the manager
-to be checked later
-
-CREATE TRIGGER add_to_shopping_cart_trigger
-AFTER INSERT ON Shopping_cart
-FOR EACH ROW
-BEGIN
-  UPDATE Books
-  SET quantity = quantity - NEW.quantity
-  WHERE ISBN = NEW.ISBN;
-END$$
-
-CREATE TRIGGER remove_from_shopping_cart_trigger
-AFTER DELETE ON Shopping_cart
-FOR EACH ROW
-BEGIN
-  UPDATE Books
-  SET quantity = quantity + OLD.quantity
-  WHERE ISBN = OLD.ISBN;
-END$$
-*/
