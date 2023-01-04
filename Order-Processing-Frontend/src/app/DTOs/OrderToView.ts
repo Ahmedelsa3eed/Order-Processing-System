@@ -1,11 +1,11 @@
-export class Order {
+export class OrderToView {
     orderId : number;
-    isbn: number;
+    title: string;
     quantity: number;
 
     constructor() {
         this.orderId = -1;
-        this.isbn = -1;
+        this.title = "";
         this.quantity = -1;
     }
 }

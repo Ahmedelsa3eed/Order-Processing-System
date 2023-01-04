@@ -108,6 +108,7 @@ export class BooksPageComponent implements OnInit {
 
     let orderToPlace : OrderToPlace = new OrderToPlace();
     orderToPlace.ISBN = this.bookToOrderISBN;
+    console.log("ISBN of book sent is " + orderToPlace.ISBN);
     orderToPlace.quantity = parseInt(quanitty);
 
     this.ordersService.orderBook(orderToPlace).subscribe(()=>{
@@ -115,6 +116,7 @@ export class BooksPageComponent implements OnInit {
       document.getElementById('closeOrderBookBtn')?.click();
       window.location.reload();
     });
+    console.log("ISBN of book sent is " + orderToPlace.ISBN);
   }
 
   onEditBook(title: string, publisher_id: string, pubYear: string, price: string, category: string, quantity: string, threshold: string) {
