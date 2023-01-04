@@ -4,17 +4,19 @@ import csed.database.orderprocessingbackend.model.User;
 import csed.database.orderprocessingbackend.model.settings.ChangeNameRequest;
 import csed.database.orderprocessingbackend.model.settings.ChangePasswordRequest;
 import csed.database.orderprocessingbackend.model.settings.SettingsResponses;
-import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
-@AllArgsConstructor
 @Service
 public class SettingsService {
 
     private final UserService userService;
     private final ActiveUserService activeUserService = ActiveUserService.getInstance();
+
+    public SettingsService(UserService userService) {
+        this.userService = userService;
+    }
 
 
     // change name
