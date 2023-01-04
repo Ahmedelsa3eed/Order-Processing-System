@@ -50,6 +50,7 @@ public class ReportService {
                     ids.add(resultSet.getLong("ISBN"));
                     query = "SELECT * FROM book WHERE ISBN == " + resultSet.getLong("ISBN");
                     ResultSet res = instance.executeQuery(query);
+                    res.next();
                     list.add(new Sale(
                             resultSet.getLong("ISBN"), res.getString("title"), res.getString("category")
                             , resultSet.getInt("quantity"), res.getInt("price") * resultSet.getInt("quantity")
@@ -95,6 +96,7 @@ public class ReportService {
             for (Entry<Long, Integer> entry : greatest) {
                 query = "SELECT * FROM Users WHERE user_id == " + entry.getKey();
                 resultSet = instance.executeQuery(query);
+                resultSet.next();
                 User user = new User(resultSet.getLong("user_id"), resultSet.getString("user_name"),
                         resultSet.getString("email"), "", resultSet.getString("address"),
                         resultSet.getString("first_name"), resultSet.getString("last_name"),
@@ -140,6 +142,7 @@ public class ReportService {
             for (Entry<Long, Integer> entry : greatest) {
                 query = "SELECT * FROM books WHERE ISBN == " + entry.getKey();
                 resultSet = instance.executeQuery(query);
+                resultSet.next();
                 Book book = new Book(resultSet.getLong("ISBN"), resultSet.getString("title"),
                         resultSet.getLong("publisher_id"), resultSet.getInt("publication_year"),
                         resultSet.getInt("price"), resultSet.getString("category"),
