@@ -26,6 +26,10 @@ export class BooksPageComponent implements OnInit {
   orderBookLoading: boolean = false;
   editBookLoading: boolean = false;
   addBookLoading: boolean = false;
+  findBookCriteriaInputValue: string = "Select Criteria";
+  findBookFirstNameInput: string = "";
+  findBookLastNameInput: string = "";
+  searchInput: string = "";
   signedInUserType: string = this.signInOutService.getSignedInUserType();
 
   ngOnInit(): void {
@@ -133,6 +137,57 @@ export class BooksPageComponent implements OnInit {
           alert('Something is wrong, editing the book!');
       }
     );
+  }
+
+  onFindBook() {
+    if(this.findBookCriteriaInputValue == "Select Criteria") {
+      this.booksService.getAllBooks().subscribe({
+        next: (books) => {
+          this.books = books;
+        },
+        error: (err) => alert(err),
+      });
+    }else if(this.findBookCriteriaInputValue == "isbn") {
+      this.booksService.getBookByISBN(Number(this.searchInput)).subscribe(
+        (book) => {
+          this.books = [];
+          this.books.push(book);
+        },
+        (err) => { alert(err); }
+      )
+    }else if(this.findBookCriteriaInputValue == "publishers") {
+      this.booksService.findBooksByPublisherName(this.searchInput).subscribe({
+        next: (books) => {
+          this.books = books;
+        },
+        error: (err) => alert(err),
+      });
+    }else if(this.findBookCriteriaInputValue == "authors") {
+      //todo
+    }else {
+      this.booksService.findBooksByAttribute(this.findBookCriteriaInputValue, this.searchInput).subscribe({
+        next: (books) => {
+          this.books = books;
+        },
+        error: (err) => alert(err),
+      });
+    }
+  }
+
+  changeCriteria(findBookCriteriaInputValue: string) {
+    this.findBookCriteriaInputValue = findBookCriteriaInputValue;
+  }
+
+  setFirstName(findBookFirstNameInput: string) {
+    this.findBookFirstNameInput = findBookFirstNameInput;
+  }
+
+  setLastName(findBookLastNameInput: string) {
+    this.findBookLastNameInput = findBookLastNameInput;
+  }
+
+  setSearchInput(searchInput: string) {
+    this.searchInput = searchInput;
   }
 
 }

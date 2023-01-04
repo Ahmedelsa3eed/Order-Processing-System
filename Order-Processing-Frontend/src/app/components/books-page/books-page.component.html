@@ -8,11 +8,18 @@
     >
         Add Book
     </button>
+    <button class="btn btn-primary my-3 mx-3" type="button" data-bs-toggle="modal" data-bs-target="#findBookModal">Find Book</button>
 </div>
 
 <div *ngFor="let book of books" class="py-2 px-3 border-top">
     <div class="row">
         <div class="col-10 h6">{{ book.title }}</div>
+        <div class="col-10">ISBN: {{ book.isbn }}</div>
+        <div class="col-10">Category: {{ book.category }}</div>
+        <div class="col-10">Publication year: {{ book.publication_year }}</div>
+        <div class="col-10">Price: {{ book.price }}$</div>
+        <div class="col-10">Available: {{ book.quantity }}</div>
+        <div *ngIf="signedInUserType == 'manager'" class="col-10">Threshold: {{ book.threshold }}</div>
         <i
             *ngIf="signedInUserType == 'manager'"
             class="col-11 bi bi-x-lg icon text-danger"
@@ -168,6 +175,7 @@
                 <input #addBookTitleInput type="text" class="form-control mb-3" placeholder="Book Title"/>
                 <input #addBookISBNInput type="number" class="form-control mb-3" placeholder="Book ISBN"/>
                 <select #addBookPublisherInput class="form-select my-3" aria-label="Publisher">
+                    <option value="-1" disabled selected>Select Publisher</option>
                     <option *ngFor="let publisher of publishers" value="{{ publisher.publisher_id }}">
                         {{ publisher.name }}
                     </option>
@@ -197,6 +205,39 @@
                         addBookPriceInput.value, addBookCategoryInput.value, addBookQuantityInput.value, addBookThresholdInput.value)"
                 >
                     Add
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="findBookModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Find Book</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <input *ngIf="findBookCriteriaInputValue != 'authors'" #findBookSearchInput (change)="setSearchInput(findBookSearchInput.value)" type="text" class="form-control mb-3" placeholder="Search Keyword"/>
+                <select (click)="changeCriteria(findBookCriteriaInput.value)" #findBookCriteriaInput class="form-select my-3" aria-label="Publisher">
+                    <option value="Select Criteria" disabled selected>Select Criteria</option>
+                    <option value="isbn">ISBN</option>
+                    <option value="title">Title</option>
+                    <option value="category">Category</option>
+                    <option value="authors">Author</option>
+                    <option value="publishers">Publisher</option>
+                </select>
+                <input *ngIf="findBookCriteriaInputValue == 'authors'" #findBookFirstNameInput (change)="setFirstName(findBookFirstNameInput.value)" type="text" class="form-control mb-3" placeholder="First Name"/>
+                <input *ngIf="findBookCriteriaInputValue == 'authors'" #findBookLastNameInput (change)="setLastName(findBookLastNameInput.value)" type="text" class="form-control mb-3" placeholder="Last Name"/>
+            </div>
+
+            <div class="modal-footer">
+                <button id="closeFindBookBtn" type="button" class="btn btn-danger" data-bs-dismiss="modal">
+                    Close
+                </button>
+                <button type="submit" class="btn btn-primary" (click)="onFindBook()">
+                    Find
                 </button>
             </div>
         </div>
