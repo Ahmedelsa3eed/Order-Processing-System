@@ -23,6 +23,7 @@ export class SignInOutService {
     }
 
     public signOut(): Observable<any> {
+        this.cookieService.deleteAll('/', '', true, 'Strict');
         return this.httpClient
         .put(
             environment.baseUrl + '/logIn/logout',

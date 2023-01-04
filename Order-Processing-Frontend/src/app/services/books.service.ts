@@ -33,8 +33,21 @@ export class BooksService {
     });
   }
 
-  getBookById(bookISBN: number){
-    return new Book();
+  getBookByISBN(bookISBN: number): Observable<any> {
+    return this.httpClient.get<any>(environment.baseUrl + '/books/getBookByISBN', {
+      params: { ISBN: bookISBN },
+    });
   }
 
+  findBooksByAttribute(criteria: string, searchInput: string): Observable<any> {
+    return this.httpClient.get<any>(environment.baseUrl + '/books/findBooksByAttribute', {
+      params: { criteria: criteria, searchInput: searchInput },
+    });
+  }
+
+  findBooksByPublisherName(name: string): Observable<any> {
+    return this.httpClient.get<any>(environment.baseUrl + '/books/findBooksByPublisherName', {
+      params: { name: name },
+    });
+  }
 }

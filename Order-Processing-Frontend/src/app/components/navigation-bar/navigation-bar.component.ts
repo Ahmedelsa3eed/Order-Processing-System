@@ -27,10 +27,8 @@ export class NavigationBarComponent implements OnInit {
     }
 
     logout() {
-        this.cookieService.deleteAll();
-        this.router.navigate(['sign-in']);
         this.signInOutService.signOut().subscribe(
-            () => {},
+            () => {this.router.navigate(['sign-in']);},
         );
     }
 }
