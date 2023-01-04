@@ -158,7 +158,7 @@ public class UserService {
     }
 
     public void updateUserAddress(String address, Long UserId) {
-        String query = "UPDATE users SET address = '" + address + "' WHERE user_id = '" + UserId + "'";
+        String query = "UPDATE Users SET address = '" + address + "' WHERE user_id = '" + UserId + "'";
         System.out.println(query);
         try {
             instance.executeUpdate(query);

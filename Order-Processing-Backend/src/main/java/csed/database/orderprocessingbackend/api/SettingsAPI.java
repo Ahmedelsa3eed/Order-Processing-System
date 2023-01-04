@@ -71,13 +71,6 @@ public class SettingsAPI {
 
     }
 
-
-
-
-
-
-
-
     private HttpStatus httpStatus(SettingsResponses settingsResponses) {
         if (settingsResponses == SettingsResponses.SUCCESSFUL) {
             return HttpStatus.OK;
