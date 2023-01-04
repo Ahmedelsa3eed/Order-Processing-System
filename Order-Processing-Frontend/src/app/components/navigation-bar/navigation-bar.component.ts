@@ -35,4 +35,7 @@ export class NavigationBarComponent implements OnInit {
             () => {this.router.navigate(['sign-in']);},
         );
     }
+    report(type: string){
+      window.open("http://localhost:8080/report/" + type, '_blank')!.focus();
+    }
 }
