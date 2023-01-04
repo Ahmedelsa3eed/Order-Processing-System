@@ -50,4 +50,17 @@ export class BooksService {
       params: { name: name },
     });
   }
+
+  findBooksByAuthorName(first_name: string, last_name: string): Observable<any> {
+    return this.httpClient.get<any>(environment.baseUrl + '/books/findBooksByAuthorName', {
+      params: { first_name: first_name, last_name: last_name },
+    });
+  }
+
+  getPublisherByISBN(ISBN: number): Observable<any> {
+    return this.httpClient.get<any>(environment.baseUrl + '/Publisher/getPublisherByISBN', {
+      params: { ISBN: ISBN },
+    });
+  }
+
 }

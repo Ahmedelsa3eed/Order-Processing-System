@@ -42,6 +42,7 @@ export class BooksPageComponent implements OnInit {
     this.booksService.getAllBooks().subscribe({
       next: (books) => {
         this.books = books;
+        this.getBooksPublisher()
       },
       error: (err) => alert(err),
     });
@@ -143,17 +144,13 @@ export class BooksPageComponent implements OnInit {
 
   onFindBook() {
     if(this.findBookCriteriaInputValue == "Select Criteria") {
-      this.booksService.getAllBooks().subscribe({
-        next: (books) => {
-          this.books = books;
-        },
-        error: (err) => alert(err),
-      });
     }else if(this.findBookCriteriaInputValue == "isbn") {
       this.booksService.getBookByISBN(Number(this.searchInput)).subscribe(
         (book) => {
           this.books = [];
           this.books.push(book);
+          document.getElementById('closeFindBookBtn')?.click();
+          this.getBooksPublisher()
         },
         (err) => { alert(err); }
       )
@@ -161,15 +158,26 @@ export class BooksPageComponent implements OnInit {
       this.booksService.findBooksByPublisherName(this.searchInput).subscribe({
         next: (books) => {
           this.books = books;
+          document.getElementById('closeFindBookBtn')?.click();
+          this.getBooksPublisher()
         },
         error: (err) => alert(err),
       });
     }else if(this.findBookCriteriaInputValue == "authors") {
-      //todo
+      this.booksService.findBooksByAuthorName(this.findBookFirstNameInput, this.findBookLastNameInput).subscribe({
+        next: (books) => {
+          this.books = books;
+          document.getElementById('closeFindBookBtn')?.click();
+          this.getBooksPublisher()
+        },
+        error: (err) => alert(err),
+      });
     }else {
       this.booksService.findBooksByAttribute(this.findBookCriteriaInputValue, this.searchInput).subscribe({
         next: (books) => {
           this.books = books;
+          document.getElementById('closeFindBookBtn')?.click();
+          this.getBooksPublisher()
         },
         error: (err) => alert(err),
       });
@@ -190,6 +198,22 @@ export class BooksPageComponent implements OnInit {
 
   setSearchInput(searchInput: string) {
     this.searchInput = searchInput;
+  }
+
+  getBooksPublisher() {
+    for (let i = 0; i < this.books.length; i++)
+    {
+      this.getPublisherByISBN(i);
+    }
+  }
+
+  getPublisherByISBN(index: number) {
+    this.booksService.getPublisherByISBN(this.books[index].isbn).subscribe({
+      next: (publisher) => {
+        this.books[index].publisher = publisher;
+      },
+      error: (err) => alert(err),
+    })
   }
 
 }

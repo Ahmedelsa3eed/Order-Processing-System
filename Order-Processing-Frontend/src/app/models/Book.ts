@@ -1,3 +1,5 @@
+import { Publisher } from "./Publisher";
+
 export class Book {
     isbn: number;
     title: string;
@@ -7,6 +9,7 @@ export class Book {
     category: string;
     quantity: number;
     threshold: number;
+    publisher: Publisher;
 
     constructor() {
         this.isbn = -1;
@@ -17,5 +20,6 @@ export class Book {
         this.category = '';
         this.quantity = -1;
         this.threshold = -1;
+        this.publisher = new Publisher();
     }
 }

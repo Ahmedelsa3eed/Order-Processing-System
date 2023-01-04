@@ -170,4 +170,30 @@ public class BookService {
         }
         return null;
     }
+
+    public List<Book> findBooksByAuthorName(String first_name, String last_name) {
+        String query = "SELECT * FROM books as b where b.isbn in ( select ba.isbn from book_authors as ba join authors as a on ba.author_id = a.author_id where a.first_name = '" + first_name + "' and a.last_name = '" + last_name + "' )";
+        System.out.println(query);
+        try {
+            List<Book> list = new ArrayList<>();
+            ResultSet resultSet = instance.executeQuery(query);
+            if (!resultSet.next()){
+                return list;
+            }
+            do {
+                Book book = new Book(resultSet.getLong("ISBN"), resultSet.getString("title"),
+                        resultSet.getLong("publisher_id"), resultSet.getInt("publication_year"),
+                        resultSet.getInt("price"), resultSet.getString("category"),
+                        resultSet.getInt("quantity"), resultSet.getInt("threshold"));
+                list.add(book);
+            }
+            while(resultSet.next());
+            return list;
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+        return null;
+    }
+
 }
