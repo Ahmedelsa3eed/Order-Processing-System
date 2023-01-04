@@ -10,8 +10,8 @@ public class DatabaseInstance {
 
 
     private static String user_name = "root";
-    
-    private static String pass = "mysql@5382";
+
+    private static String pass = "12345";
 
     private static String url = "jdbc:mysql://localhost:3306/bookstore";
 

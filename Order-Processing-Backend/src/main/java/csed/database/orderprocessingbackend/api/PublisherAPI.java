@@ -41,5 +41,14 @@ public class PublisherAPI {
         return new ResponseEntity<>(publisherService.deletePublisher(name));
     }
 
+    @GetMapping("/getPublisherByISBN")
+    public ResponseEntity<Publisher> getPublisherByISBN(@RequestParam Long ISBN){
+        Publisher p = publisherService.getPublisherByISBN(ISBN);
+        if (p != null){
+            return new ResponseEntity<>(p, HttpStatus.OK);
+        }
+        return new ResponseEntity<>(null, HttpStatus.NOT_ACCEPTABLE);
+    }
+
 
 }

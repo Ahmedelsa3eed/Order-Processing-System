@@ -4,6 +4,7 @@ package csed.database.orderprocessingbackend.service;
 import csed.database.orderprocessingbackend.dao.DatabaseInstance;
 import csed.database.orderprocessingbackend.model.Publisher;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import javax.xml.transform.Result;
@@ -95,6 +96,28 @@ public class PublisherService {
             e.printStackTrace();
         }
         return HttpStatus.NOT_ACCEPTABLE;
+    }
+
+    public Publisher getPublisherByISBN(Long ISBN) {
+        String query = "SELECT * FROM Publishers as p JOIN books as b on p.publisher_id = b.publisher_id "
+                + "WHERE b.ISBN = " + ISBN.toString();
+        System.out.println(query);
+        try{
+            ResultSet resultSet = instance.executeQuery(query);
+            if(!resultSet.next()){
+                return null;
+            }
+            Publisher p = new Publisher();
+            p.setAddress(resultSet.getString("address"));
+            p.setName(resultSet.getString("name"));
+            p.setPhone_number(resultSet.getString("phone_number"));
+            p.setPublisher_id(resultSet.getLong("publisher_id"));
+            return p;
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+        return null;
     }
 
 }
