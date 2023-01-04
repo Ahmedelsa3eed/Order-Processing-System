@@ -18,6 +18,8 @@ import { BooksPageComponent } from './components/books-page/books-page.component
 import { OrdersPageComponent } from './components/orders-page/orders-page.component';
 import { PublisherComponent } from './components/publisher/publisher.component';
 import { AuthorComponent } from './components/author/author.component';
+import { AccountsPageComponent } from './components/accounts-page/accounts-page.component';
+import { AccountComponent } from './components/account/account.component';
 
 
 @NgModule({
@@ -33,6 +35,8 @@ import { AuthorComponent } from './components/author/author.component';
     OrdersPageComponent,
     PublisherComponent,
     AuthorComponent,
+    AccountsPageComponent,
+    AccountComponent,
   ],
   imports: [
     BrowserModule,
