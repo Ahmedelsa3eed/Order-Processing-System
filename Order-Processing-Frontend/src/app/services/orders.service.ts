@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { OrderToPlace } from '../DTOs/OrderToPlace';
 import { Order } from '../models/Order';
@@ -24,9 +25,7 @@ export class OrdersService {
     });
   }
 
-  getAllOrders(){
-    return this.httpClient.get<Order[]>(environment.baseUrl + '/orders/manager/GetAllOrders', {
-      params: {sessionId: this.signInOutService.getSignedInUserSessionID()},
-    });
+  getAllOrders() : Observable<any> {
+    return this.httpClient.get<any>(environment.baseUrl + '/orders/manager/GetAllOrders');
   }
 }

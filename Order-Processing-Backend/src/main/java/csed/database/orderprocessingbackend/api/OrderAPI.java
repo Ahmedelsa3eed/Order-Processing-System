@@ -1,8 +1,10 @@
 package csed.database.orderprocessingbackend.api;
 
+import csed.database.orderprocessingbackend.model.Book;
 import csed.database.orderprocessingbackend.model.Order;
 import csed.database.orderprocessingbackend.model.Requests.OrderRequest;
 import csed.database.orderprocessingbackend.service.OrderService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,12 +21,16 @@ public class OrderAPI {
     }
 
     @GetMapping("/manager/GetAllOrders")
-    public List<Order> addBook() {
-        return orderService.GetAllOrder();
+    public ResponseEntity<List<Order>> getAllOrders() {
+        List<Order> list = orderService.GetAllOrders();
+        if (list == null){
+            return new ResponseEntity<>(list, HttpStatus.EXPECTATION_FAILED);
+        }
+        return new ResponseEntity<>(list, HttpStatus.OK);
     }
 
     @PostMapping("/manager/orderBook")
-    public ResponseEntity<?> addBook(@RequestBody OrderRequest orderRequest) {
+    public ResponseEntity<?> addOrder(@RequestBody OrderRequest orderRequest) {
         return new ResponseEntity<>(orderService.addOrder(orderRequest));
     }
 
