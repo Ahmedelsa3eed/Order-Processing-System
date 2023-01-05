@@ -70,4 +70,16 @@ public class CartService {
             return false;
         }
     }
+
+    public Boolean deleteAllCartItem(String sessionId) {
+        Long userId = this.userService.getUserIdFromSessionId(sessionId);
+        try {
+            this.cartDAO.deleteAll(userId);
+            return true;
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 }

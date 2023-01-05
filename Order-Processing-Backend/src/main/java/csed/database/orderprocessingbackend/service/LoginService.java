@@ -1,12 +1,12 @@
 package csed.database.orderprocessingbackend.service;
 
+import csed.database.orderprocessingbackend.dao.CartDAO;
 import csed.database.orderprocessingbackend.dao.DatabaseInstance;
 import csed.database.orderprocessingbackend.model.User;
 import org.springframework.stereotype.Service;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.UUID;
 
 @Service
 public class LoginService {
@@ -60,6 +60,14 @@ public class LoginService {
 
     public void logout(String sessionId) {
         ActiveUserService activeUserService = ActiveUserService.getInstance();
+        try {
+            CartDAO cartDAO = new CartDAO();
+            CartService cartService = new CartService(cartDAO);
+            cartService.deleteAllCartItem(sessionId);
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
         activeUserService.logout(sessionId);
     }
 
