@@ -8,8 +8,8 @@
     >
         Add Book
     </button>
-    <button class="btn btn-primary my-3 mx-3" type="button" data-bs-toggle="modal" data-bs-target="#addBookAuthorModal">Add Book Author</button>
-    <button class="btn btn-primary my-3 mx-3" type="button" data-bs-toggle="modal" data-bs-target="#deleteBookAuthorModal">Delete Book Author</button>
+    <button *ngIf="signedInUserType == 'manager'" class="btn btn-primary my-3 mx-3" type="button" data-bs-toggle="modal" data-bs-target="#addBookAuthorModal">Add Book Author</button>
+    <button *ngIf="signedInUserType == 'manager'" class="btn btn-primary my-3 mx-3" type="button" data-bs-toggle="modal" data-bs-target="#deleteBookAuthorModal">Delete Book Author</button>
     <button class="btn btn-primary my-3 mx-3" type="button" data-bs-toggle="modal" data-bs-target="#findBookModal">Find Book</button>
     <button class="btn btn-primary my-3 mx-3" type="button" (click)="getPreviousPage()">Previous Page</button>
     <button class="btn btn-primary my-3 mx-3" type="button" (click)="getNextPage()">Next Page</button>
