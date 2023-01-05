@@ -38,7 +38,7 @@ export class OrdersPageComponent implements OnInit {
   
   fillOrderToView() {
     for(let i = 0; i<this.orders.length; i++){
-      this.getBookTitle(this.orders[i].isbn);
+      this.getBookTitle(this.orders[i].isbn, i);
     }
   }
 
@@ -47,12 +47,12 @@ export class OrdersPageComponent implements OnInit {
     document.getElementById('openConfirmOrderBtn')?.click();
   }
 
-  getBookTitle(bookISBN:number){
+  getBookTitle(bookISBN:number, index: number){
     let book : Book = new Book();
     this.booksService.getBookByISBN(bookISBN).subscribe(
       (response) => {
         book = response;
-        this.ordersToView[this.counter].title = book.title;
+        this.ordersToView[index].title = book.title;
         this.counter++;
       },
       (err) => {
