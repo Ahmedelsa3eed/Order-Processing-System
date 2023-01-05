@@ -1,3 +1,4 @@
+import { CartService } from './../../services/cart.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Book } from 'src/app/models/Book';
@@ -15,8 +16,6 @@ import { SignInOutService } from 'src/app/services/sign-in-out.service';
 })
 export class BooksPageComponent implements OnInit {
 
-  constructor(private signInOutService: SignInOutService, private booksService: BooksService, private ordersService: OrdersService, private publisherService: PublisherService) { }
-
   books: Book[] = [];
   publishers: Publisher[] = [];
   bookToDeleteISBN: number = -1;
@@ -32,6 +31,13 @@ export class BooksPageComponent implements OnInit {
   searchInput: string = "";
   signedInUserType: string = this.signInOutService.getSignedInUserType();
 
+  constructor(
+    private signInOutService: SignInOutService, 
+    private booksService: BooksService, 
+    private ordersService: OrdersService, 
+    private publisherService: PublisherService,
+    private cartService: CartService) { }
+  
   ngOnInit(): void {
     this.publisherService.getAll().subscribe({
       next: (publishers) => {
@@ -213,6 +219,16 @@ export class BooksPageComponent implements OnInit {
         this.books[index].publisher = publisher;
       },
       error: (err) => alert(err),
+    })
+  }
+
+  addToCart(isbn: number) {
+    this.cartService.addToCart(isbn).subscribe({
+      next: (res) => {
+        if (res == true) {
+          window.alert("Book added to cart");
+        }
+      }
     })
   }
 

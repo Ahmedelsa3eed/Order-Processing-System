@@ -36,6 +36,12 @@
             class="col-13 bi bi-bag icon text-success"
             (click)="openOrderBookModal(book.isbn, book.title)"
         ></i>
+        <i
+            *ngIf="signedInUserType == 'customer'"
+            class="col-14 bi bi-bag-plus-fill text-success"
+            style="cursor: pointer;"
+            (click)="addToCart(book.isbn)"
+        ></i>
     </div>
 </div>
 

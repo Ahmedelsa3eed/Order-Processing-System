@@ -21,6 +21,7 @@ import { AuthorComponent } from './components/author/author.component';
 import { AccountsPageComponent } from './components/accounts-page/accounts-page.component';
 import { AccountComponent } from './components/account/account.component';
 import { SettingsComponent } from './components/settings/settings.component';
+import { CheckoutComponent } from './components/checkout/checkout.component';
 
 
 @NgModule({
@@ -39,6 +40,7 @@ import { SettingsComponent } from './components/settings/settings.component';
     AccountsPageComponent,
     AccountComponent,
     SettingsComponent,
+    CheckoutComponent,
   ],
   imports: [
     BrowserModule,

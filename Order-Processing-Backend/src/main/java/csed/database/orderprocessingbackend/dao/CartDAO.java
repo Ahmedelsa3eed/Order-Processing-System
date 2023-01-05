@@ -1,6 +1,7 @@
 package csed.database.orderprocessingbackend.dao;
 
-import csed.database.orderprocessingbackend.model.CartItem;
+import csed.database.orderprocessingbackend.model.cart.Cart;
+import csed.database.orderprocessingbackend.model.cart.CartItem;
 import org.springframework.stereotype.Repository;
 
 import java.sql.ResultSet;
@@ -35,8 +36,10 @@ public class CartDAO {
         return cartItems;
     }
 
-    public void save(CartItem cartItem) {
-        // TODO
+    public void save(Cart cart) throws SQLException {
+        String addToCartQuery = "INSERT INTO Cart (ISBN, user_id, quantity, confirmed) VALUES (" +
+                cart.getISBN() + ", " + cart.getUserId() + ", " + cart.getQuantity() + ", " + cart.getConfirmed() + ")";
+        this.DBInstance.executeUpdate(addToCartQuery);
     }
 
     public void updateQuantity(Long userId, Long ISBN, Integer quantity) throws SQLException {

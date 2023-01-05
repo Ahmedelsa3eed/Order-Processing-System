@@ -49,5 +49,17 @@ export class CartService {
       responseType: 'json',
     });
   }
+
+  public addToCart(ISBN: number) {
+    let sessionId = this.userService.getSignedInUserSessionID();
+    return this.http.post(this.url + '/addToCart', {}, {
+      observe: 'body',
+      params: {
+        sessionId: sessionId,
+        ISBN: ISBN,
+      },
+      responseType: 'json',
+    });
+  }
   
 }
