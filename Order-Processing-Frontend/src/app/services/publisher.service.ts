@@ -35,4 +35,13 @@ export class PublisherService {
       },
     });
   }
+
+  getPublisherFromTo(from:number, to:number){
+    return this.httpClient.get<any>(environment.baseUrl + '/Publisher/getFromTo', {
+      params: {
+        from: from,
+        to: to,
+      },
+    });
+  }
 }
