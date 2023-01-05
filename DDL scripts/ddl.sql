@@ -66,7 +66,7 @@ CREATE TABLE `Book_Authors` (
 );
 
 CREATE TABLE `Cart` (
-  `checkout_id` Not NUll,
+  `checkout_id` Not NUll AUTO_INCREMENT,
   `ISBN` bigint Not Null,
   `user_id` bigint Not Null,
   `quantity` int Not Null,
