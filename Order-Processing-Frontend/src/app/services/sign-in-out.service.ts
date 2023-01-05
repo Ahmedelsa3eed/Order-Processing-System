@@ -23,13 +23,13 @@ export class SignInOutService {
     }
 
     public signOut(): Observable<any> {
+        let observable = this.httpClient.put(environment.baseUrl + '/logIn/logout', {}, { 
+            params: { 
+                sessionID: this.cookieService.get('session_id') 
+            } 
+        });
         this.cookieService.deleteAll('/', '', true, 'Strict');
-        return this.httpClient
-        .put(
-            environment.baseUrl + '/logIn/logout',
-            {},
-            { params: { sessionID: this.cookieService.get('session_id') } }
-        );
+        return observable;
     }
 
     public forgotPassword(email: string): Observable<HttpResponse<any>> {
