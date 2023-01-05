@@ -6,6 +6,7 @@ import { BooksService } from 'src/app/services/books.service';
 import { OrdersService } from 'src/app/services/orders.service';
 import { PublisherService } from 'src/app/services/publisher.service';
 import { SignInOutService } from 'src/app/services/sign-in-out.service';
+import { CartService } from 'src/app/services/cart.service';
 
 @Component({
   selector: 'app-books-page',

@@ -28,23 +28,21 @@
         <div *ngIf="signedInUserType == 'manager'" class="col-10">Threshold: {{ book.threshold }}</div>
         <i
             *ngIf="signedInUserType == 'manager'"
-            class="col-11 bi bi-x-lg icon text-danger"
+            class="col-9 bi bi-x-lg icon text-danger"
             (click)="openDeleteBookModal(book.isbn)"
         ></i>
         <i
             *ngIf="signedInUserType == 'manager'"
-            class="col-12 bi bi-pencil icon text-primary"
+            class="col-10 bi bi-pencil icon text-primary"
             (click)="openEditBookModal(book)"
         ></i>
         <i
             *ngIf="signedInUserType == 'manager'"
-            class="col-13 bi bi-bag icon text-success"
+            class="col-11 bi bi-bag icon text-success"
             (click)="openOrderBookModal(book.isbn, book.title)"
         ></i>
         <i
-            *ngIf="signedInUserType == 'customer'"
-            class="col-14 bi bi-bag-plus-fill text-success"
-            style="cursor: pointer;"
+            class="col-12 bi bi-bag-plus-fill icon text-success"
             (click)="addToCart(book.isbn)"
         ></i>
     </div>
