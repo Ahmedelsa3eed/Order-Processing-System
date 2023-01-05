@@ -1,5 +1,6 @@
 package csed.database.orderprocessingbackend.api;
 import csed.database.orderprocessingbackend.model.Author;
+import csed.database.orderprocessingbackend.model.Publisher;
 import csed.database.orderprocessingbackend.service.AuthorService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -38,5 +39,14 @@ public class AuthorAPI {
     @DeleteMapping("/manager/deleteAuthor")
     public ResponseEntity<?> deleteAuthor(@RequestParam("author_id") Long author_id){
         return new ResponseEntity<>(authorService.deleteAuthor(author_id));
+    }
+
+    @GetMapping("/getAuthorByISBN")
+    public ResponseEntity<List<Author>> getPublisherByISBN(@RequestParam Long ISBN){
+        List<Author> a = authorService.getAuthorsByISBN(ISBN);
+        if (a != null){
+            return new ResponseEntity<>(a, HttpStatus.OK);
+        }
+        return new ResponseEntity<>(null, HttpStatus.NOT_ACCEPTABLE);
     }
 }
