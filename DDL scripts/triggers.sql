@@ -20,11 +20,11 @@ BEGIN
 END$$
 
 CREATE TRIGGER remove_item_from_cart
-BEFORE UPDATE ON cart
+BEFORE DELETE ON cart
 FOR EACH ROW
 BEGIN
-    IF NEW.quantity = 0 THEN
-        DELETE FROM cart WHERE user_id = NEW.user_id AND isbn = NEW.isbn;
+    IF OLD.confirmed = 1 THEN
+		UPDATE books SET books.quantity = books.quantity - OLD.quantity WHERE books.ISBN = OLD.ISBN;
     END IF;
 END;
 
@@ -48,27 +48,3 @@ BEGIN
   SET quantity = quantity + OLD.quantity
   WHERE ISBN = OLD.ISBN;
 END$$
-
-/*
-
-we probably dont need those since the order is for the manager
-to be checked later
-
-CREATE TRIGGER add_to_shopping_cart_trigger
-AFTER INSERT ON Shopping_cart
-FOR EACH ROW
-BEGIN
-  UPDATE Books
-  SET quantity = quantity - NEW.quantity
-  WHERE ISBN = NEW.ISBN;
-END$$
-
-CREATE TRIGGER remove_from_shopping_cart_trigger
-AFTER DELETE ON Shopping_cart
-FOR EACH ROW
-BEGIN
-  UPDATE Books
-  SET quantity = quantity + OLD.quantity
-  WHERE ISBN = OLD.ISBN;
-END$$
-*/

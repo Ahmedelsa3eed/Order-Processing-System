@@ -1,7 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Book } from 'src/app/models/Book';
-import { Order } from 'src/app/models/Order';
+import { OrderToPlace } from 'src/app/DTOs/OrderToPlace';
 import { BooksService } from 'src/app/services/books.service';
 import { OrdersService } from 'src/app/services/orders.service';
 import { Publisher } from 'src/app/models/Publisher';
@@ -26,6 +26,10 @@ export class BooksPageComponent implements OnInit {
   orderBookLoading: boolean = false;
   editBookLoading: boolean = false;
   addBookLoading: boolean = false;
+  findBookCriteriaInputValue: string = "Select Criteria";
+  findBookFirstNameInput: string = "";
+  findBookLastNameInput: string = "";
+  searchInput: string = "";
   signedInUserType: string = this.signInOutService.getSignedInUserType();
 
   ngOnInit(): void {
@@ -102,15 +106,17 @@ export class BooksPageComponent implements OnInit {
   onOrderBook(quanitty: string){
     this.orderBookLoading = true;
 
-    let order : Order = new Order();
-    order.ISBN = this.bookToOrderISBN;
-    order.quantity = parseInt(quanitty);
+    let orderToPlace : OrderToPlace = new OrderToPlace();
+    orderToPlace.ISBN = this.bookToOrderISBN;
+    console.log("ISBN of book sent is " + orderToPlace.ISBN);
+    orderToPlace.quantity = parseInt(quanitty);
 
-    this.ordersService.orderBook(order).subscribe(()=>{
+    this.ordersService.orderBook(orderToPlace).subscribe(()=>{
       this.orderBookLoading = false;
       document.getElementById('closeOrderBookBtn')?.click();
       window.location.reload();
     });
+    console.log("ISBN of book sent is " + orderToPlace.ISBN);
   }
 
   onEditBook(title: string, publisher_id: string, pubYear: string, price: string, category: string, quantity: string, threshold: string) {
@@ -133,6 +139,57 @@ export class BooksPageComponent implements OnInit {
           alert('Something is wrong, editing the book!');
       }
     );
+  }
+
+  onFindBook() {
+    if(this.findBookCriteriaInputValue == "Select Criteria") {
+      this.booksService.getAllBooks().subscribe({
+        next: (books) => {
+          this.books = books;
+        },
+        error: (err) => alert(err),
+      });
+    }else if(this.findBookCriteriaInputValue == "isbn") {
+      this.booksService.getBookByISBN(Number(this.searchInput)).subscribe(
+        (book) => {
+          this.books = [];
+          this.books.push(book);
+        },
+        (err) => { alert(err); }
+      )
+    }else if(this.findBookCriteriaInputValue == "publishers") {
+      this.booksService.findBooksByPublisherName(this.searchInput).subscribe({
+        next: (books) => {
+          this.books = books;
+        },
+        error: (err) => alert(err),
+      });
+    }else if(this.findBookCriteriaInputValue == "authors") {
+      //todo
+    }else {
+      this.booksService.findBooksByAttribute(this.findBookCriteriaInputValue, this.searchInput).subscribe({
+        next: (books) => {
+          this.books = books;
+        },
+        error: (err) => alert(err),
+      });
+    }
+  }
+
+  changeCriteria(findBookCriteriaInputValue: string) {
+    this.findBookCriteriaInputValue = findBookCriteriaInputValue;
+  }
+
+  setFirstName(findBookFirstNameInput: string) {
+    this.findBookFirstNameInput = findBookFirstNameInput;
+  }
+
+  setLastName(findBookLastNameInput: string) {
+    this.findBookLastNameInput = findBookLastNameInput;
+  }
+
+  setSearchInput(searchInput: string) {
+    this.searchInput = searchInput;
   }
 
 }

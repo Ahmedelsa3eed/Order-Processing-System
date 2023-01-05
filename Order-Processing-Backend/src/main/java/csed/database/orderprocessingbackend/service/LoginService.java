@@ -18,7 +18,7 @@ public class LoginService {
     }
 
     public String logIn(String email, String password) {
-        String query = "SELECT email, type, user_id, password FROM users as u WHERE u.email = '" + email + "'";
+        String query = "SELECT email, type, user_id, password FROM Users as u WHERE u.email = '" + email + "'";
         System.out.println(query);
         try {
             ResultSet resultSet = instance.executeQuery(query);
@@ -42,7 +42,7 @@ public class LoginService {
     public User getUser(String sessionID) {
         String email = ActiveUserService.getInstance().getEmailFromSessionId(sessionID);
         if (email == null) {return null;}
-        String query = "SELECT * from users as u WHERE u.email = '" + email + "'";
+        String query = "SELECT * from Users as u WHERE u.email = '" + email + "'";
         System.out.println(query);
         try {
             ResultSet resultSet = instance.executeQuery(query);

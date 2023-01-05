@@ -18,6 +18,15 @@ public class BookAPI {
         this.bookService = bookService;
     }
 
+    @GetMapping("/getBookByISBN")
+    public ResponseEntity<Book> getBookByISBN(@RequestParam Long ISBN){
+        Book book = bookService.getBookByISBN(ISBN);
+        if (book == null){
+            return new ResponseEntity<>(book, HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(book, HttpStatus.OK);
+    }
+
     @GetMapping("/getAllBooks")
     public ResponseEntity<List<Book>> getAllBooks(){
         List<Book> list = bookService.getAllBooks();
@@ -40,6 +49,24 @@ public class BookAPI {
     @PutMapping("/manager/editBook")
     public ResponseEntity<?> editBook(@RequestBody Book book) {
         return new ResponseEntity<>(bookService.editBook(book));
+    }
+
+    @GetMapping("/findBooksByAttribute")
+    public ResponseEntity<List<Book>> findBooksByAttribute(@RequestParam String criteria, @RequestParam String searchInput){
+        List<Book> list = bookService.findBooksByAttribute(criteria, searchInput);
+        if (list == null){
+            return new ResponseEntity<>(list, HttpStatus.EXPECTATION_FAILED);
+        }
+        return new ResponseEntity<>(list, HttpStatus.OK);
+    }
+
+    @GetMapping("/findBooksByPublisherName")
+    public ResponseEntity<List<Book>> findBooksByPublisherName(@RequestParam String name){
+        List<Book> list = bookService.findBooksByPublisherName(name);
+        if (list == null){
+            return new ResponseEntity<>(list, HttpStatus.EXPECTATION_FAILED);
+        }
+        return new ResponseEntity<>(list, HttpStatus.OK);
     }
 
 }

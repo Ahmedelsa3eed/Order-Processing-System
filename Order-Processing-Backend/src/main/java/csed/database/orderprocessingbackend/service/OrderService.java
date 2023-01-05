@@ -1,9 +1,11 @@
 package csed.database.orderprocessingbackend.service;
 
 import csed.database.orderprocessingbackend.dao.DatabaseInstance;
+import csed.database.orderprocessingbackend.model.Book;
 import csed.database.orderprocessingbackend.model.Order;
 import csed.database.orderprocessingbackend.model.Requests.OrderRequest;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.sql.ResultSet;
@@ -20,7 +22,7 @@ public class OrderService {
         this.instance = DatabaseInstance.getInstance();
     }
 
-    public List<Order> GetAllOrder() {
+    public List<Order> GetAllOrders() {
         String query = "SELECT * FROM orders";
 
         try {
@@ -31,8 +33,8 @@ public class OrderService {
             }
             do {
                 Order order = new Order();
-                order.setOrder_id(rs.getLong("order_id"));
-                order.setBook_ISBN(rs.getLong("ISBN"));
+                order.setOrderId(rs.getLong("order_id"));
+                order.setISBN(rs.getLong("ISBN"));
                 order.setQuantity(rs.getInt("quantity"));
                 list.add(order);
             }

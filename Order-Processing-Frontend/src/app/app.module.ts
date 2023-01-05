@@ -13,10 +13,14 @@ import { SignInOutService } from './services/sign-in-out.service';
 import { CookieService } from 'ngx-cookie-service';
 import { HomeComponent } from './components/home/home.component';
 import { NavigationBarComponent } from './components/navigation-bar/navigation-bar.component';
+import { RegistrationComponent } from './components/registration/registration.component';
 import { BooksPageComponent } from './components/books-page/books-page.component';
 import { OrdersPageComponent } from './components/orders-page/orders-page.component';
 import { PublisherComponent } from './components/publisher/publisher.component';
 import { AuthorComponent } from './components/author/author.component';
+import { AccountsPageComponent } from './components/accounts-page/accounts-page.component';
+import { AccountComponent } from './components/account/account.component';
+import { SettingsComponent } from './components/settings/settings.component';
 
 
 @NgModule({
@@ -27,10 +31,14 @@ import { AuthorComponent } from './components/author/author.component';
     SignInComponent,
     HomeComponent,
     NavigationBarComponent,
+    RegistrationComponent,
     BooksPageComponent,
     OrdersPageComponent,
     PublisherComponent,
     AuthorComponent,
+    AccountsPageComponent,
+    AccountComponent,
+    SettingsComponent,
   ],
   imports: [
     BrowserModule,
@@ -38,7 +46,6 @@ import { AuthorComponent } from './components/author/author.component';
     FontAwesomeModule,
     HttpClientModule,
     FormsModule,
-    HttpClientModule,
     ReactiveFormsModule,
     CommonModule,
   ],
