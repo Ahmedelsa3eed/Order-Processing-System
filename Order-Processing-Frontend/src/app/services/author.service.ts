@@ -22,11 +22,21 @@ export class AuthorService {
     return this.httpClient.get<any>(environment.baseUrl + '/Author/getAllAuthor');
   }
 
+  getAuthorsFromTo(from:number, to:number) {
+    return this.httpClient.get<any>(environment.baseUrl + '/Author/getFromTo', {
+      params: {
+        from: from,
+        to: to,
+      },
+    });
+  }
+
   editAuthor(author:Author): Observable<any>{
     return this.httpClient.put<any>(environment.baseUrl+'/Author/manager/editAuthor', author, {
       params: {sessionId: this.signInOutService.getSignedInUserSessionID()},
     });
   }
+
   deleteAuthor(authorId:number): Observable<any>{
     return this.httpClient.delete<any>(environment.baseUrl+'/Author/manager/deleteAuthor', {
       params: {

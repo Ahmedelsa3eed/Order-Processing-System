@@ -107,6 +107,32 @@ public class AuthorService {
         return HttpStatus.NOT_ACCEPTABLE;
     }
 
+    public List<Author> getFromTo(int from, int to) {
+        String query = "SELECT * FROM authors limit " + (to-from) + " offset " + from;
+        try {
+            List<Author> list = new ArrayList<>();
+            ResultSet resultSet = instance.executeQuery(query);
+            if (!resultSet.next()){
+                return list;
+            }
+            do {
+                Author author = new Author();
+                author.setAddress(resultSet.getString("address"));
+                author.setFirst_name(resultSet.getString("first_name"));
+                author.setLast_name(resultSet.getString("last_name"));
+                author.setPhone_number(resultSet.getString("phone_number"));
+                author.setAuthor_id(resultSet.getLong("author_id"));
+                list.add(author);
+            }
+            while(resultSet.next());
+            return list;
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     public List<Author> getAuthorsByISBN(Long isbn) {
         String query = "SELECT * FROM book_authors NATURAL JOIN authors WHERE book_authors.isbn = " + isbn;
         try {

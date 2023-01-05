@@ -21,7 +21,7 @@ export class PublisherComponent implements OnInit {
   addPublisherLoading: boolean = false;
   signedInUserType: string = this.signInOutService.getSignedInUserType();
   pageNum: number = 0;
-  pubPerPage = 3;
+  pubPerPage = 17;
 
   ngOnInit(): void {
     console.log(this.signInOutService.getSignedInUserSessionID());
