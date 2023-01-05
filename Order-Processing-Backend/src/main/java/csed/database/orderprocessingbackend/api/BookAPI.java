@@ -69,4 +69,13 @@ public class BookAPI {
         return new ResponseEntity<>(list, HttpStatus.OK);
     }
 
+    @GetMapping("/findBooksByAuthorName")
+    public ResponseEntity<List<Book>> findBooksByAuthorName(@RequestParam String first_name, @RequestParam String last_name){
+        List<Book> list = bookService.findBooksByAuthorName(first_name, last_name);
+        if (list == null){
+            return new ResponseEntity<>(list, HttpStatus.EXPECTATION_FAILED);
+        }
+        return new ResponseEntity<>(list, HttpStatus.OK);
+    }
+
 }

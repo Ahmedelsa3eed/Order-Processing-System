@@ -19,6 +19,7 @@
         <div class="col-10">Publication year: {{ book.publication_year }}</div>
         <div class="col-10">Price: {{ book.price }}$</div>
         <div class="col-10">Available: {{ book.quantity }}</div>
+        <div class="col-10">Publisher: {{ book.publisher.name }}</div>
         <div *ngIf="signedInUserType == 'manager'" class="col-10">Threshold: {{ book.threshold }}</div>
         <i
             *ngIf="signedInUserType == 'manager'"
