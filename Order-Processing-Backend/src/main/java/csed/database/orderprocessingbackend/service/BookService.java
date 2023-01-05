@@ -102,6 +102,8 @@ public class BookService {
                 + "'" + book.getTitle() + "'"
                 + ", books.publisher_id = "
                 + book.getPublisher_id().toString()
+                + ", books.isbn = "
+                + book.getISBN().toString()
                 + ", books.publication_year = "
                 + book.getPublication_year().toString()
                 + ", books.price = "
@@ -197,7 +199,7 @@ public class BookService {
     }
 
     public List<Book> findBooksByAuthorName(String first_name, String last_name) {
-        String query = "SELECT * FROM books as b where b.isbn in ( select ba.isbn from book_authors as ba join authors as a on ba.author_id = a.author_id where a.first_name = '" + first_name + "' and a.last_name = '" + last_name + "' )";
+        String query = "SELECT * FROM books as b where b.isbn in ( select ba.isbn from book_authors as ba join authors as a on ba.author_id = a.author_id where a.first_name = '" + first_name + "' or a.last_name = '" + last_name + "' )";
         System.out.println(query);
         try {
             List<Book> list = new ArrayList<>();

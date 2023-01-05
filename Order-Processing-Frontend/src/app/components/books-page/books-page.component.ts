@@ -18,7 +18,6 @@ export class BooksPageComponent implements OnInit {
   constructor(private signInOutService: SignInOutService, private booksService: BooksService, private ordersService: OrdersService, private publisherService: PublisherService) { }
 
   books: Book[] = [];
-  publishers: Publisher[] = [];
   bookToDeleteISBN: number = -1;
   bookToOrderISBN: number = -1;
   bookToEdit: Book = new Book();
@@ -35,16 +34,11 @@ export class BooksPageComponent implements OnInit {
   signedInUserType: string = this.signInOutService.getSignedInUserType();
 
   ngOnInit(): void {
-    this.publisherService.getAll().subscribe({
-      next: (publishers) => {
-        this.publishers = publishers;
-      },
-      error: (err) => alert(err), 
-    });
     this.booksService.getBooksFromTo(0, this.booksPerPage).subscribe({
       next: (books) => {
         this.books = books;
-        this.getBooksPublisher()
+        this.getBooksPublisher();
+        this.getBooksAuthors();
       },
       error: (err) => alert(err),
     });
@@ -81,10 +75,10 @@ export class BooksPageComponent implements OnInit {
 
   openEditBookModal(book: Book) {
     this.bookToEdit = book;
-    console.log(book);
     document.getElementById('openEditBookBtn')?.click();
     document.getElementById('editBookTitleInput')?.setAttribute('value', book.title);
     document.getElementById('editBookISBNInput')?.setAttribute('value', String(book.isbn));
+    document.getElementById('editBookPublisherInput')?.setAttribute('value', String(book.publisher.publisher_id));
     document.getElementById('editBookPubYearInput')?.setAttribute('value', String(book.publication_year));
     document.getElementById('editBookPriceInput')?.setAttribute('value', String(book.price));
     document.getElementById('editBookQuantityInput')?.setAttribute('value', String(book.quantity));
@@ -122,9 +116,10 @@ export class BooksPageComponent implements OnInit {
     console.log("ISBN of book sent is " + orderToPlace.ISBN);
   }
 
-  onEditBook(title: string, publisher_id: string, pubYear: string, price: string, category: string, quantity: string, threshold: string) {
+  onEditBook(title: string, isbn: string, publisher_id: string, pubYear: string, price: string, category: string, quantity: string, threshold: string) {
     this.editBookLoading = true;
     this.bookToEdit.title = title;
+    this.bookToEdit.isbn = Number(isbn);
     this.bookToEdit.publisher_id = Number(publisher_id);
     this.bookToEdit.publication_year = Number(pubYear);
     this.bookToEdit.price = Number(price);
@@ -160,6 +155,22 @@ export class BooksPageComponent implements OnInit {
     })
   }
 
+  getBooksAuthors() {
+    for (let i = 0; i < this.books.length; i++)
+    {
+      this.getAuthorsByISBN(i);
+    }
+  }
+
+  getAuthorsByISBN(index: number) {
+    this.booksService.getAuthorsByISBN(this.books[index].isbn).subscribe({
+      next: (authors) => {
+        this.books[index].authors = authors;
+      },
+      error: (err) => {},
+    })
+  }
+
   onFindBook() {
     if(this.findBookCriteriaInputValue == "Select Criteria") {
     }else if(this.findBookCriteriaInputValue == "isbn") {
@@ -168,7 +179,8 @@ export class BooksPageComponent implements OnInit {
           this.books = [];
           this.books.push(book);
           document.getElementById('closeFindBookBtn')?.click();
-          this.getBooksPublisher()
+          this.getBooksPublisher();
+          this.getBooksAuthors();
         },
         (err) => { alert(err); }
       )
@@ -177,7 +189,8 @@ export class BooksPageComponent implements OnInit {
         next: (books) => {
           this.books = books;
           document.getElementById('closeFindBookBtn')?.click();
-          this.getBooksPublisher()
+          this.getBooksPublisher();
+          this.getBooksAuthors();
         },
         error: (err) => alert(err),
       });
@@ -186,7 +199,8 @@ export class BooksPageComponent implements OnInit {
         next: (books) => {
           this.books = books;
           document.getElementById('closeFindBookBtn')?.click();
-          this.getBooksPublisher()
+          this.getBooksPublisher();
+          this.getBooksAuthors();
         },
         error: (err) => alert(err),
       });
@@ -196,6 +210,7 @@ export class BooksPageComponent implements OnInit {
           this.books = books;
           document.getElementById('closeFindBookBtn')?.click();
           this.getBooksPublisher()
+          this.getBooksAuthors();
         },
         error: (err) => alert(err),
       });
@@ -209,7 +224,8 @@ export class BooksPageComponent implements OnInit {
     this.booksService.getBooksFromTo(this.pageNum * this.booksPerPage, (this.pageNum + 1) * this.booksPerPage).subscribe({
       next: (books) => {
         this.books = books;
-        this.getBooksPublisher()
+        this.getBooksPublisher();
+        this.getBooksAuthors();
       },
       error: (err) => alert(err),
     });
@@ -222,7 +238,8 @@ export class BooksPageComponent implements OnInit {
     this.booksService.getBooksFromTo(this.pageNum * this.booksPerPage, (this.pageNum + 1) * this.booksPerPage).subscribe({
       next: (books) => {
         this.books = books;
-        this.getBooksPublisher()
+        this.getBooksPublisher();
+        this.getBooksAuthors();
       },
       error: (err) => alert(err),
     });

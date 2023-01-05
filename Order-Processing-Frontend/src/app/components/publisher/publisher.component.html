@@ -12,9 +12,10 @@
 
 <div *ngFor="let p of publishers" class="py-2 px-3 border-top">
     <div class="row">
-        <div class="col-10 h6">{{ p.name }}</div>
-        <div class="col-10 h6">{{ p.address }}</div>
-        <div class="col-10 h6">{{ p.phone_number }}</div>
+        <div class="col-10 h6">ID: {{ p.publisher_id }}</div>
+        <div class="col-10 h6">Name: {{ p.name }}</div>
+        <div class="col-10 h6">Address: {{ p.address }}</div>
+        <div class="col-10 h6">Phone: {{ p.phone_number }}</div>
         <i
             *ngIf="signedInUserType == 'manager'"
             class="col-11 bi bi-x-lg icon text-danger"
