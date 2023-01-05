@@ -66,11 +66,12 @@ CREATE TABLE `Book_Authors` (
 );
 
 CREATE TABLE `Cart` (
+  `checkout_id` Not NUll,
   `ISBN` bigint Not Null,
   `user_id` bigint Not Null,
   `quantity` int Not Null,
   `confirmed` bit Not Null,
-  PRIMARY KEY (`ISBN`, `user_id`),
+  PRIMARY KEY (`checkout_id`),
   FOREIGN KEY (`ISBN`) REFERENCES `Books`(`ISBN`)  on delete cascade on update cascade,
   FOREIGN KEY (`user_id`) REFERENCES `Users`(`user_id`) on delete cascade on update cascade
 );
