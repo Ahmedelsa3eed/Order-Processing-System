@@ -37,7 +37,7 @@ public class CartDAO {
     }
 
     public void save(Cart cart) throws SQLException {
-        String addToCartQuery = "INSERT INTO Cart (ISBN, user_id, quantity, confirmed) VALUES (" +
+        String addToCartQuery = "INSERT INTO cart VALUES (" +
                 cart.getISBN() + ", " + cart.getUserId() + ", " + cart.getQuantity() + ", " + cart.getConfirmed() + ")";
         this.DBInstance.executeUpdate(addToCartQuery);
     }
