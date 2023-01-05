@@ -78,4 +78,16 @@ export class BooksService {
     });
   }
 
+  addBookAuthor(ISBN: number, author_id: number): Observable<any> {
+    return this.httpClient.put(environment.baseUrl + '/books/manager/addBookAuthor', {}, {
+      params: { sessionId: this.signInOutService.getSignedInUserSessionID(), ISBN: ISBN, author_id: author_id },
+    });
+  }
+
+  deleteBookAuthor(ISBN: number, author_id: number): Observable<any> {
+    return this.httpClient.delete(environment.baseUrl + '/books/manager/deleteBookAuthor', {
+      params: { sessionId: this.signInOutService.getSignedInUserSessionID(), ISBN: ISBN, author_id: author_id },
+    });
+  }
+
 }

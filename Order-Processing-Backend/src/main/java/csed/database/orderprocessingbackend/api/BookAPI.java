@@ -87,4 +87,14 @@ public class BookAPI {
         return new ResponseEntity<>(list, HttpStatus.OK);
     }
 
+    @PutMapping("/manager/addBookAuthor")
+    public ResponseEntity<?> addBookAuthor(@RequestParam Long ISBN, @RequestParam Long author_id) {
+        return new ResponseEntity<>(bookService.addBookAuthor(ISBN, author_id));
+    }
+
+    @DeleteMapping("/manager/deleteBookAuthor")
+    public ResponseEntity<?> deleteBookAuthor(@RequestParam Long ISBN, @RequestParam Long author_id) {
+        return new ResponseEntity<>(bookService.deleteBookAuthor(ISBN, author_id));
+    }
+
 }

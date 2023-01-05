@@ -223,4 +223,32 @@ public class BookService {
         return null;
     }
 
+    public HttpStatus addBookAuthor(Long isbn, Long author_id) {
+        String query = "INSERT INTO book_authors VALUES (" + author_id.toString() + ", " + isbn.toString() + ")";
+        System.out.println(query);
+        try {
+            instance.executeUpdate(query);
+            return HttpStatus.OK;
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+        return HttpStatus.BAD_REQUEST;
+    }
+
+    public HttpStatus deleteBookAuthor(Long isbn, Long author_id) {
+        String query = "DELETE from book_authors as ba WHERE ba.isbn = " + isbn + " and ba.author_id = " + author_id;
+        System.out.println(query);
+        try {
+            int check = instance.executeUpdate(query);
+            if (check == 1) {
+                return HttpStatus.OK;
+            }
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+        return HttpStatus.NOT_ACCEPTABLE;
+    }
+
 }

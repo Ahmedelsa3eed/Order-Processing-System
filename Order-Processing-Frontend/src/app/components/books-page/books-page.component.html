@@ -241,3 +241,49 @@
         </div>
     </div>
 </div>
+
+<div class="modal" id="addBookAuthorModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Add Book Author</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <div class="modal-body">
+                <input #addBookAuthorISBNInput type="number" class="form-control mb-3" placeholder="Book ISBN"/>
+                <input #addBookAuthorIdInput type="number" class="form-control mb-3" placeholder="Author Id"/>
+            </div>
+
+            <div class="modal-footer">
+                <button id="closeAddBookAuthorBtn" type="button" class="btn btn-danger" data-bs-dismiss="modal">
+                    Close
+                </button>
+                <button type="submit" class="btn btn-primary" (click)="onAddBookAuthor(addBookAuthorISBNInput.value, addBookAuthorIdInput.value)">Add</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="deleteBookAuthorModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Delete Book Author</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <div class="modal-body">
+                <input #deleteBookAuthorISBNInput type="number" class="form-control mb-3" placeholder="Book ISBN"/>
+                <input #deleteBookAuthorIdInput type="number" class="form-control mb-3" placeholder="Author Id"/>
+            </div>
+
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-danger" (click)="onDeleteBookAuthor(deleteBookAuthorISBNInput.value, deleteBookAuthorIdInput.value)">Delete</button>
+                <button id="closeDeleteBookAuthorBtn" type="button" class="btn btn-primary" data-bs-dismiss="modal">
+                    Close
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

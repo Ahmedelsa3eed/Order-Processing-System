@@ -30,7 +30,7 @@ export class BooksPageComponent implements OnInit {
   findBookLastNameInput: string = "";
   searchInput: string = "";
   pageNum: number = 0;
-  booksPerPage: number = 23;
+  booksPerPage: number = 13;
   signedInUserType: string = this.signInOutService.getSignedInUserType();
 
   ngOnInit(): void {
@@ -135,6 +135,30 @@ export class BooksPageComponent implements OnInit {
       (error: HttpErrorResponse) => {
           this.editBookLoading = false;
           alert('Something is wrong, editing the book!');
+      }
+    );
+  }
+
+  onAddBookAuthor(isbn: string, author_id: string) {
+    this.booksService.addBookAuthor(Number(isbn), Number(author_id)).subscribe(
+      () => {
+          document.getElementById('closeAddBookAuthorBtn')?.click();
+          window.location.reload();
+      },
+      (error: HttpErrorResponse) => {
+          alert(error);
+      }
+    );
+  }
+
+  onDeleteBookAuthor(isbn: string, author_id: string) {
+    this.booksService.deleteBookAuthor(Number(isbn), Number(author_id)).subscribe(
+      () => {
+          document.getElementById('closeDeleteBookAuthorBtn')?.click();
+          window.location.reload();
+      },
+      (error: HttpErrorResponse) => {
+          alert(error);
       }
     );
   }
