@@ -14,8 +14,6 @@ import { SignInOutService } from 'src/app/services/sign-in-out.service';
 })
 export class BooksPageComponent implements OnInit {
 
-  constructor(private signInOutService: SignInOutService, private booksService: BooksService, private ordersService: OrdersService, private publisherService: PublisherService) { }
-
   books: Book[] = [];
   bookToDeleteISBN: number = -1;
   bookToOrderISBN: number = -1;
@@ -32,6 +30,13 @@ export class BooksPageComponent implements OnInit {
   findPageNum: number = 0;
   booksPerPage: number = 17;
   signedInUserType: string = this.signInOutService.getSignedInUserType();
+
+  constructor(
+    private signInOutService: SignInOutService,
+    private booksService: BooksService,
+    private ordersService: OrdersService,
+    private publisherService: PublisherService,
+    private cartService: CartService) { }
 
   ngOnInit(): void {
     this.booksService.getBooksFromTo(0, this.booksPerPage).subscribe({
@@ -294,6 +299,16 @@ export class BooksPageComponent implements OnInit {
 
   setSearchInput(searchInput: string) {
     this.searchInput = searchInput;
+  }
+
+  addToCart(isbn: number) {
+    this.cartService.addToCart(isbn).subscribe({
+      next: (res) => {
+        if (res == true) {
+          window.alert("Book added to cart");
+        }
+      }
+    })
   }
 
 }
