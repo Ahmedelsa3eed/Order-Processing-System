@@ -29,7 +29,8 @@
         <div class="spinner-border text-primary" style="width: 3rem; height: 3rem" role="status"></div>
     </div>
 </div>
-
+<button class="btn btn-primary my-3 mx-3" type="button" (click)="getPreviousPage()">Previous Page</button>
+<button class="btn btn-primary my-3 mx-3" type="button" (click)="getNextPage()">Next Page</button>
 <!-- Alert -->
 <div
     *ngIf="showAlert"
@@ -42,3 +43,4 @@
     <hr />
     <p class="mb-0">Please try again later.</p>
 </div>
+

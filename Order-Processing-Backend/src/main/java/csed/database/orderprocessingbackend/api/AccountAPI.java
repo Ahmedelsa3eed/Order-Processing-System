@@ -28,6 +28,11 @@ public class AccountAPI {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
+    @GetMapping("/fromTo")
+    public ResponseEntity<List<User>> getFromTo(@RequestParam int from, @RequestParam int to) {
+        return new ResponseEntity<>(accountService.getFromTo(from, to), HttpStatus.OK);
+    }
+
     @PutMapping("/changeUserType")
     @ResponseBody
     public ResponseEntity<Boolean> changeUserType(@RequestParam("userId") Long userId,

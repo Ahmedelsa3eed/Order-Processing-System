@@ -17,7 +17,8 @@ export class AccountsPageComponent implements OnInit {
   users?: Observable<User[]>;
   users$ = new BehaviorSubject<User[]>([]);
   public searchString: string = '';
-
+  pageNum: number = 0;
+  accountsPerPage: number = 4;
   constructor(private accountsService: AccountService) {}
 
   ngOnInit(): void {
@@ -28,7 +29,7 @@ export class AccountsPageComponent implements OnInit {
   private getAccounts() {
     this.isLoading = true;
     this.accountsService
-      .getAccounts()
+      .getAccountFromTo(0, this.accountsPerPage)
       .subscribe({
         next: (res) => {
           if (res.body) {
@@ -44,6 +45,42 @@ export class AccountsPageComponent implements OnInit {
       );
   }
   
+  getNextPage() {
+    if (this.users$.value.length < this.accountsPerPage){
+      return;
+    }
+    this.pageNum++;
+    this.accountsService.getAccountFromTo(this.pageNum * this.accountsPerPage, (this.pageNum + 1) * this.accountsPerPage).subscribe({
+      next: (res) => {
+        if (res.body){
+          this.isLoading = false;
+          this.users$.next(res.body);
+        }
+      },
+      error: (err) => {
+        this.isLoading = false;
+        this.showAlert = true;
+      }
+    });
+  }
+
+  getPreviousPage() {
+    if (this.pageNum == 0)
+      return;
+    this.pageNum--;
+    this.accountsService.getAccountFromTo(this.pageNum * this.accountsPerPage, (this.pageNum + 1) * this.accountsPerPage).subscribe({
+      next: (res) => {
+        if (res.body){
+          this.users$.next(res.body);
+        }
+      },
+      error: (err) => {
+        this.isLoading = false;
+        this.showAlert = true;
+      }
+    });
+  }
+
   public deleteAccount($userId: number) {
     this.users$.next(
       this.users$.value.filter((user) => user.user_id !== $userId)
