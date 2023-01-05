@@ -32,6 +32,15 @@ public class PublisherAPI {
         return new ResponseEntity<>(list, HttpStatus.OK);
     }
 
+
+    @GetMapping("/getFromTo")
+    public ResponseEntity<List<Publisher>> getFromTo(@RequestParam int from, @RequestParam int to) {
+        List<Publisher> p = publisherService.getFromTo(from, to);
+        if (p == null) {
+            return new ResponseEntity<>(null, HttpStatus.NOT_ACCEPTABLE);
+        }
+        return new ResponseEntity<>(p, HttpStatus.OK);
+    }
     @PutMapping("/manager/editPublisher")
     public ResponseEntity<?> editPublisher(@RequestBody Publisher publisher){
         return new ResponseEntity<>(publisherService.editPublisher(publisher));
