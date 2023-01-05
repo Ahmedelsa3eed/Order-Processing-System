@@ -36,6 +36,6 @@ export class NavigationBarComponent implements OnInit {
         );
     }
     report(type: string){
-      window.open("http://localhost:8080/report/" + type, '_blank')!.focus();
-    }
+      window.open("http://localhost:8090/report/" + type, '_blank')!.focus();
+    }
 }

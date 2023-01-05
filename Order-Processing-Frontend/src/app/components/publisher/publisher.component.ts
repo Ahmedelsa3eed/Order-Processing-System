@@ -20,15 +20,41 @@ export class PublisherComponent implements OnInit {
   editPublisherLoading: boolean = false;
   addPublisherLoading: boolean = false;
   signedInUserType: string = this.signInOutService.getSignedInUserType();
+  pageNum: number = 0;
+  pubPerPage = 3;
 
   ngOnInit(): void {
     console.log(this.signInOutService.getSignedInUserSessionID());
-    this.publisherService.getAll().subscribe({
+    this.publisherService.getPublisherFromTo(0, this.pubPerPage).subscribe({
       next: (publishers) => {
         console.log(publishers);
         this.publishers = publishers;
       },
       error: (err) => console.log(err), 
+    });
+  }
+
+  getNextPage() {
+    if (this.publishers.length < this.pubPerPage)
+      return;
+    this.pageNum++;
+    this.publisherService.getPublisherFromTo(this.pageNum * this.pubPerPage, (this.pageNum + 1) * this.pubPerPage).subscribe({
+      next: (publishers) => {
+        this.publishers = publishers;
+      },
+      error: (err) => alert(err),
+    });
+  }
+
+  getPreviousPage() {
+    if (this.pageNum == 0)
+      return;
+    this.pageNum--;
+    this.publisherService.getPublisherFromTo(this.pageNum * this.pubPerPage, (this.pageNum + 1) * this.pubPerPage).subscribe({
+      next: (publishers) => {
+        this.publishers = publishers;
+      },
+      error: (err) => alert(err),
     });
   }
 

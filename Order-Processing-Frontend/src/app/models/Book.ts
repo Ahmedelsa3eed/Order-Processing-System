@@ -1,3 +1,4 @@
+import { Author } from "./Author";
 import { Publisher } from "./Publisher";
 
 export class Book {
@@ -10,6 +11,7 @@ export class Book {
     quantity: number;
     threshold: number;
     publisher: Publisher;
+    authors: Author[];
 
     constructor() {
         this.isbn = -1;
@@ -21,5 +23,6 @@ export class Book {
         this.quantity = -1;
         this.threshold = -1;
         this.publisher = new Publisher();
+        this.authors = [];
     }
 }

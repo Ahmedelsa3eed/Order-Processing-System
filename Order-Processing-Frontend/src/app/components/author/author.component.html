@@ -12,9 +12,10 @@
 
 <div *ngFor="let p of authors" class="py-2 px-3 border-top">
   <div class="row">
-    <div class="col-10 h6">{{ p.first_name }} {{ p.last_name}}</div>
-    <div class="col-10 h6">{{ p.address }}</div>
-    <div class="col-10 h6">{{ p.phone_number }}</div>
+    <div class="col-10 h6">ID: {{ p.author_id }}</div>
+    <div class="col-10 h6">Name: {{ p.first_name }} {{ p.last_name}}</div>
+    <div class="col-10 h6">Address: {{ p.address }}</div>
+    <div class="col-10 h6">Phone: {{ p.phone_number }}</div>
     <i
       *ngIf="signedInUserType == 'manager'"
       class="col-11 bi bi-x-lg icon text-danger"
@@ -49,14 +50,14 @@
           id="editAuthorFirstNameInput"
           type="text"
           class="form-control mb-3"
-          placeholder="Author Name"
+          placeholder="First Name"
         />
         <input
           #editAuthorLastNameInput
           id="editAuthorLastNameInput"
           type="text"
           class="form-control mb-3"
-          placeholder="Author Name"
+          placeholder="Last Name"
         />
         <input
           #editAuthorAddressInput
@@ -135,14 +136,14 @@
           id="addAuthorFirstNameInput"
           type="text"
           class="form-control mb-3"
-          placeholder="Author Name"
+          placeholder="First Name"
         />
         <input
           #addAuthorLastNameInput
           id="addAuthorLastNameInput"
           type="text"
           class="form-control mb-3"
-          placeholder="Author Name"
+          placeholder="Last Name"
         />
         <input
           #addAuthorAddressInput

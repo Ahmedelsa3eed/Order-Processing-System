@@ -8,7 +8,11 @@
     >
         Add Book
     </button>
+    <button *ngIf="signedInUserType == 'manager'" class="btn btn-primary my-3 mx-3" type="button" data-bs-toggle="modal" data-bs-target="#addBookAuthorModal">Add Book Author</button>
+    <button *ngIf="signedInUserType == 'manager'" class="btn btn-primary my-3 mx-3" type="button" data-bs-toggle="modal" data-bs-target="#deleteBookAuthorModal">Delete Book Author</button>
     <button class="btn btn-primary my-3 mx-3" type="button" data-bs-toggle="modal" data-bs-target="#findBookModal">Find Book</button>
+    <button class="btn btn-primary my-3 mx-3" type="button" (click)="getPreviousPage()">Previous Page</button>
+    <button class="btn btn-primary my-3 mx-3" type="button" (click)="getNextPage()">Next Page</button>
 </div>
 
 <div *ngFor="let book of books" class="py-2 px-3 border-top">
@@ -20,6 +24,7 @@
         <div class="col-10">Price: {{ book.price }}$</div>
         <div class="col-10">Available: {{ book.quantity }}</div>
         <div class="col-10">Publisher: {{ book.publisher.name }}</div>
+        <div *ngFor="let author of book.authors" class="col-10">Author: {{ author.first_name }} {{ author.last_name }}</div>
         <div *ngIf="signedInUserType == 'manager'" class="col-10">Threshold: {{ book.threshold }}</div>
         <i
             *ngIf="signedInUserType == 'manager'"
@@ -62,11 +67,8 @@
 
             <div class="modal-body">
                 <input #editBookTitleInput id="editBookTitleInput" type="text" class="form-control mb-3" placeholder="Book Title"/>
-                <select #editBookPublisherInput id="editBookPublisherInput" class="form-select my-3" aria-label="Publisher">
-                    <option *ngFor="let publisher of publishers" value="{{ publisher.publisher_id }}">
-                        {{ publisher.name }}
-                    </option>
-                </select>
+                <input #editBookISBNInput id="editBookISBNInput" type="number" class="form-control mb-3" placeholder="Book ISBN"/>
+                <input #editBookPublisherInput id="editBookPublisherInput" type="number" class="form-control mb-3" placeholder="Publisher ID"/>
                 <input #editBookPubYearInput id="editBookPubYearInput" type="number" class="form-control mb-3" placeholder="Book Publication Year"/>
                 <input #editBookPriceInput id="editBookPriceInput" type="number" class="form-control mb-3" placeholder="Book Price"/>
                 <select #editBookCategoryInput class="form-select my-3" aria-label="Category">
@@ -88,7 +90,7 @@
                 <button
                     type="submit"
                     class="btn btn-primary"
-                    (click)="onEditBook(editBookTitleInput.value, editBookPublisherInput.value, editBookPubYearInput.value,
+                    (click)="onEditBook(editBookTitleInput.value, editBookISBNInput.value, editBookPublisherInput.value, editBookPubYearInput.value,
                     editBookPriceInput.value, editBookCategoryInput.value, editBookQuantityInput.value, editBookThresholdInput.value)"
                 >
                     Edit
@@ -181,12 +183,7 @@
             <div class="modal-body">
                 <input #addBookTitleInput type="text" class="form-control mb-3" placeholder="Book Title"/>
                 <input #addBookISBNInput type="number" class="form-control mb-3" placeholder="Book ISBN"/>
-                <select #addBookPublisherInput class="form-select my-3" aria-label="Publisher">
-                    <option value="-1" disabled selected>Select Publisher</option>
-                    <option *ngFor="let publisher of publishers" value="{{ publisher.publisher_id }}">
-                        {{ publisher.name }}
-                    </option>
-                </select>
+                <input #addBookPublisherInput id="addBookPublisherInput" type="number" class="form-control mb-3" placeholder="Publisher ID"/>
                 <input #addBookPubYearInput type="number" class="form-control mb-3" placeholder="Book Publication Year"/>
                 <input #addBookPriceInput type="number" class="form-control mb-3" placeholder="Book Price"/>
                 <select #addBookCategoryInput class="form-select my-3" aria-label="Category">
@@ -236,6 +233,7 @@
                     <option value="publishers">Publisher</option>
                 </select>
                 <input *ngIf="findBookCriteriaInputValue == 'authors'" #findBookFirstNameInput (change)="setFirstName(findBookFirstNameInput.value)" type="text" class="form-control mb-3" placeholder="First Name"/>
+                <p *ngIf="findBookCriteriaInputValue == 'authors'" class="mx-3">OR</p>
                 <input *ngIf="findBookCriteriaInputValue == 'authors'" #findBookLastNameInput (change)="setLastName(findBookLastNameInput.value)" type="text" class="form-control mb-3" placeholder="Last Name"/>
             </div>
 
@@ -243,8 +241,54 @@
                 <button id="closeFindBookBtn" type="button" class="btn btn-danger" data-bs-dismiss="modal">
                     Close
                 </button>
-                <button type="submit" class="btn btn-primary" (click)="onFindBook()">
+                <button type="submit" class="btn btn-primary" (click)="onFindBook(0)">
                     Find
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="addBookAuthorModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Add Book Author</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <div class="modal-body">
+                <input #addBookAuthorISBNInput type="number" class="form-control mb-3" placeholder="Book ISBN"/>
+                <input #addBookAuthorIdInput type="number" class="form-control mb-3" placeholder="Author Id"/>
+            </div>
+
+            <div class="modal-footer">
+                <button id="closeAddBookAuthorBtn" type="button" class="btn btn-danger" data-bs-dismiss="modal">
+                    Close
+                </button>
+                <button type="submit" class="btn btn-primary" (click)="onAddBookAuthor(addBookAuthorISBNInput.value, addBookAuthorIdInput.value)">Add</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="deleteBookAuthorModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Delete Book Author</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <div class="modal-body">
+                <input #deleteBookAuthorISBNInput type="number" class="form-control mb-3" placeholder="Book ISBN"/>
+                <input #deleteBookAuthorIdInput type="number" class="form-control mb-3" placeholder="Author Id"/>
+            </div>
+
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-danger" (click)="onDeleteBookAuthor(deleteBookAuthorISBNInput.value, deleteBookAuthorIdInput.value)">Delete</button>
+                <button id="closeDeleteBookAuthorBtn" type="button" class="btn btn-primary" data-bs-dismiss="modal">
+                    Close
                 </button>
             </div>
         </div>

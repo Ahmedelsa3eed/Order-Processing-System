@@ -1,11 +1,9 @@
-import { CartService } from './../../services/cart.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Book } from 'src/app/models/Book';
 import { OrderToPlace } from 'src/app/DTOs/OrderToPlace';
 import { BooksService } from 'src/app/services/books.service';
 import { OrdersService } from 'src/app/services/orders.service';
-import { Publisher } from 'src/app/models/Publisher';
 import { PublisherService } from 'src/app/services/publisher.service';
 import { SignInOutService } from 'src/app/services/sign-in-out.service';
 
@@ -17,7 +15,6 @@ import { SignInOutService } from 'src/app/services/sign-in-out.service';
 export class BooksPageComponent implements OnInit {
 
   books: Book[] = [];
-  publishers: Publisher[] = [];
   bookToDeleteISBN: number = -1;
   bookToOrderISBN: number = -1;
   bookToEdit: Book = new Book();
@@ -29,26 +26,24 @@ export class BooksPageComponent implements OnInit {
   findBookFirstNameInput: string = "";
   findBookLastNameInput: string = "";
   searchInput: string = "";
+  pageNum: number = 0;
+  findPageNum: number = 0;
+  booksPerPage: number = 17;
   signedInUserType: string = this.signInOutService.getSignedInUserType();
 
   constructor(
-    private signInOutService: SignInOutService, 
-    private booksService: BooksService, 
-    private ordersService: OrdersService, 
+    private signInOutService: SignInOutService,
+    private booksService: BooksService,
+    private ordersService: OrdersService,
     private publisherService: PublisherService,
     private cartService: CartService) { }
-  
+
   ngOnInit(): void {
-    this.publisherService.getAll().subscribe({
-      next: (publishers) => {
-        this.publishers = publishers;
-      },
-      error: (err) => alert(err), 
-    });
-    this.booksService.getAllBooks().subscribe({
+    this.booksService.getBooksFromTo(0, this.booksPerPage).subscribe({
       next: (books) => {
         this.books = books;
-        this.getBooksPublisher()
+        this.getBooksPublisher();
+        this.getBooksAuthors();
       },
       error: (err) => alert(err),
     });
@@ -85,10 +80,10 @@ export class BooksPageComponent implements OnInit {
 
   openEditBookModal(book: Book) {
     this.bookToEdit = book;
-    console.log(book);
     document.getElementById('openEditBookBtn')?.click();
     document.getElementById('editBookTitleInput')?.setAttribute('value', book.title);
     document.getElementById('editBookISBNInput')?.setAttribute('value', String(book.isbn));
+    document.getElementById('editBookPublisherInput')?.setAttribute('value', String(book.publisher.publisher_id));
     document.getElementById('editBookPubYearInput')?.setAttribute('value', String(book.publication_year));
     document.getElementById('editBookPriceInput')?.setAttribute('value', String(book.price));
     document.getElementById('editBookQuantityInput')?.setAttribute('value', String(book.quantity));
@@ -126,9 +121,10 @@ export class BooksPageComponent implements OnInit {
     console.log("ISBN of book sent is " + orderToPlace.ISBN);
   }
 
-  onEditBook(title: string, publisher_id: string, pubYear: string, price: string, category: string, quantity: string, threshold: string) {
+  onEditBook(title: string, isbn: string, publisher_id: string, pubYear: string, price: string, category: string, quantity: string, threshold: string) {
     this.editBookLoading = true;
     this.bookToEdit.title = title;
+    this.bookToEdit.isbn = Number(isbn);
     this.bookToEdit.publisher_id = Number(publisher_id);
     this.bookToEdit.publication_year = Number(pubYear);
     this.bookToEdit.price = Number(price);
@@ -148,7 +144,64 @@ export class BooksPageComponent implements OnInit {
     );
   }
 
-  onFindBook() {
+  onAddBookAuthor(isbn: string, author_id: string) {
+    this.booksService.addBookAuthor(Number(isbn), Number(author_id)).subscribe(
+      () => {
+          document.getElementById('closeAddBookAuthorBtn')?.click();
+          window.location.reload();
+      },
+      (error: HttpErrorResponse) => {
+          alert(error);
+      }
+    );
+  }
+
+  onDeleteBookAuthor(isbn: string, author_id: string) {
+    this.booksService.deleteBookAuthor(Number(isbn), Number(author_id)).subscribe(
+      () => {
+          document.getElementById('closeDeleteBookAuthorBtn')?.click();
+          window.location.reload();
+      },
+      (error: HttpErrorResponse) => {
+          alert(error);
+      }
+    );
+  }
+
+  getBooksPublisher() {
+    for (let i = 0; i < this.books.length; i++)
+    {
+      this.getPublisherByISBN(i);
+    }
+  }
+
+  getPublisherByISBN(index: number) {
+    this.booksService.getPublisherByISBN(this.books[index].isbn).subscribe({
+      next: (publisher) => {
+        this.books[index].publisher = publisher;
+      },
+      error: (err) => alert(err),
+    })
+  }
+
+  getBooksAuthors() {
+    for (let i = 0; i < this.books.length; i++)
+    {
+      this.getAuthorsByISBN(i);
+    }
+  }
+
+  getAuthorsByISBN(index: number) {
+    this.booksService.getAuthorsByISBN(this.books[index].isbn).subscribe({
+      next: (authors) => {
+        this.books[index].authors = authors;
+      },
+      error: (err) => {},
+    })
+  }
+
+  onFindBook(findPageNum: number) {
+    this.findPageNum = findPageNum;
     if(this.findBookCriteriaInputValue == "Select Criteria") {
     }else if(this.findBookCriteriaInputValue == "isbn") {
       this.booksService.getBookByISBN(Number(this.searchInput)).subscribe(
@@ -156,37 +209,79 @@ export class BooksPageComponent implements OnInit {
           this.books = [];
           this.books.push(book);
           document.getElementById('closeFindBookBtn')?.click();
-          this.getBooksPublisher()
+          this.getBooksPublisher();
+          this.getBooksAuthors();
         },
         (err) => { alert(err); }
       )
     }else if(this.findBookCriteriaInputValue == "publishers") {
-      this.booksService.findBooksByPublisherName(this.searchInput).subscribe({
+      this.booksService.findBooksByPublisherName(this.searchInput, this.findPageNum * this.booksPerPage, (this.findPageNum + 1) * this.booksPerPage).subscribe({
         next: (books) => {
           this.books = books;
           document.getElementById('closeFindBookBtn')?.click();
-          this.getBooksPublisher()
+          this.getBooksPublisher();
+          this.getBooksAuthors();
         },
         error: (err) => alert(err),
       });
     }else if(this.findBookCriteriaInputValue == "authors") {
-      this.booksService.findBooksByAuthorName(this.findBookFirstNameInput, this.findBookLastNameInput).subscribe({
+      this.booksService.findBooksByAuthorName(this.findBookFirstNameInput, this.findBookLastNameInput, this.findPageNum * this.booksPerPage, (this.findPageNum + 1) * this.booksPerPage).subscribe({
         next: (books) => {
           this.books = books;
           document.getElementById('closeFindBookBtn')?.click();
-          this.getBooksPublisher()
+          this.getBooksPublisher();
+          this.getBooksAuthors();
         },
         error: (err) => alert(err),
       });
     }else {
-      this.booksService.findBooksByAttribute(this.findBookCriteriaInputValue, this.searchInput).subscribe({
+      this.booksService.findBooksByAttribute(this.findBookCriteriaInputValue, this.searchInput, this.findPageNum * this.booksPerPage, (this.findPageNum + 1) * this.booksPerPage).subscribe({
         next: (books) => {
           this.books = books;
           document.getElementById('closeFindBookBtn')?.click();
           this.getBooksPublisher()
+          this.getBooksAuthors();
         },
         error: (err) => alert(err),
       });
+    }
+  }
+
+  getNextPage() {
+    if (this.books.length < this.booksPerPage)
+      return;
+    this.pageNum++;
+    if (this.findBookCriteriaInputValue == "Select Criteria") {
+      this.booksService.getBooksFromTo(this.pageNum * this.booksPerPage, (this.pageNum + 1) * this.booksPerPage).subscribe({
+        next: (books) => {
+          this.books = books;
+          this.getBooksPublisher();
+          this.getBooksAuthors();
+        },
+        error: (err) => alert(err),
+      });
+    }else {
+      this.findPageNum++;
+      this.onFindBook(this.findPageNum);
+    }
+  }
+
+  getPreviousPage() {
+    if (this.pageNum == 0)
+      return;
+    this.pageNum--;
+    if (this.findBookCriteriaInputValue == "Select Criteria") {
+      this.booksService.getBooksFromTo(this.pageNum * this.booksPerPage, (this.pageNum + 1) * this.booksPerPage).subscribe({
+        next: (books) => {
+          this.books = books;
+          this.getBooksPublisher();
+          this.getBooksAuthors();
+        },
+        error: (err) => alert(err),
+      });
+    }else {
+      this.findPageNum--;
+      this.onFindBook(this.findPageNum);
     }
   }
 
@@ -204,22 +299,6 @@ export class BooksPageComponent implements OnInit {
 
   setSearchInput(searchInput: string) {
     this.searchInput = searchInput;
-  }
-
-  getBooksPublisher() {
-    for (let i = 0; i < this.books.length; i++)
-    {
-      this.getPublisherByISBN(i);
-    }
-  }
-
-  getPublisherByISBN(index: number) {
-    this.booksService.getPublisherByISBN(this.books[index].isbn).subscribe({
-      next: (publisher) => {
-        this.books[index].publisher = publisher;
-      },
-      error: (err) => alert(err),
-    })
   }
 
   addToCart(isbn: number) {
