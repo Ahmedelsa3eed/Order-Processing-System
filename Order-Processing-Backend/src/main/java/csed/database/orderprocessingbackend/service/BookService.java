@@ -117,12 +117,14 @@ public class BookService {
         System.out.println(query);
         try {
             int check = instance.executeUpdate(query);
+            instance.commitTransaction();
             if (check == 1){
                 return HttpStatus.OK;
             }
         }
         catch (Exception e){
             e.printStackTrace();
+            instance.rollbackTransaction();
         }
         return HttpStatus.NOT_ACCEPTABLE;
     }

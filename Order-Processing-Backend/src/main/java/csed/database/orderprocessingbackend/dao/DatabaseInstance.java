@@ -19,6 +19,7 @@ public class DatabaseInstance {
 
     private DatabaseInstance() throws SQLException {
         connection = DriverManager.getConnection(url, user_name, pass);
+        //connection.setAutoCommit(false);
     }
 
     public static DatabaseInstance getInstance() throws SQLException {
@@ -38,4 +39,15 @@ public class DatabaseInstance {
         return statement.executeUpdate(update);
     }
 
+    public void commitTransaction() throws SQLException{
+        connection.commit();
+    }
+
+    public void rollbackTransaction(){
+        try {
+            connection.rollback();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }

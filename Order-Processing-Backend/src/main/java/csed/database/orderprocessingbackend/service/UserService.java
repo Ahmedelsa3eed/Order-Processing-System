@@ -24,8 +24,10 @@ public class UserService {
         System.out.println(query);
         try {
             instance.executeUpdate(query);
+            instance.commitTransaction();
         } catch (Exception e) {
             e.printStackTrace();
+            instance.rollbackTransaction();
         }
 
     }
@@ -106,8 +108,10 @@ public class UserService {
         System.out.println(query);
         try {
             instance.executeUpdate(query);
+            instance.commitTransaction();
         } catch (Exception e) {
             e.printStackTrace();
+            instance.rollbackTransaction();
         }
     }
 
@@ -117,8 +121,10 @@ public class UserService {
         System.out.println(query);
         try {
             instance.executeUpdate(query);
+            instance.commitTransaction();
         } catch (Exception e) {
             e.printStackTrace();
+            instance.rollbackTransaction();
         }
 
     }
@@ -128,8 +134,10 @@ public class UserService {
         System.out.println(query);
         try {
             instance.executeUpdate(query);
+            instance.commitTransaction();
         } catch (Exception e) {
             e.printStackTrace();
+            instance.rollbackTransaction();
         }
 
     }
@@ -140,8 +148,10 @@ public class UserService {
         System.out.println(query);
         try {
             instance.executeUpdate(query);
+            instance.commitTransaction();
         } catch (Exception e) {
             e.printStackTrace();
+            instance.rollbackTransaction();
         }
 
     }
@@ -151,9 +161,10 @@ public class UserService {
         System.out.println(query);
         try {
             instance.executeUpdate(query);
+            instance.commitTransaction();
         } catch (Exception e) {
             e.printStackTrace();
-
+            instance.rollbackTransaction();
         }
     }
 
@@ -162,8 +173,10 @@ public class UserService {
         System.out.println(query);
         try {
             instance.executeUpdate(query);
+            instance.commitTransaction();
         } catch (Exception e) {
             e.printStackTrace();
+            instance.rollbackTransaction();
         }
 
     }
@@ -173,8 +186,10 @@ public class UserService {
         System.out.println(query);
         try {
             instance.executeUpdate(query);
+            instance.commitTransaction();
         } catch (Exception e) {
             e.printStackTrace();
+            instance.rollbackTransaction();
         }
     }
 
@@ -183,8 +198,10 @@ public class UserService {
         System.out.println(query);
         try {
             instance.executeUpdate(query);
+            instance.commitTransaction();
         } catch (Exception e) {
             e.printStackTrace();
+            instance.rollbackTransaction();
         }
     }
 
