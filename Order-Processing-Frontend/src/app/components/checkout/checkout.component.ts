@@ -1,4 +1,4 @@
-import { CheckoutData } from './../../models/CeckoutData';
+import { CheckoutService } from './../../services/checkout.service';
 import { Component, Input, OnInit } from '@angular/core';
 import { faLongArrowAltRight } from '@fortawesome/free-solid-svg-icons';
 import {
@@ -7,6 +7,7 @@ import {
   faCcAmex,
   faCcPaypal,
 } from '@fortawesome/free-brands-svg-icons';
+import { CheckoutData } from 'src/app/models/CheckoutData';
 
 @Component({
   selector: 'app-checkout',
@@ -24,11 +25,15 @@ export class CheckoutComponent implements OnInit {
   faCcAmex = faCcAmex;
   faCcPaypal = faCcPaypal;
 
-  constructor() {}
+  constructor(private checkoutService: CheckoutService) {}
 
   ngOnInit(): void {}
 
   public checkoutOrder(): void {
-
+    this.checkoutService.checkout(this.checkoutData).subscribe({
+      next: (res) => {
+        window.alert(res);
+      }
+    });
   }
 }
