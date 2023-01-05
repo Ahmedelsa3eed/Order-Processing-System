@@ -19,7 +19,7 @@ export class BooksService {
     return this.httpClient.get<any>(environment.baseUrl + '/books/getBooksFromTo', {
       params: {
         from: from,
-        to: to,
+        to: to
       },
     });
   }
@@ -48,21 +48,21 @@ export class BooksService {
     });
   }
 
-  findBooksByAttribute(criteria: string, searchInput: string): Observable<any> {
+  findBooksByAttribute(criteria: string, searchInput: string, from: number, to: number): Observable<any> {
     return this.httpClient.get<any>(environment.baseUrl + '/books/findBooksByAttribute', {
-      params: { criteria: criteria, searchInput: searchInput },
+      params: { criteria: criteria, searchInput: searchInput, from: from, to: to },
     });
   }
 
-  findBooksByPublisherName(name: string): Observable<any> {
+  findBooksByPublisherName(name: string, from: number, to: number): Observable<any> {
     return this.httpClient.get<any>(environment.baseUrl + '/books/findBooksByPublisherName', {
-      params: { name: name },
+      params: { name: name, from: from, to: to },
     });
   }
 
-  findBooksByAuthorName(first_name: string, last_name: string): Observable<any> {
+  findBooksByAuthorName(first_name: string, last_name: string, from: number, to: number): Observable<any> {
     return this.httpClient.get<any>(environment.baseUrl + '/books/findBooksByAuthorName', {
-      params: { first_name: first_name, last_name: last_name },
+      params: { first_name: first_name, last_name: last_name, from: from, to: to },
     });
   }
 

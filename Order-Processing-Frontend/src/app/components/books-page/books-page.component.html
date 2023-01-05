@@ -227,6 +227,7 @@
                     <option value="publishers">Publisher</option>
                 </select>
                 <input *ngIf="findBookCriteriaInputValue == 'authors'" #findBookFirstNameInput (change)="setFirstName(findBookFirstNameInput.value)" type="text" class="form-control mb-3" placeholder="First Name"/>
+                <p *ngIf="findBookCriteriaInputValue == 'authors'" class="mx-3">OR</p>
                 <input *ngIf="findBookCriteriaInputValue == 'authors'" #findBookLastNameInput (change)="setLastName(findBookLastNameInput.value)" type="text" class="form-control mb-3" placeholder="Last Name"/>
             </div>
 
@@ -234,7 +235,7 @@
                 <button id="closeFindBookBtn" type="button" class="btn btn-danger" data-bs-dismiss="modal">
                     Close
                 </button>
-                <button type="submit" class="btn btn-primary" (click)="onFindBook()">
+                <button type="submit" class="btn btn-primary" (click)="onFindBook(0)">
                     Find
                 </button>
             </div>

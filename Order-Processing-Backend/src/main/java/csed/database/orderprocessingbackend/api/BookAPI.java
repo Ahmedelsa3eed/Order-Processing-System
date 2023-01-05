@@ -61,8 +61,8 @@ public class BookAPI {
     }
 
     @GetMapping("/findBooksByAttribute")
-    public ResponseEntity<List<Book>> findBooksByAttribute(@RequestParam String criteria, @RequestParam String searchInput){
-        List<Book> list = bookService.findBooksByAttribute(criteria, searchInput);
+    public ResponseEntity<List<Book>> findBooksByAttribute(@RequestParam String criteria, @RequestParam String searchInput, @RequestParam int from, @RequestParam int to){
+        List<Book> list = bookService.findBooksByAttribute(criteria, searchInput, from, to);
         if (list == null){
             return new ResponseEntity<>(list, HttpStatus.EXPECTATION_FAILED);
         }
@@ -70,8 +70,8 @@ public class BookAPI {
     }
 
     @GetMapping("/findBooksByPublisherName")
-    public ResponseEntity<List<Book>> findBooksByPublisherName(@RequestParam String name){
-        List<Book> list = bookService.findBooksByPublisherName(name);
+    public ResponseEntity<List<Book>> findBooksByPublisherName(@RequestParam String name, @RequestParam int from, @RequestParam int to){
+        List<Book> list = bookService.findBooksByPublisherName(name, from, to);
         if (list == null){
             return new ResponseEntity<>(list, HttpStatus.EXPECTATION_FAILED);
         }
@@ -79,8 +79,8 @@ public class BookAPI {
     }
 
     @GetMapping("/findBooksByAuthorName")
-    public ResponseEntity<List<Book>> findBooksByAuthorName(@RequestParam String first_name, @RequestParam String last_name){
-        List<Book> list = bookService.findBooksByAuthorName(first_name, last_name);
+    public ResponseEntity<List<Book>> findBooksByAuthorName(@RequestParam String first_name, @RequestParam String last_name, @RequestParam int from, @RequestParam int to){
+        List<Book> list = bookService.findBooksByAuthorName(first_name, last_name, from, to);
         if (list == null){
             return new ResponseEntity<>(list, HttpStatus.EXPECTATION_FAILED);
         }
