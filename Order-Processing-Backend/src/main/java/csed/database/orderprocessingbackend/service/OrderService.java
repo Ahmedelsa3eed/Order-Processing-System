@@ -50,9 +50,11 @@ public class OrderService {
         String query = "INSERT INTO orders (ISBN, quantity) VALUES " + orderRequest.toString();
         try {
             this.instance.executeUpdate(query);
+            this.instance.commitTransaction();
             return HttpStatus.OK;
         } catch (Exception e) {
             e.printStackTrace();
+            this.instance.rollbackTransaction();
         }
 
         return HttpStatus.BAD_REQUEST;
@@ -62,9 +64,11 @@ public class OrderService {
         try {
             String DeleteQ = "DELETE FROM orders WHERE order_id = " + order_id;
             instance.executeUpdate(DeleteQ);
+            instance.commitTransaction();
             return HttpStatus.OK;
         } catch (SQLException e) {
             e.printStackTrace();
+            instance.rollbackTransaction();
         }
         return HttpStatus.BAD_REQUEST;
     }
