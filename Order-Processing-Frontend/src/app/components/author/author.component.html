@@ -8,6 +8,8 @@
   >
     Add Author
   </button>
+  <button class="btn btn-primary my-3 mx-3" type="button" (click)="getPreviousPage()">Previous Page</button>
+  <button class="btn btn-primary my-3 mx-3" type="button" (click)="getNextPage()">Next Page</button>
 </div>
 
 <div *ngFor="let p of authors" class="py-2 px-3 border-top">

@@ -22,10 +22,12 @@ export class AuthorComponent implements OnInit {
   editAuthorLoading: boolean = false;
   addAuthorLoading: boolean = false;
   signedInUserType: string = this.signInOutService.getSignedInUserType();
+  pageNum: number = 0;
+  authorsPerPage = 2;
 
   ngOnInit(): void {
     console.log(this.signInOutService.getSignedInUserSessionID());
-    this.authorService.getAll().subscribe({
+    this.authorService.getAuthorsFromTo(0, this.authorsPerPage).subscribe({
       next: (authors) => {
         console.log(authors);
         this.authors = authors;
@@ -52,7 +54,29 @@ export class AuthorComponent implements OnInit {
     );
   }
 
+  getNextPage() {
+    if (this.authors.length < this.authorsPerPage)
+      return;
+    this.pageNum++;
+    this.authorService.getAuthorsFromTo(this.pageNum * this.authorsPerPage, (this.pageNum + 1) * this.authorsPerPage).subscribe({
+      next: (authors) => {
+        this.authors = authors;
+      },
+      error: (err) => alert(err),
+    });
+  }
 
+  getPreviousPage() {
+    if (this.pageNum == 0)
+      return;
+    this.pageNum--;
+    this.authorService.getAuthorsFromTo(this.pageNum * this.authorsPerPage, (this.pageNum + 1) * this.authorsPerPage).subscribe({
+      next: (authors) => {
+        this.authors = authors;
+      },
+      error: (err) => alert(err),
+    });
+  }
 
   openDeleteAuthorModal(author_id : number) {
     this.authorToDeleteId = author_id;
