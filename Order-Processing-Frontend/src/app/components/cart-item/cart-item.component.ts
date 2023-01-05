@@ -11,6 +11,7 @@ import { faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 export class CartItemComponent implements OnInit {
   @Input() cartItem: CartItem = new CartItem();
   @Output() removeCartItemEvent = new EventEmitter();
+  @Output() updateCartItemEvent = new EventEmitter();
   faTrashAlt = faTrashAlt;
   isLoading: boolean = false;
 
@@ -27,7 +28,7 @@ export class CartItemComponent implements OnInit {
           this.removeCartItemEvent.emit(this.cartItem);
         }
       },
-      error: (err) => this.isLoading = false
+      error: (err) => (this.isLoading = false),
     });
   }
 
@@ -36,8 +37,10 @@ export class CartItemComponent implements OnInit {
       .updateCartItemQuantity(this.cartItem.isbn, this.cartItem.quantity)
       .subscribe({
         next: (res) => {
-          if (res == true)
+          if (res == true) {
+            this.updateCartItemEvent.emit(this.cartItem);
             console.info('item quantity updated');
+          }
         },
       });
   }

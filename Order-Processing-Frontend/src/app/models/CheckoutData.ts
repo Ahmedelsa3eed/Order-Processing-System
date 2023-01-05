@@ -1,9 +1,9 @@
 export class CheckoutData {
   cardNumber: string;
-  expiryDate: string;
+  expiaryDate: string;
 
   constructor() {
-    this.cardNumber = "";
-    this.expiryDate = "";
+    this.cardNumber = '';
+    this.expiaryDate = '';
   }
 }

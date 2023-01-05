@@ -1,4 +1,4 @@
-package csed.database.orderprocessingbackend.model;
+package csed.database.orderprocessingbackend.model.cart;
 
 import lombok.*;
 

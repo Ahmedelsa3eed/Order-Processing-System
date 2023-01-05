@@ -1,6 +1,6 @@
 package csed.database.orderprocessingbackend.api;
 
-import csed.database.orderprocessingbackend.model.CartItem;
+import csed.database.orderprocessingbackend.model.cart.CartItem;
 import csed.database.orderprocessingbackend.service.CartService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -36,4 +36,12 @@ public class CartAPI {
         Boolean res = this.cartService.deleteCartItem(sessionId, ISBN);
         return new ResponseEntity<>(res, HttpStatus.OK);
     }
+
+    @PostMapping("/addToCart")
+    public ResponseEntity<Boolean> addToCart(@RequestParam("sessionId") String sessionId,
+                                                  @RequestParam("ISBN") Long ISBN) {
+        Boolean res = this.cartService.addToCart(sessionId, ISBN);
+        return new ResponseEntity<>(res, HttpStatus.OK);
+    }
+
 }

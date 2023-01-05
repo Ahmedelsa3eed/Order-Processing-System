@@ -1,0 +1,101 @@
+<!-- Checkout -->
+<div class="card bg-primary text-white rounded-3">
+  <div class="card-body">
+    <!-- Title -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <h5 class="mb-0">Card details</h5>
+      <img
+        src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/avatar-6.webp"
+        class="img-fluid rounded-3"
+        style="width: 45px"
+        alt="Avatar"
+      />
+    </div>
+
+    <!-- Card Type -->
+    <p class="small mb-2">Card type</p>
+    <a href="#!" type="submit" class="text-white">
+      <fa-icon class="fa-2x me-2" [icon]="faCcMastercard"></fa-icon>
+    </a>
+    <a href="#!" type="submit" class="text-white">
+      <fa-icon class="fa-2x me-2" [icon]="faCcVisa"></fa-icon>
+    </a>
+    <a href="#!" type="submit" class="text-white">
+      <fa-icon class="fa-2x me-2" [icon]="faCcAmex"></fa-icon>
+    </a>
+    <a href="#!" type="submit" class="text-white">
+      <fa-icon class="fa-2x me-2" [icon]="faCcPaypal"></fa-icon>
+    </a>
+
+    <!-- Checkout Form -->
+    <form #checkoutForm="ngForm" class="mt-4" (ngSubmit)="checkoutOrder()">
+      <!-- Card Number Field -->
+      <div class="form-outline form-white mb-4">
+        <input
+          name="cardNumber"
+          type="text"
+          id="card"
+          required
+          class="form-control form-control-lg"
+          size="17"
+          placeholder="1234 5678 9012 3457"
+          minlength="10"
+          maxlength="19"
+          [(ngModel)]="checkoutData.cardNumber"
+          #cardNumber="ngModel"
+        />
+        <label class="form-label" for="card">Card Number</label>
+      </div>
+      <!-- Expiary Date -->
+      <div class="row mb-4">
+        <div class="col-md-6">
+          <div class="form-outline form-white">
+            <input
+              name="expiaryDate"
+              type="text"
+              id="typeExp"
+              required
+              class="form-control form-control-lg"
+              placeholder="MM/YYYY"
+              pattern="(0[1-9]|10|11|12)/20[0-9]{2}$"
+              size="7"
+              id="exp"
+              minlength="7"
+              maxlength="7"
+              [(ngModel)]="checkoutData.expiaryDate"
+              #expiaryDate="ngModel"
+            />
+            <label class="form-label" for="typeExp">Expiration</label>
+          </div>
+        </div>
+      </div>
+
+      <hr class="my-4" />
+  
+      <!-- Total price -->
+      <div class="d-flex justify-content-between mb-4">
+        <p class="mb-2">Total</p>
+        <p class="mb-2">${{ totalPrice }}</p>
+      </div>
+  
+      <!-- Submit button -->
+      <button type="submit" class="btn btn-info btn-block btn-lg" [disabled]="checkoutForm.invalid">
+        <div class="d-flex justify-content-between">
+          <span>${{ totalPrice }}</span>
+          <span>
+            Checkout
+            <fa-icon *ngIf="!isLoading" class="ms-2" [icon]="faLongArrowAltRight"></fa-icon>
+          </span>
+          <span 
+            *ngIf="isLoading" 
+            class="spinner-border spinner-border-sm" 
+            role="status" 
+            aria-hidden="true">
+          </span>
+        </div>
+      </button>
+
+    </form>
+
+  </div>
+</div>
