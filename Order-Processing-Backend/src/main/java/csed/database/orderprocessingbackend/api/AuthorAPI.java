@@ -41,8 +41,8 @@ public class AuthorAPI {
         return new ResponseEntity<>(authorService.deleteAuthor(author_id));
     }
 
-    @GetMapping("/getAuthorByISBN")
-    public ResponseEntity<List<Author>> getPublisherByISBN(@RequestParam Long ISBN){
+    @GetMapping("/getAuthorsByISBN")
+    public ResponseEntity<List<Author>> getAuthorsByISBN(@RequestParam Long ISBN){
         List<Author> a = authorService.getAuthorsByISBN(ISBN);
         if (a != null){
             return new ResponseEntity<>(a, HttpStatus.OK);

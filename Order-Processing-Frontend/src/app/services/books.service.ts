@@ -72,4 +72,10 @@ export class BooksService {
     });
   }
 
+  getAuthorsByISBN(ISBN: number): Observable<any> {
+    return this.httpClient.get<any>(environment.baseUrl + '/Author/getAuthorsByISBN', {
+      params: { ISBN: ISBN },
+    });
+  }
+
 }
