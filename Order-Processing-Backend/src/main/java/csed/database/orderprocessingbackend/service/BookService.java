@@ -148,8 +148,8 @@ public class BookService {
         return null;
     }
 
-    public List<Book> findBooksByAttribute(String criteria, String searchInput) {
-        String query = "SELECT * FROM books as b where b." + criteria + "= '" + searchInput + "'";
+    public List<Book> findBooksByAttribute(String criteria, String searchInput, int from, int to) {
+        String query = "SELECT * FROM books as b where b." + criteria + "= '" + searchInput + "' limit " + (to - from) + " offset " + from;
         System.out.println(query);
         try {
             List<Book> list = new ArrayList<>();
@@ -173,8 +173,8 @@ public class BookService {
         return null;
     }
 
-    public List<Book> findBooksByPublisherName(String name) {
-        String query = "SELECT * FROM books as b where b.publisher_id in ( select p.publisher_id from publishers as p where p.name = '" + name + "' )";
+    public List<Book> findBooksByPublisherName(String name, int from, int to) {
+        String query = "SELECT * FROM books as b where b.publisher_id in ( select p.publisher_id from publishers as p where p.name = '" + name + "' ) limit " + (to - from) + " offset " + from;
         System.out.println(query);
         try {
             List<Book> list = new ArrayList<>();
@@ -198,8 +198,8 @@ public class BookService {
         return null;
     }
 
-    public List<Book> findBooksByAuthorName(String first_name, String last_name) {
-        String query = "SELECT * FROM books as b where b.isbn in ( select ba.isbn from book_authors as ba join authors as a on ba.author_id = a.author_id where a.first_name = '" + first_name + "' or a.last_name = '" + last_name + "' )";
+    public List<Book> findBooksByAuthorName(String first_name, String last_name, int from, int to) {
+        String query = "SELECT * FROM books as b where b.isbn in ( select ba.isbn from book_authors as ba join authors as a on ba.author_id = a.author_id where a.first_name = '" + first_name + "' or a.last_name = '" + last_name + "' ) limit " + (to - from) + " offset " + from;
         System.out.println(query);
         try {
             List<Book> list = new ArrayList<>();
@@ -221,6 +221,34 @@ public class BookService {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public HttpStatus addBookAuthor(Long isbn, Long author_id) {
+        String query = "INSERT INTO book_authors VALUES (" + author_id.toString() + ", " + isbn.toString() + ")";
+        System.out.println(query);
+        try {
+            instance.executeUpdate(query);
+            return HttpStatus.OK;
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+        return HttpStatus.BAD_REQUEST;
+    }
+
+    public HttpStatus deleteBookAuthor(Long isbn, Long author_id) {
+        String query = "DELETE from book_authors as ba WHERE ba.isbn = " + isbn + " and ba.author_id = " + author_id;
+        System.out.println(query);
+        try {
+            int check = instance.executeUpdate(query);
+            if (check == 1) {
+                return HttpStatus.OK;
+            }
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+        return HttpStatus.NOT_ACCEPTABLE;
     }
 
 }
