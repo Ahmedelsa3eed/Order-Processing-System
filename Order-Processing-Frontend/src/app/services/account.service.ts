@@ -27,6 +27,19 @@ export class AccountService {
     });
   }
 
+  public getAccountFromTo(from:number, to:number){
+    let sessionId = this.userService.getSignedInUserSessionID();
+    return this.http.get<User[]>(this.url + '/fromTo', {
+      observe: 'response',
+      params: {
+        sessionId: sessionId,
+        from: from,
+        to: to,
+      },
+      responseType: 'json',
+    });
+  }
+
   public searchAccounts(
     searchString: string
   ): Observable<HttpResponse<User[]>> {

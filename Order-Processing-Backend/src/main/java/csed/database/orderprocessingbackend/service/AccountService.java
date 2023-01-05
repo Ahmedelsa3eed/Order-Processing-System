@@ -30,6 +30,20 @@ public class AccountService {
         return accounts;
     }
 
+    public List<User> getFromTo(int from, int to){
+        List<User> accounts;
+
+        try{
+            accounts = accountsDAO.getFromTo(from, to);
+            return accounts;
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            accounts = Collections.emptyList();
+        }
+        return accounts;
+    }
+
     public List<User> searchAccounts(String searchString) {
         List<User> accounts;
         try {
