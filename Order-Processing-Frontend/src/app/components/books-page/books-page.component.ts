@@ -30,6 +30,8 @@ export class BooksPageComponent implements OnInit {
   findBookFirstNameInput: string = "";
   findBookLastNameInput: string = "";
   searchInput: string = "";
+  pageNum: number = 0;
+  booksPerPage: number = 23;
   signedInUserType: string = this.signInOutService.getSignedInUserType();
 
   ngOnInit(): void {
@@ -39,7 +41,7 @@ export class BooksPageComponent implements OnInit {
       },
       error: (err) => alert(err), 
     });
-    this.booksService.getAllBooks().subscribe({
+    this.booksService.getBooksFromTo(0, this.booksPerPage).subscribe({
       next: (books) => {
         this.books = books;
         this.getBooksPublisher()
@@ -142,6 +144,22 @@ export class BooksPageComponent implements OnInit {
     );
   }
 
+  getBooksPublisher() {
+    for (let i = 0; i < this.books.length; i++)
+    {
+      this.getPublisherByISBN(i);
+    }
+  }
+
+  getPublisherByISBN(index: number) {
+    this.booksService.getPublisherByISBN(this.books[index].isbn).subscribe({
+      next: (publisher) => {
+        this.books[index].publisher = publisher;
+      },
+      error: (err) => alert(err),
+    })
+  }
+
   onFindBook() {
     if(this.findBookCriteriaInputValue == "Select Criteria") {
     }else if(this.findBookCriteriaInputValue == "isbn") {
@@ -184,6 +202,32 @@ export class BooksPageComponent implements OnInit {
     }
   }
 
+  getNextPage() {
+    if (this.books.length < this.booksPerPage)
+      return;
+    this.pageNum++;
+    this.booksService.getBooksFromTo(this.pageNum * this.booksPerPage, (this.pageNum + 1) * this.booksPerPage).subscribe({
+      next: (books) => {
+        this.books = books;
+        this.getBooksPublisher()
+      },
+      error: (err) => alert(err),
+    });
+  }
+
+  getPreviousPage() {
+    if (this.pageNum == 0)
+      return;
+    this.pageNum--;
+    this.booksService.getBooksFromTo(this.pageNum * this.booksPerPage, (this.pageNum + 1) * this.booksPerPage).subscribe({
+      next: (books) => {
+        this.books = books;
+        this.getBooksPublisher()
+      },
+      error: (err) => alert(err),
+    });
+  }
+
   changeCriteria(findBookCriteriaInputValue: string) {
     this.findBookCriteriaInputValue = findBookCriteriaInputValue;
   }
@@ -198,22 +242,6 @@ export class BooksPageComponent implements OnInit {
 
   setSearchInput(searchInput: string) {
     this.searchInput = searchInput;
-  }
-
-  getBooksPublisher() {
-    for (let i = 0; i < this.books.length; i++)
-    {
-      this.getPublisherByISBN(i);
-    }
-  }
-
-  getPublisherByISBN(index: number) {
-    this.booksService.getPublisherByISBN(this.books[index].isbn).subscribe({
-      next: (publisher) => {
-        this.books[index].publisher = publisher;
-      },
-      error: (err) => alert(err),
-    })
   }
 
 }
