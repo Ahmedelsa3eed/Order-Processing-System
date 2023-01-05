@@ -48,7 +48,7 @@ public class ReportService {
                     x.setPrice(x.getPrice() / y * x.getQuantity());
                 } else {
                     ids.add(resultSet.getLong("ISBN"));
-                    query = "SELECT * FROM book WHERE ISBN == " + resultSet.getLong("ISBN");
+                    query = "SELECT * FROM books WHERE ISBN = " + resultSet.getLong("ISBN");
                     ResultSet res = instance.executeQuery(query);
                     res.next();
                     list.add(new Sale(
@@ -94,7 +94,7 @@ public class ReportService {
             List<Entry<Long, Integer>> greatest = findGreatest(list, 5);
             List<User> result = new ArrayList<>();
             for (Entry<Long, Integer> entry : greatest) {
-                query = "SELECT * FROM Users WHERE user_id == " + entry.getKey();
+                query = "SELECT * FROM Users WHERE user_id = " + entry.getKey();
                 resultSet = instance.executeQuery(query);
                 resultSet.next();
                 User user = new User(resultSet.getLong("user_id"), resultSet.getString("user_name"),
@@ -140,7 +140,7 @@ public class ReportService {
             List<Entry<Long, Integer>> greatest = findGreatest(list, 10);
             List<Book> result = new ArrayList<>();
             for (Entry<Long, Integer> entry : greatest) {
-                query = "SELECT * FROM books WHERE ISBN == " + entry.getKey();
+                query = "SELECT * FROM books WHERE ISBN = " + entry.getKey();
                 resultSet = instance.executeQuery(query);
                 resultSet.next();
                 Book book = new Book(resultSet.getLong("ISBN"), resultSet.getString("title"),
