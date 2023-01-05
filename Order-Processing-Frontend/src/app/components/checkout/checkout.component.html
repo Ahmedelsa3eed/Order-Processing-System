@@ -13,24 +13,16 @@
     </div>
 
     <!-- Card Type -->
-    <p class="small mb-2">Card type</p>
-    <a href="#!" type="submit" class="text-white">
-      <fa-icon class="fa-2x me-2" [icon]="faCcMastercard"></fa-icon>
-    </a>
-    <a href="#!" type="submit" class="text-white">
-      <fa-icon class="fa-2x me-2" [icon]="faCcVisa"></fa-icon>
-    </a>
-    <a href="#!" type="submit" class="text-white">
-      <fa-icon class="fa-2x me-2" [icon]="faCcAmex"></fa-icon>
-    </a>
-    <a href="#!" type="submit" class="text-white">
-      <fa-icon class="fa-2x me-2" [icon]="faCcPaypal"></fa-icon>
-    </a>
+
+    <fa-icon class="fa-2x me-2" [icon]="faCcMastercard"></fa-icon>
+    <fa-icon class="fa-2x me-2" [icon]="faCcVisa"></fa-icon>
+    <fa-icon class="fa-2x me-2" [icon]="faCcAmex"></fa-icon>
+    <fa-icon class="fa-2x me-2" [icon]="faCcPaypal"></fa-icon>
 
     <!-- Checkout Form -->
     <form #checkoutForm="ngForm" class="mt-4" (ngSubmit)="checkoutOrder()">
       <!-- Card Number Field -->
-      <div class="form-outline form-white mb-4">
+      <div class="form-outline mb-4">
         <input
           name="cardNumber"
           type="text"
@@ -49,7 +41,7 @@
       <!-- Expiary Date -->
       <div class="row mb-4">
         <div class="col-md-6">
-          <div class="form-outline form-white">
+          <div class="form-outline">
             <input
               name="expiaryDate"
               type="text"

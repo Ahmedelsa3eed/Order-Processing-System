@@ -53,4 +53,9 @@ public class CartDAO {
         String deleteCartItemQuery = "DELETE FROM Cart WHERE user_id = " + userId + " AND ISBN = " + ISBN;
         this.DBInstance.executeUpdate(deleteCartItemQuery);
     }
+
+    public void deleteAll(Long userId) throws SQLException {
+        String deleteAllCartItemsQuery = "DELETE FROM Cart WHERE user_id = " + userId;
+        this.DBInstance.executeUpdate(deleteAllCartItemsQuery);
+    }
 }

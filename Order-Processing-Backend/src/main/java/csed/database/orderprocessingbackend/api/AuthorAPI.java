@@ -32,6 +32,15 @@ public class AuthorAPI {
         return new ResponseEntity<>(list, HttpStatus.OK);
     }
 
+    @GetMapping("/getFromTo")
+    public ResponseEntity<List<Author>> getFromTo(@RequestParam int from, @RequestParam int to) {
+        List<Author> p = authorService.getFromTo(from, to);
+        if (p == null) {
+            return new ResponseEntity<>(null, HttpStatus.NOT_ACCEPTABLE);
+        }
+        return new ResponseEntity<>(p, HttpStatus.OK);
+    }
+
     @PutMapping("/manager/editAuthor")
     public ResponseEntity<?> editAuthor(@RequestBody Author author){
         return new ResponseEntity<>(authorService.editAuthor(author));
