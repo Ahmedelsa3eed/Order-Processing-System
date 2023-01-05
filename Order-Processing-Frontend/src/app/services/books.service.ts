@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { from, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Book } from '../models/Book';
 import { SignInOutService } from './sign-in-out.service';
@@ -13,6 +13,15 @@ export class BooksService {
 
   getAllBooks(): Observable<any> {
     return this.httpClient.get<any>(environment.baseUrl + '/books/getAllBooks');
+  }
+
+  getBooksFromTo(from: number, to: number): Observable<any> {
+    return this.httpClient.get<any>(environment.baseUrl + '/books/getBooksFromTo', {
+      params: {
+        from: from,
+        to: to,
+      },
+    });
   }
 
   addBook(book: Book): Observable<any> {

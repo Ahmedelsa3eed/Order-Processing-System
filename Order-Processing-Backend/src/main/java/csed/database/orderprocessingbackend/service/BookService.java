@@ -44,6 +44,31 @@ public class BookService {
         return null;
     }
 
+    public List<Book> getBooksFromTo(int from, int to)  {
+        String query = "SELECT * FROM books limit " + (to - from) + " offset " + from;
+        System.out.println(query);
+        try {
+            List<Book> list = new ArrayList<>();
+            ResultSet resultSet = instance.executeQuery(query);
+            if (!resultSet.next()){
+                return list;
+            }
+            do {
+                Book book = new Book(resultSet.getLong("ISBN"), resultSet.getString("title"),
+                        resultSet.getLong("publisher_id"), resultSet.getInt("publication_year"),
+                        resultSet.getInt("price"), resultSet.getString("category"),
+                        resultSet.getInt("quantity"), resultSet.getInt("threshold"));
+                list.add(book);
+            }
+            while(resultSet.next());
+            return list;
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     public HttpStatus addBook(Book book) {
         String query = "INSERT INTO books VALUES (" + book.toString() + ")";
         System.out.println(query);

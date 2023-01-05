@@ -36,6 +36,15 @@ public class BookAPI {
         return new ResponseEntity<>(list, HttpStatus.OK);
     }
 
+    @GetMapping("/getBooksFromTo")
+    public ResponseEntity<List<Book>> getBooksFromTo(@RequestParam int from, @RequestParam int to){
+        List<Book> list = bookService.getBooksFromTo(from, to);
+        if (list == null){
+            return new ResponseEntity<>(list, HttpStatus.EXPECTATION_FAILED);
+        }
+        return new ResponseEntity<>(list, HttpStatus.OK);
+    }
+
     @PostMapping("/manager/addBook")
     public ResponseEntity<?> addBook(@RequestBody Book book) {
         return new ResponseEntity<>(bookService.addBook(book));
