@@ -98,6 +98,31 @@ public class PublisherService {
         return HttpStatus.NOT_ACCEPTABLE;
     }
 
+
+    public List<Publisher> getFromTo(int from, int to) {
+        String query = "SELECT * FROM publishers limit " + (to-from) + " offset " + from;
+        try{
+            ResultSet resultSet = instance.executeQuery(query);
+            List<Publisher> list = new ArrayList<>();
+            if (!resultSet.next()){
+                return list;
+            }
+            do {
+                Publisher p = new Publisher();
+                p.setAddress(resultSet.getString("address"));
+                p.setName(resultSet.getString("name"));
+                p.setPhone_number(resultSet.getString("phone_number"));
+                p.setPublisher_id(resultSet.getLong("publisher_id"));
+                list.add(p);
+            }
+            while(resultSet.next());
+            return list;
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+        return null;
+    }
     public Publisher getPublisherByISBN(Long ISBN) {
         String query = "SELECT * FROM Publishers as p JOIN books as b on p.publisher_id = b.publisher_id "
                 + "WHERE b.ISBN = " + ISBN.toString();
