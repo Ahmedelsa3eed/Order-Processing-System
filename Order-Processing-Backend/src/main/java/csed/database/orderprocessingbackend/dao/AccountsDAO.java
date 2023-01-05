@@ -22,6 +22,11 @@ public class AccountsDAO {
         return getUsersAccounts(userAccountsQuery);
     }
 
+    public List<User> getFromTo(int from, int to) throws SQLException {
+        String query = "SELECT * FROM users limit " + (to-from) + " offset " + from;
+        return getUsersAccounts(query);
+    }
+
     public List<User> searchAccounts(String searchString) throws SQLException {
         String matchingAccountsQuery = "SELECT user_id, first_name, last_name, address, phone_number, email, type " +
                 "FROM Users " +
